@@ -16,7 +16,7 @@ public class inicioAdministrador extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_administrador);
-        btnCerrar=findViewById(R.id.button2);
+        btnCerrar=findViewById(R.id.btnregistro);
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -20,7 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
    EditText txtcorreo,txtcontrasena;
    Button btningresar;
    String correo,contrasena;
+   TextView registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txtcorreo=findViewById(R.id.txtcorreo);
         txtcontrasena=findViewById(R.id.txtcontrasena);
-        btningresar=findViewById(R.id.button2);
+        btningresar=findViewById(R.id.btnregistro);
+        registro=findViewById(R.id.viewiniciarsesion);
         recuperarpreferencias();
         btningresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                     {
                         Toast.makeText(MainActivity.this,"No se permiten campos vacios",Toast.LENGTH_SHORT).show();
                     }
+            }
+        });
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(),registro.class);
+                startActivity(intent);
             }
         });
     }
