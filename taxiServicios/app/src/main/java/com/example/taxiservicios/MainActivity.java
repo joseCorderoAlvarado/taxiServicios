@@ -2,7 +2,9 @@ package com.example.taxiservicios;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +30,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
    EditText txtcorreo,txtcontrasena;
    Button btningresar;
-
+   String correo,contrasena;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +38,19 @@ public class MainActivity extends AppCompatActivity {
         txtcorreo=findViewById(R.id.txtcorreo);
         txtcontrasena=findViewById(R.id.txtcontrasena);
         btningresar=findViewById(R.id.button2);
-
+        recuperarpreferencias();
         btningresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validarUsuario("http://pruebataxi.laviveshop.com/app/validar_usuario.php");
+                correo=txtcorreo.getText().toString();
+                contrasena=txtcontrasena.getText().toString();
+                if(!correo.isEmpty() && !contrasena.isEmpty()){
+                    validarUsuario("http://pruebataxi.laviveshop.com/app/validar_usuario.php");
+                }
+                else
+                    {
+                        Toast.makeText(MainActivity.this,"No se permiten campos vacios",Toast.LENGTH_SHORT).show();
+                    }
             }
         });
     }
@@ -54,16 +64,19 @@ public class MainActivity extends AppCompatActivity {
                try {
                    JSONObject valores =new JSONObject(response);
                    int valorLlave = valores.getInt("tipoUsuario_idtipoUsuario");
-                   Log.d("Valor", String.valueOf(valorLlave));
                    if(valorLlave==2)
                    {
+                       guardarpreferencias();
                        Intent intent =new Intent(getApplicationContext(),inicioCliente.class);
                        startActivity(intent);
+                       finish();
                    }
                    else
                        {
+                           guardarpreferencias2();
                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
                            startActivity(intent);
+                           finish();
                        }
                } catch (JSONException e) {
                    e.printStackTrace();
@@ -84,13 +97,39 @@ public class MainActivity extends AppCompatActivity {
           @Override
           protected Map<String, String> getParams() throws AuthFailureError {
               Map<String,String> parametros = new HashMap<String, String>();
-              parametros.put("correo",txtcorreo.getText().toString());
-              parametros.put("contrasena",txtcontrasena.getText().toString());
+              parametros.put("correo",correo);
+              parametros.put("contrasena",contrasena);
 
               return parametros;
           }
       };
       RequestQueue requestQueue= Volley.newRequestQueue(this);
       requestQueue.add(stringRequest);
+  }
+  private  void guardarpreferencias()
+  {
+      SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+      SharedPreferences.Editor editor =preferences.edit();
+      editor.putString("correo",correo);
+      editor.putString("contrasena",contrasena);
+      editor.putInt("tipo",2);
+      editor.putBoolean("sesion",true);
+      editor.commit();
+  }
+    private  void guardarpreferencias2()
+    {
+        SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =preferences.edit();
+        editor.putString("correo",correo);
+        editor.putString("contrasena",contrasena);
+        editor.putInt("tipo",1);
+        editor.putBoolean("sesion",true);
+        editor.commit();
+    }
+  private void recuperarpreferencias()
+  {
+      SharedPreferences preferences= getSharedPreferences("preferenciasLogin",Context.MODE_PRIVATE);
+      txtcorreo.setText(preferences.getString("correo",""));
+      txtcontrasena.setText(preferences.getString("contrasena",""));
   }
 }

@@ -13,4 +13,16 @@
         android:text="TextView"
         tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="319dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+        android:background="#000000"
+        android:text="Cerrar Sesion"
+        android:textColor="#ffffff"
+        android:textSize="20dp">
+
+    </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
