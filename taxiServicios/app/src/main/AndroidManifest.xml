@@ -15,7 +15,7 @@
         <activity android:name=".registro"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".inicioAdministrador" />
-        <activity android:name=".inicioCliente" />
+        <activity android:name=".inicioCliente"  android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".presentacion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
