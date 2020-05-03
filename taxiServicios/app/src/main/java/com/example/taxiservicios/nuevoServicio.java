@@ -22,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -59,7 +61,6 @@ Button btnNuevo;
 String correo,valors1,valors2,fechac,horac,origen,destino,comentarios2;
 List<String> direccion1obt =  new ArrayList<String>();
 List<String> direccion2obt =  new ArrayList<String>();
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,19 +89,21 @@ List<String> direccion2obt =  new ArrayList<String>();
             origen=txtOrigen.getText().toString();
             destino=txtDestino.getText().toString();
             comentarios2=txtcomentarios.getText().toString();
-            if(origen.isEmpty()){
-                origen="vacio";
+            if(origen.isEmpty() && destino.isEmpty())
+            {
+                spnuevoservicio("http://pruebataxi.laviveshop.com/app/spregistrarservicio.php",valors1,valors2,fechac,horac,comentarios2,correo);
+            }
+            else if(origen.isEmpty() && !destino.isEmpty()){
+                Toast.makeText(getActivity().getBaseContext(),"necesitas ingresar la direccion de destino",Toast.LENGTH_SHORT).show();
+            }
+            else if(destino.isEmpty() && !origen.isEmpty())
+            {
+                Toast.makeText(getActivity().getBaseContext(),"necesitas ingresar la direccion donde te recogeran",Toast.LENGTH_SHORT).show();
             }
             else
                 {
-
+                  nuevoservicio(  "http://pruebataxi.laviveshop.com/app/agendarservicio.php",valors1,valors2,origen,destino,fechac,horac,comentarios2,correo);
                 }
-            if(destino.isEmpty()){
-                destino="vacio";
-            }
-            else{}
-                Log.d("origen",origen);
-                nuevoservicio(  "http://pruebataxi.laviveshop.com/app/agendarservicio.php",valors1,valors2,origen,destino,fechac,horac,comentarios2,correo);
             }
         });
         return view;
@@ -206,6 +209,37 @@ private void cargardireccion1(String URL, final String Correv)
                 parametros.put("direccion2",sd2);
                 parametros.put("d1",d1);
                 parametros.put("d2",d2);
+                parametros.put("referencia",comentario);
+                parametros.put("correo",correov);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+    private  void spnuevoservicio(String URL, final String sd1, final String sd2,
+                                final String fecha, final String hora, final String comentario, final String correov)
+    {
+
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity().getBaseContext(),"Servicio Creado con exito!!",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getBaseContext(),"Error al registrar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("fecha",fecha.toString());
+                parametros.put("hora",hora.toString());
+                parametros.put("direccion",sd1);
+                parametros.put("direccion2",sd2);
                 parametros.put("referencia",comentario);
                 parametros.put("correo",correov);
                 return parametros;
