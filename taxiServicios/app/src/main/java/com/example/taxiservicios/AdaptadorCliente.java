@@ -14,6 +14,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     public AdaptadorCliente(List<modeloCliente> userModelList) {
         this.userModelList = userModelList;
     }
+
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listacliente,null,false);
         return new ViewHolder(view);
