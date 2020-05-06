@@ -1,5 +1,4 @@
 package com.example.taxiservicios;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,14 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -67,8 +65,10 @@ public class homeCliente extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloCliente modelo =new modeloCliente(
-                                    jsonObject.getString("fecha"),
-                                    jsonObject.getString("colonia"));
+                                    "#"+jsonObject.getString("identificador")+"",
+                                    "Fecha del servicio: "+jsonObject.getString("fecha")+"\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
+                                    "Direccion de destino: "+jsonObject.getString("direccion"),
+                                    "Status del servicio:"+jsonObject.getString("status"));
                             listaPersonaje.add(modelo);
                         }
                         AdaptadorCliente adapter=new AdaptadorCliente(listaPersonaje);

@@ -22,8 +22,10 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtNombre.setText(userModelList.get(position).getNombre());
-        holder.txtInformacion.setText(userModelList.get(position).getInfo());
+        holder.txtidentificador.setText(userModelList.get(position).getIdentificador());
+        holder.txtfechahora.setText(userModelList.get(position).getFechahora());
+        holder.txtdireccion.setText(userModelList.get(position).getDireccion());
+        holder.txtstatus.setText(userModelList.get(position).getStatus());
     }
     @Override
     public int getItemCount() {
@@ -31,11 +33,13 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre,txtInformacion;
+        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus;
         public ViewHolder(View v) {
             super(v);
-            txtNombre= (TextView) itemView.findViewById(R.id.idNombre);
-            txtInformacion= (TextView) itemView.findViewById(R.id.idInfo);
+            txtidentificador= (TextView) itemView.findViewById(R.id.identificador);
+            txtdireccion= (TextView) itemView.findViewById(R.id.direccion);
+            txtfechahora=(TextView) itemView.findViewById(R.id.fechahora);
+            txtstatus=(TextView) itemView.findViewById(R.id.status);
         }
     }
 }

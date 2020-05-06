@@ -1,25 +1,43 @@
 package com.example.taxiservicios;
 
 public class modeloCliente {
-    private String nombre;
-    private String info;
-    public modeloCliente(String nombre,String info)
+    private String identificador;
+    private String fechahora;
+    private String direccion;
+    private String status;
+    public modeloCliente(String identificador,String fechahora,String direccion, String status)
     {
-        this.nombre=nombre;
-        this.info=info;
+        this.identificador=identificador;
+        this.fechahora=fechahora;
+        this.direccion=direccion;
+        this.status=status;
     }
-    public String getNombre() {
-        return nombre;
+    public  String getIdentificador() {
+        return identificador;
     }
-    public void setNombre(String nombre)
+    public  void  setIdentificador(String identificador)
     {
-        this.nombre=nombre;
+        this.identificador=identificador;
     }
-    public String getInfo() {
-        return info;
+    public  String getFechahora() {
+        return fechahora;
     }
-
-    public void setInfo(String info) {
-        this.info = info;
+    public  void  setFechahora(String fechahora)
+    {
+        this.fechahora=fechahora;
+    }
+    public  String getDireccion() {
+        return direccion;
+    }
+    public  void  setDireccion(String direccion)
+    {
+        this.direccion=direccion;
+    }
+    public  String getStatus() {
+        return status;
+    }
+    public  void  setStatus(String status)
+    {
+        this.status=status;
     }
 }
