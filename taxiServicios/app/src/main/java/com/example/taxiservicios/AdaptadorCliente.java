@@ -9,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import static androidx.recyclerview.widget.RecyclerView.*;
-public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.ViewHolder> {
+public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.ViewHolder> implements  View.OnClickListener{
     private List<modeloCliente> userModelList;
+    private View.OnClickListener listener;
     public AdaptadorCliente(List<modeloCliente> userModelList) {
         this.userModelList = userModelList;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listacliente,null,false);
+        view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
@@ -30,6 +32,17 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     @Override
     public int getItemCount() {
         return userModelList.size();
+    }
+    public  void setOnClickListener(View.OnClickListener listener)
+    {
+        this.listener=listener;
+    }
+    @Override
+    public void onClick(View v) {
+        if(listener!=null)
+        {
+            listener.onClick(v);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

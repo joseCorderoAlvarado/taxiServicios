@@ -1,16 +1,20 @@
 package com.example.taxiservicios;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class homeCliente extends Fragment {
     // TODO: Rename and change types of parameters
     RecyclerView recyclerPersonajes; //ok
@@ -65,14 +68,40 @@ public class homeCliente extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloCliente modelo =new modeloCliente(
-                                    "#"+jsonObject.getString("identificador")+"",
+                                    jsonObject.getString("identificador"),
                                     "Fecha del servicio: "+jsonObject.getString("fecha")+"\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
                                     "Direccion de destino: "+jsonObject.getString("direccion"),
                                     "Status del servicio:"+jsonObject.getString("status"));
                             listaPersonaje.add(modelo);
                         }
+                        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                        recyclerPersonajes.setLayoutManager(manager);
+                        recyclerPersonajes.setHasFixedSize(true);
                         AdaptadorCliente adapter=new AdaptadorCliente(listaPersonaje);
                         recyclerPersonajes.setAdapter(adapter);
+                        adapter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                             String lista=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getStatus();
+                                String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
+                             if(lista.equals("Status del servicio:abierta")){
+                                 Bundle datosAEnviar = new Bundle();
+                                 datosAEnviar.putString("identificador",id);
+                                 modificarServicio modificarservicio = new modificarServicio();
+                                 modificarservicio.setArguments(datosAEnviar);
+                                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+                             }
+                             else if (lista.equals("Status del servicio:Confirmada"))
+                                 {
+                                     Toast.makeText(getActivity(),lista,Toast.LENGTH_SHORT).show();
+                                 }
+                             else if (lista.equals("Status del servicio:realizada"))
+                             {
+                                 Toast.makeText(getActivity(),lista,Toast.LENGTH_SHORT).show();
+                             }
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
