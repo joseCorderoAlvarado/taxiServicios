@@ -1,7 +1,9 @@
 package com.example.taxiservicios;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -35,12 +37,13 @@ public class modificarServicio extends Fragment {
     TimePicker horam;
     EditText txtOrigenm, txtDestinom,txtcomentariosm;
     Button btnModificar, btnEliminar;
+    String fechac,horac,origen,destino,comentarios2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_modificarservicio, container, false);
         Bundle datosRecuperados = getArguments();
-        String idrecuperado = datosRecuperados.getString("identificador");
+        final String idrecuperado = datosRecuperados.getString("identificador");
         fecham=view.findViewById(R.id.dpfecham);
         horam=view.findViewById(R.id.tphoram);
         txtOrigenm=view.findViewById(R.id.txtOrigenm);
@@ -49,6 +52,42 @@ public class modificarServicio extends Fragment {
         btnModificar=view.findViewById(R.id.btnmodificar);
         btnEliminar=view.findViewById(R.id.btnEliminar);
         cargardatos("http://pruebataxi.laviveshop.com/app/consultarservicioabierto.php",idrecuperado);
+        btnModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fechac = "" + fecham.getYear() + "-" + fecham.getMonth() + "-" + fecham.getDayOfMonth() + "";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    horac = "" + horam.getHour() + ":" + horam.getMinute();
+                }
+                 origen = txtOrigenm.getText().toString();
+                 destino = txtDestinom.getText().toString();
+                 comentarios2 = txtcomentariosm.getText().toString();
+                 if(origen.isEmpty() && !destino.isEmpty())
+                 {
+                     Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de origen",Toast.LENGTH_SHORT).show();
+                 }
+                 else if(destino.isEmpty())
+                {
+                    Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de tu direccion",Toast.LENGTH_SHORT).show();
+                }
+                 else {
+                     modificar("http://pruebataxi.laviveshop.com/app/actualizarservicio.php", origen, destino, fechac, horac, comentarios2, idrecuperado);
+                     homeCliente home = new homeCliente();
+                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                 }
+                 }
+
+        });
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eliminarservicio("http://pruebataxi.laviveshop.com/app/eliminarservicio.php",idrecuperado);
+                homeCliente home = new homeCliente();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+            }
+        });
         return view;
     }
     private  void cargardatos(String URL, final String idrecuperado)
@@ -86,6 +125,60 @@ public class modificarServicio extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
                 parametros.put("id",idrecuperado);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+    private  void modificar(String URL, final String d1, final String d2,
+                                    final String fecha, final String hora, final String comentario, final String identificador)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity().getBaseContext(),"Servicio modificado con exito!!",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getBaseContext(),"Error al modificar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("fecha",fecha.toString());
+                parametros.put("hora",hora.toString());
+                parametros.put("d1",d1);
+                parametros.put("d2",d2);
+                parametros.put("referencia",comentario);
+                parametros.put("id",identificador);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+    private  void eliminarservicio(String URL, final String identificador)
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity().getBaseContext(),"Servicio eliminado con exito!!",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getBaseContext(),"Error al eliminar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("id",identificador);
                 return parametros;
             }
         };

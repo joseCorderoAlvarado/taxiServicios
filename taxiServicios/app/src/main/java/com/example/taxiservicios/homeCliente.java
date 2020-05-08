@@ -94,7 +94,12 @@ public class homeCliente extends Fragment {
                              }
                              else if (lista.equals("Status del servicio:Confirmada"))
                                  {
-                                     Toast.makeText(getActivity(),lista,Toast.LENGTH_SHORT).show();
+                                     Bundle datosAEnviar = new Bundle();
+                                     datosAEnviar.putString("identificador",id);
+                                     verAutomovil verAutomovil = new verAutomovil();
+                                     verAutomovil.setArguments(datosAEnviar);
+                                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,verAutomovil).addToBackStack(null).commit();
                                  }
                              else if (lista.equals("Status del servicio:realizada"))
                              {

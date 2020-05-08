@@ -41,7 +41,6 @@ public class registro extends AppCompatActivity {
         btnregistro=findViewById(R.id.btnregistro);
         iniciarsesion=findViewById(R.id.viewiniciarsesion);
         recuperarpreferencias();
-
         btnregistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +61,13 @@ public class registro extends AppCompatActivity {
                  {
                      Toast.makeText(registro.this,"No se permiten campos vacios",Toast.LENGTH_SHORT).show();
                  }
+            }
+        });
+        iniciarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
             }
         });
     }
