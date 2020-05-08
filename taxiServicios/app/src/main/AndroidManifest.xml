@@ -19,7 +19,8 @@
         <activity android:name=".inicioAdministrador" android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".inicioCliente"  android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentacion" android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

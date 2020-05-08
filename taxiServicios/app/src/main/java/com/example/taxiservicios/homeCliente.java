@@ -103,7 +103,12 @@ public class homeCliente extends Fragment {
                                  }
                              else if (lista.equals("Status del servicio:realizada"))
                              {
-                                 Toast.makeText(getActivity(),lista,Toast.LENGTH_SHORT).show();
+                                 Bundle datosAEnviar = new Bundle();
+                                 datosAEnviar.putString("identificador",id);
+                                 evaluarservicio evaluarservicio = new evaluarservicio();
+                                 evaluarservicio.setArguments(datosAEnviar);
+                                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,evaluarservicio).addToBackStack(null).commit();
                              }
                             }
                         });
