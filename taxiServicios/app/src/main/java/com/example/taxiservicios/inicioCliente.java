@@ -75,6 +75,13 @@ public class inicioCliente extends AppCompatActivity implements NavigationView.O
         startActivity(intent);
         finish();
     }
+    if(menuItem.getItemId()==R.id.datos)
+    {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container_fragment,new datosCliente());
+        fragmentTransaction.commit();
+    }
         return true;
     }
 

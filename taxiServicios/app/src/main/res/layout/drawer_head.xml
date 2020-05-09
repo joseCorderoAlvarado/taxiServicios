@@ -20,6 +20,7 @@
         android:layout_height="49dp"
         android:text="Costo del servicio $40.00"
         android:textSize="24sp"
+        android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
