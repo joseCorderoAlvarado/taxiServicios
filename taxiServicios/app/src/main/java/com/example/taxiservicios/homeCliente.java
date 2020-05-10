@@ -55,7 +55,6 @@ public class homeCliente extends Fragment {
         return view;
     }
     private void llenarLista(String URL, final String correov) {
-
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

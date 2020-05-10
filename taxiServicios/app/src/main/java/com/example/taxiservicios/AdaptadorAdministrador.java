@@ -7,26 +7,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
-import static androidx.recyclerview.widget.RecyclerView.*;
-public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.ViewHolder> implements  View.OnClickListener{
-    private List<modeloCliente> userModelList;
+
+public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdministrador.ViewHolder> implements  View.OnClickListener {
+    private List<modeloAdministrador> userModelList;
     private View.OnClickListener listener;
-    public AdaptadorCliente(List<modeloCliente> userModelList) {
+    public AdaptadorAdministrador(List<modeloAdministrador> userModelList) {
         this.userModelList = userModelList;
     }
-
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listacliente,null,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listaadministrador,null,false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtidentificador.setText(userModelList.get(position).getIdentificador());
         holder.txtfechahora.setText(userModelList.get(position).getFechahora());
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
+        holder.txtreferencia.setText(userModelList.get(position).getReferencia());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
     }
     @Override
@@ -46,13 +46,14 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus;
+        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txtreferencia;
         public ViewHolder(View v) {
             super(v);
-            txtidentificador= (TextView) itemView.findViewById(R.id.identificador);
-            txtdireccion= (TextView) itemView.findViewById(R.id.direccion);
-            txtfechahora=(TextView) itemView.findViewById(R.id.fechahora);
-            txtstatus=(TextView) itemView.findViewById(R.id.status);
+            txtidentificador= (TextView) itemView.findViewById(R.id.identificador2);
+            txtdireccion= (TextView) itemView.findViewById(R.id.direccion2);
+            txtreferencia=(TextView) itemView.findViewById(R.id.referencia2);
+            txtfechahora=(TextView) itemView.findViewById(R.id.fechahora2);
+            txtstatus=(TextView) itemView.findViewById(R.id.status2);
         }
     }
 }

@@ -64,7 +64,7 @@ public class verAutomovil extends Fragment {
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        String notaxi ="El taxi #"+jsonObject.getString("notaxi");
+                        String notaxi =jsonObject.getString("notaxi");
                         String descripcion =jsonObject.getString("descripcion");
                         notaxim.setText(notaxi);
                         descripcionm.setText(descripcion);

@@ -40,8 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
                     android:textColor="#000"
-                    android:textStyle="bold"
-                    android:text="El automovil que pasara por ti es" />
+                    android:text="El automovil que pasara por ti es:" />
 
                 <TextView
                     android:id="@+id/tvNotaxi"
@@ -55,9 +54,8 @@
                     android:id="@+id/textView10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Descripcion del automovil"
+                    android:text="Descripcion del automovil:"
                     android:textColor="#000"
-                    android:textStyle="bold"
                     android:textSize="22sp" />
 
                 <TextView

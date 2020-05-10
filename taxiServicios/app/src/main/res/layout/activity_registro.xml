@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#000"
                 android:text="Registrate y obten tu primer servicio GRATIS"
                 android:textSize="25dp" />
 
@@ -33,6 +34,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="Nombre Completo"
                 android:textSize="20dp" />
 
@@ -47,6 +49,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="Numero de telefono "
                 android:textSize="20dp" />
 
@@ -54,6 +57,7 @@
                 android:id="@+id/txtTelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:ems="10"
                 android:maxLength="10"
                 android:inputType="phone" />
@@ -62,6 +66,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="Correo eléctronico:"
                 android:textSize="20dp" />
 
@@ -76,6 +81,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="Contraseña:"
                 android:inputType="textEmailAddress"
                 android:textSize="20dp" />

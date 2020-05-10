@@ -45,8 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nombre Completo"
                     android:textSize="20sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"/>
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/txtNombreC"
@@ -61,8 +60,7 @@
                     android:layout_height="wrap_content"
                     android:text="Teléfono "
                     android:textColor="#000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/txtTelefonoC"
@@ -77,8 +75,7 @@
                     android:layout_height="wrap_content"
                     android:text="Contraseña Nueva (Si la dejas vacia no se modificara)"
                     android:textColor="#000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/txtContrasenaC"

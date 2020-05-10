@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <item
         android:id="@+id/Inicio"
-        android:textColor="#000"
         android:icon="@drawable/ic_home_black_24dp"
+        android:textColor="#000"
         android:title="Inicio" />
     <item
-        android:id="@+id/Nuevo"
-        android:textColor="#000"
-        android:icon="@drawable/ic_spellcheck_black_24dp"
-        android:title="Nuevo Servicio" />
-    <item
         android:id="@+id/datos"
-        android:textColor="#000"
         android:icon="@drawable/ic_contact_mail_black_24dp"
+        android:textColor="#000"
         android:title="Mis datos" />
     <item
         android:id="@+id/Cerrar"
-        android:textColor="#000"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:textColor="#000"
         android:title="Cerrar Sesión " />
 </menu>

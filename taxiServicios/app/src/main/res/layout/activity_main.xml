@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#000"
                     android:text="Programa tu servicio de taxi"
                     android:textSize="25dp" />
 
@@ -38,6 +39,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="Correo eléctronico:"
                     android:textSize="20dp" />
 
@@ -45,6 +47,7 @@
                     android:id="@+id/txtcorreo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
@@ -52,6 +55,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="Contraseña:"
                     android:textSize="20dp" />
 

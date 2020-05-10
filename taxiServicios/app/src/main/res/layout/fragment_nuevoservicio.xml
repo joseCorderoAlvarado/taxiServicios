@@ -37,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Agendar Servicio"
+                    android:textColor="#000"
                     android:textAlignment="center"
                     android:textSize="30sp" />
 
@@ -44,6 +45,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿Cuando pasamos por ti?"
                     android:textSize="20sp" />
 
@@ -58,6 +60,7 @@
                     android:id="@+id/TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿A qué hora?"
                     android:textSize="20sp" />
 
@@ -71,6 +74,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿Donde te recogemos?"
                     android:textSize="20sp" />
 
@@ -83,6 +87,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿A donde te diriges?"
                     android:textSize="20sp" />
 
@@ -95,6 +100,7 @@
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="Si no encuestras tu dirección escribela a continuación:"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -103,6 +109,7 @@
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿Donde te recogemos? (Calle,Colonia,Numero)"
                     android:textSize="17dp" />
 
@@ -118,6 +125,7 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="¿A donde te diriges? (Calle,Colonia,Numero)"
                     android:textSize="17dp" />
 
@@ -133,6 +141,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="Comentarios:"
                     android:textSize="20sp" />
 
