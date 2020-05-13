@@ -15,13 +15,11 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     public AdaptadorCliente(List<modeloCliente> userModelList) {
         this.userModelList = userModelList;
     }
-
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listacliente,null,false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtidentificador.setText(userModelList.get(position).getIdentificador());
