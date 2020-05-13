@@ -72,6 +72,7 @@ public class homeCliente extends Fragment {
                                     "Direccion de destino: "+jsonObject.getString("direccion"),
                                     "Status del servicio:"+jsonObject.getString("status"));
                             listaPersonaje.add(modelo);
+
                         }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerPersonajes.setLayoutManager(manager);

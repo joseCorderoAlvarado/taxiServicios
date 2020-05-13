@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
    Button btningresar;
    String correo,contrasena;
    TextView registro;
+   //String URL_validarUsuario="http://192.168.1.105/Taxis-Pruebas/validar_usuario.php";
+
+   //URLs de los servidores
+   String URL_validarUsuario="http://pruebataxi.laviveshop.com/app/validar_usuario.php";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 correo=txtcorreo.getText().toString();
                 contrasena=txtcontrasena.getText().toString();
                 if(!correo.isEmpty() && !contrasena.isEmpty()){
-                    validarUsuario("http://pruebataxi.laviveshop.com/app/validar_usuario.php");
+                    validarUsuario(URL_validarUsuario);
                 }
                 else
                     {
@@ -54,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     }
             }
         });
+
+        //El boton para registrar
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //El meotodo del Login
   private  void validarUsuario(String URL)
   {
       StringRequest stringRequest =new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -72,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                try {
                    JSONObject valores =new JSONObject(response);
                    int valorLlave = valores.getInt("tipoUsuario_idtipoUsuario");
+                   //Condeicion para los usuarios tipos
                    if(valorLlave==2)
                    {
                        guardarpreferencias();
@@ -79,13 +90,22 @@ public class MainActivity extends AppCompatActivity {
                        startActivity(intent);
                        finish();
                    }
-                   else
+                   else if(valorLlave==1)
                        {
                            guardarpreferencias2();
                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
                            startActivity(intent);
                            finish();
                        }
+                   else if(valorLlave==3)
+                   {
+                       guardarpreferencias3();
+                       Intent intent =new Intent(getApplicationContext(),inicioChofer.class);
+                       startActivity(intent);
+                       finish();
+                   }
+
+
                } catch (JSONException e) {
                    e.printStackTrace();
                }
@@ -134,6 +154,20 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("sesion",true);
         editor.commit();
     }
+
+    //Cuando el tipo de usuario es 3
+    private  void guardarpreferencias3()
+    {
+        SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =preferences.edit();
+        editor.putString("correo",correo);
+        editor.putString("contrasena",contrasena);
+        editor.putInt("tipo",3);
+        editor.putBoolean("sesion",true);
+        editor.commit();
+    }
+
+
   private void recuperarpreferencias()
   {
       SharedPreferences preferences= getSharedPreferences("preferenciasLogin",Context.MODE_PRIVATE);

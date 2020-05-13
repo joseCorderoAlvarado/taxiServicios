@@ -30,6 +30,13 @@ public class registro extends AppCompatActivity {
  Button btnregistro;
  TextView iniciarsesion;
     String correo,contrasena,nombre,telefono,correov;
+    //String URL_RegistroUsuario="http://192.168.1.105/Taxis-Pruebas/registro.php";
+    //String URL_ValidarRegistro="http://192.168.1.105/Taxis-Pruebas/validarRegistro.php";
+
+
+    String URL_RegistroUsuario="http://pruebataxi.laviveshop.com/app/registro.php";
+    String URL_ValidarRegistro="http://pruebataxi.laviveshop.com/app/validarRegistro.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +62,7 @@ public class registro extends AppCompatActivity {
              nombre=txtNombre.getText().toString();
              telefono=txtTelefono.getText().toString();
              if(!correo.isEmpty() && !contrasena.isEmpty() && !nombre.isEmpty() && !telefono.isEmpty()){
-                 validarRegistro("http://pruebataxi.laviveshop.com/app/validarRegistro.php");
+                 validarRegistro(URL_ValidarRegistro);
              }
              else
                  {
@@ -83,7 +90,7 @@ public class registro extends AppCompatActivity {
              }
              else
                  {
-                     registrarUsuario("http://pruebataxi.laviveshop.com/app/registro.php");
+                     registrarUsuario(URL_RegistroUsuario);
                  }
             }
         }, new Response.ErrorListener() {

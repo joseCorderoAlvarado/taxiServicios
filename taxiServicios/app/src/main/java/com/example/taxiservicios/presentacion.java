@@ -24,7 +24,7 @@ public class presentacion extends AppCompatActivity {
             public void run() {
                 SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
                 boolean sesion=preferences.getBoolean("sesion",false);
-                int tipo=preferences.getInt("tipo",2);
+                int tipo=preferences.getInt("tipo",3);
                 if(sesion)
                 {
                     if(tipo==2)
@@ -33,9 +33,9 @@ public class presentacion extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                    else
+                    else if(tipo==3)
                         {
-                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
+                            Intent intent =new Intent(getApplicationContext(),inicioChofer.class);
                             startActivity(intent);
                             finish();
                         }
