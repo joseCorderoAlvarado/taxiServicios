@@ -44,7 +44,7 @@ public class serviciosPendientesChofer extends Fragment {
     //String URL_consultarServiciosChoferPendientes="http://192.168.1.105/Taxis-Pruebas/consultarServiciosChoferPendientes.php";
 
 
-    String URL_consultarServiciosChoferPendientes="http://pruebataxi.laviveshop.com/app/consultarServiciosChoferPendientes.php";
+   String URL_consultarServiciosChoferPendientes="http://pruebataxi.laviveshop.com/app/consultarServiciosChoferPendientes.php";
 
 
     // TODO: Rename and change types and number of parameters

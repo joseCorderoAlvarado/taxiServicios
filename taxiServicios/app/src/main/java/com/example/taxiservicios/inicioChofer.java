@@ -62,6 +62,14 @@ public class inicioChofer extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
 
+        if(menuItem.getItemId()==R.id.Datos)
+        {
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction= fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment,new datosChofer());
+            fragmentTransaction.commit();
+        }
+
         if(menuItem.getItemId()==R.id.Cerrar)
         {
             SharedPreferences preferences= getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);

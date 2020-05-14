@@ -1,0 +1,1 @@
+insert into `detalle_taxis_choferes` values(12,60)

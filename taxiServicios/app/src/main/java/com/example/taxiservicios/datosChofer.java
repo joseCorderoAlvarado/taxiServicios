@@ -1,19 +1,17 @@
 package com.example.taxiservicios;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,37 +20,45 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
-public class datosCliente extends Fragment {
-    EditText txtNombre,txtTelefono,txtContraseña;
+
+public class datosChofer extends Fragment {
+    EditText txtNombre,txtTelefono;
     Button btnmodificar;
-    String correo, nombre,telefon,contrasena;
-    String URL_datosCliente="http://pruebataxi.laviveshop.com/app/consultardatoscliente.php";
-    //String URL_datosCliente="http://192.168.1.105/Taxis-Pruebas/consultardatoscliente.php";
+    String correo, nombre,telefono;
+
+    String URL_CargarDatos="http://pruebataxi.laviveshop.com/app/consultar_datos_chofer.php";
+    String URL_ModificarDatos="http://pruebataxi.laviveshop.com/app/actualizar_datos_chofer.php";
+
+
+    //String URL_CargarDatos="http://192.168.1.105/Taxis-Pruebas/consultar_datos_chofer.php";
+    //String URL_ModificarDatos="http://192.168.1.105/Taxis-Pruebas/actualizar_datos_chofer.php";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_datoscliente,container,false);
+        View view =inflater.inflate(R.layout.fragment_datos_chofer,container,false);
         txtNombre=view.findViewById(R.id.txtNombreC);
-        txtContraseña=view.findViewById(R.id.txtContrasenaC);
         txtTelefono=view.findViewById(R.id.txtTelefonoC);
         btnmodificar=view.findViewById(R.id.btnModificarC);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
-        cargardatos(URL_datosCliente,correo);
+        cargardatos(URL_CargarDatos,correo);
+
+        //Botono para modificar datos
         btnmodificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                telefon=txtTelefono.getText().toString();
-                contrasena=txtContraseña.getText().toString();
+                telefono=txtTelefono.getText().toString();
                 nombre=txtNombre.getText().toString();
-                modificardatos("http://pruebataxi.laviveshop.com/app/actualizardatoscliente.php",nombre,telefon,contrasena,correo);
-                homeCliente home = new homeCliente();
+                modificardatos(URL_ModificarDatos,nombre,telefono,correo);
+                homeChofer home = new homeChofer();
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
             }
@@ -95,7 +101,10 @@ public class datosCliente extends Fragment {
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
-    private  void  modificardatos(String URL, final String nombreobt, final String telefonoobt, final String contrasenaobt, final String correoobt)
+
+
+
+    private  void  modificardatos(String URL, final String nombreobt, final String telefonoobt,final String correoobt)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -108,13 +117,13 @@ public class datosCliente extends Fragment {
                 Toast.makeText(getActivity().getBaseContext(),"Error al modificar los datos",Toast.LENGTH_SHORT).show();
             }
         })
+
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
                 parametros.put("nombre",nombreobt.toString());
                 parametros.put("telefono",telefonoobt.toString());
-                parametros.put("contrasena",contrasenaobt.toString());
                 parametros.put("correo",correoobt.toString());
                 return parametros;
             }

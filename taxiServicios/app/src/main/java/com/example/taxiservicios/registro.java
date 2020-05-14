@@ -30,7 +30,7 @@ public class registro extends AppCompatActivity {
  Button btnregistro;
  TextView iniciarsesion;
     String correo,contrasena,nombre,telefono,correov;
-    //String URL_RegistroUsuario="http://192.168.1.105/Taxis-Pruebas/registro.php";
+   // String URL_RegistroUsuario="http://192.168.1.105/Taxis-Pruebas/registro.php";
     //String URL_ValidarRegistro="http://192.168.1.105/Taxis-Pruebas/validarRegistro.php";
 
 

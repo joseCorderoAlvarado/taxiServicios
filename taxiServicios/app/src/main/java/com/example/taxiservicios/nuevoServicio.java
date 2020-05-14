@@ -61,8 +61,20 @@ List<String> direccion2obt =  new ArrayList<String>();
         btnNuevo=view.findViewById(R.id.btnmodificar);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
-        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
+       cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
+
+        //cargardireccion1("http://192.168.1.105/Taxis-Pruebas/consultardireccion1.php",correo);
+        //cargardireccion2("http://192.168.1.105/Taxis-Pruebas/consultardireccion2.php",correo);
+
+         final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
+        //final String URL_spnuevoservicio="http://192.168.1.105/Taxis-Pruebas/spregistrarservicio.php";
+
+        final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
+        //final String URL_nuevoservicio="http://192.168.1.105/Taxis-Pruebas/agendarservicio.php";
+
+
+
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,11 +84,14 @@ List<String> direccion2obt =  new ArrayList<String>();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     horac = "" + hora.getHour() + ":" + hora.getMinute();
                 }
+                else{
+                    horac = " ";
+                }
                 origen = txtOrigen.getText().toString();
                 destino = txtDestino.getText().toString();
                 comentarios2 = txtcomentarios.getText().toString();
                     if (origen.isEmpty() && destino.isEmpty()) {
-                        spnuevoservicio("http://pruebataxi.laviveshop.com/app/spregistrarservicio.php", valors1, valors2, fechac, horac, comentarios2, correo);
+                        spnuevoservicio(URL_spnuevoservicio, valors1, valors2, fechac, horac, comentarios2, correo);
                         homeCliente modificarservicio = new homeCliente();
                         AppCompatActivity activity = (AppCompatActivity) v.getContext();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
@@ -87,7 +102,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                         Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion donde te recogeran", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        nuevoservicio("http://pruebataxi.laviveshop.com/app/agendarservicio.php", valors1, valors2, origen, destino, fechac, horac, comentarios2, correo);
+                        nuevoservicio(URL_nuevoservicio, valors1, valors2, origen, destino, fechac, horac, comentarios2, correo);
                         homeCliente modificarservicio = new homeCliente();
                         AppCompatActivity activity = (AppCompatActivity) v.getContext();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
@@ -194,7 +209,7 @@ private void cargardireccion1(String URL, final String Correv)
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
                 parametros.put("fecha",fecha.toString());
-                parametros.put("hora",hora.toString());
+               parametros.put("hora",hora.toString());
                 parametros.put("direccion",sd1);
                 parametros.put("direccion2",sd2);
                 parametros.put("d1",d1);
@@ -207,6 +222,9 @@ private void cargardireccion1(String URL, final String Correv)
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
+
+
+    //sss
     private  void spnuevoservicio(String URL, final String sd1, final String sd2,
                                 final String fecha, final String hora, final String comentario, final String correov)
     {

@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
    //String URL_validarUsuario="http://192.168.1.105/Taxis-Pruebas/validar_usuario.php";
 
    //URLs de los servidores
-   String URL_validarUsuario="http://pruebataxi.laviveshop.com/app/validar_usuario.php";
+ String URL_validarUsuario="http://pruebataxi.laviveshop.com/app/validar_usuario.php";
+
 
 
     @Override
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         btningresar=findViewById(R.id.btnregistro);
         registro=findViewById(R.id.viewiniciarsesion);
         recuperarpreferencias();
+
+
         btningresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         //El boton para registrar
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     //El meotodo del Login
   private  void validarUsuario(String URL)
