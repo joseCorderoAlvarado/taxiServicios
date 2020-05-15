@@ -1,6 +1,7 @@
 package com.example.taxiservicios;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -43,24 +45,37 @@ public class datosChofer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_datos_chofer,container,false);
+        final View view =inflater.inflate(R.layout.fragment_datos_chofer,container,false);
         txtNombre=view.findViewById(R.id.txtNombreC);
         txtTelefono=view.findViewById(R.id.txtTelefonoC);
         btnmodificar=view.findViewById(R.id.btnModificarC);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
         cargardatos(URL_CargarDatos,correo);
-
-        //Botono para modificar datos
         btnmodificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                telefono=txtTelefono.getText().toString();
-                nombre=txtNombre.getText().toString();
-                modificardatos(URL_ModificarDatos,nombre,telefono,correo);
-                homeChofer home = new homeChofer();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder
+                        .setMessage("¿Estas seguro de modificar tus datos?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                telefono=txtTelefono.getText().toString();
+                                nombre=txtNombre.getText().toString();
+                                modificardatos(URL_ModificarDatos,nombre,telefono,correo);
+                                homeChofer home = new homeChofer();
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
             }
         });
         return  view;

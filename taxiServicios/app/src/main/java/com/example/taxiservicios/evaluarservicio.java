@@ -1,5 +1,6 @@
 package com.example.taxiservicios;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -42,7 +44,7 @@ public class evaluarservicio extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_evaluarservicio,container,false);
+        final View view =inflater.inflate(R.layout.fragment_evaluarservicio,container,false);
         Bundle datosRecuperados = getArguments();
         final String idrecuperado = datosRecuperados.getString("identificador");
         estrellas=view.findViewById(R.id.rbestrellas);
@@ -59,11 +61,28 @@ public class evaluarservicio extends Fragment {
         evaluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comentario=nota2.getText().toString();
-                evaluarservicio("http://pruebataxi.laviveshop.com/app/evaluarservicio.php",idrecuperado,calificacion,comentario);
-                homeCliente home = new homeCliente();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+// Configura el titulo.
+                alertDialogBuilder.setTitle("Mi Dialogo");
+// Configura el mensaje.
+                alertDialogBuilder
+                        .setMessage("¿Estas seguro de evaluar este servicio?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                comentario=nota2.getText().toString();
+                                evaluarservicio("http://pruebataxi.laviveshop.com/app/evaluarservicio.php",idrecuperado,calificacion,comentario);
+                                homeCliente home = new homeCliente();
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
             }
         });
         return view;

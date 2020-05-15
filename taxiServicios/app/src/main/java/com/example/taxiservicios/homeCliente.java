@@ -97,14 +97,17 @@ String correo;
                 try {
                     JSONObject valores = new JSONObject(response);
                     JSONArray jsonArray=valores.getJSONArray("confirmado");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        String noservicios =jsonObject.getString("id");
-                        String fecha=jsonObject.getString("fecha");
-                        String hora=jsonObject.getString("hora");
-                        String destino=jsonObject.getString("destino");
-                        tvconfirmado.setText("  Ultimo Servicio Confirmado  \nid del servicio:"+noservicios+"\nfecha: "+fecha+"\nhora: "+hora+"\nDireccion de destino\n"+destino);
+                    for(int i=0;i<jsonArray.length();i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String noservicios = jsonObject.getString("id");
+                        String fecha = jsonObject.getString("fecha");
+                        String hora = jsonObject.getString("hora");
+                        String destino = jsonObject.getString("destino");
+                        if (destino.equals("null")) {
+                            tvconfirmado.setText("");
+                        } else {
+                            tvconfirmado.setText("  Ultimo Servicio Confirmado  \nid del servicio:" + noservicios + "\nfecha: " + fecha + "\nhora: " + hora + "\nDireccion de destino\n" + destino);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

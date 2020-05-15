@@ -1,6 +1,7 @@
 package com.example.taxiservicios;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -50,7 +52,7 @@ List<String> direccion2obt =  new ArrayList<String>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_nuevoservicio,container,false);
+        final View view =inflater.inflate(R.layout.fragment_nuevoservicio,container,false);
         fecha=view.findViewById(R.id.dpfecha);
         hora=view.findViewById(R.id.tphora);
         sOrigen=view.findViewById(R.id.spinnerpartida);
@@ -78,35 +80,52 @@ List<String> direccion2obt =  new ArrayList<String>();
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                valors1 = sOrigen.getSelectedItem().toString();
-                valors2 = sDestino.getSelectedItem().toString();
-                fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    horac = "" + hora.getHour() + ":" + hora.getMinute();
-                }
-                else{
-                    horac = " ";
-                }
-                origen = txtOrigen.getText().toString();
-                destino = txtDestino.getText().toString();
-                comentarios2 = txtcomentarios.getText().toString();
-                    if (origen.isEmpty() && destino.isEmpty()) {
-                        spnuevoservicio(URL_spnuevoservicio, valors1, valors2, fechac, horac, comentarios2, correo);
-                        homeCliente modificarservicio = new homeCliente();
-                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
-                    }
-                    else if (origen.isEmpty() && !destino.isEmpty()) {
-                        Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();
-                    } else if (destino.isEmpty() && !origen.isEmpty()) {
-                        Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion donde te recogeran", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        nuevoservicio(URL_nuevoservicio, valors1, valors2, origen, destino, fechac, horac, comentarios2, correo);
-                        homeCliente modificarservicio = new homeCliente();
-                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
-                    }
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+// Configura el titulo.
+                alertDialogBuilder.setTitle("Mi Dialogo");
+// Configura el mensaje.
+                alertDialogBuilder
+                        .setMessage("¿Estás seguro de agendar este servicio?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                valors1 = sOrigen.getSelectedItem().toString();
+                                valors2 = sDestino.getSelectedItem().toString();
+                                fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    horac = "" + hora.getHour() + ":" + hora.getMinute();
+                                }
+                                else{
+                                    horac = " ";
+                                }
+                                origen = txtOrigen.getText().toString();
+                                destino = txtDestino.getText().toString();
+                                comentarios2 = txtcomentarios.getText().toString();
+                                if (origen.isEmpty() && destino.isEmpty()) {
+                                    spnuevoservicio(URL_spnuevoservicio, valors1, valors2, fechac, horac, comentarios2, correo);
+                                    homeCliente modificarservicio = new homeCliente();
+                                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+                                }
+                                else if (origen.isEmpty() && !destino.isEmpty()) {
+                                    Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();
+                                } else if (destino.isEmpty() && !origen.isEmpty()) {
+                                    Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion donde te recogeran", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    nuevoservicio(URL_nuevoservicio, valors1, valors2, origen, destino, fechac, horac, comentarios2, correo);
+                                    homeCliente modificarservicio = new homeCliente();
+                                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
                 }
         });
         return view;

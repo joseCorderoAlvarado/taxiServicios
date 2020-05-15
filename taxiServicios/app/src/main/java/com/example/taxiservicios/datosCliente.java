@@ -1,8 +1,10 @@
 package com.example.taxiservicios;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -37,7 +39,7 @@ public class datosCliente extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_datoscliente,container,false);
+        final View view =inflater.inflate(R.layout.fragment_datoscliente,container,false);
         txtNombre=view.findViewById(R.id.txtNombreC);
         txtContraseña=view.findViewById(R.id.txtContrasenaC);
         txtTelefono=view.findViewById(R.id.txtTelefonoC);
@@ -48,13 +50,30 @@ public class datosCliente extends Fragment {
         btnmodificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                telefon=txtTelefono.getText().toString();
-                contrasena=txtContraseña.getText().toString();
-                nombre=txtNombre.getText().toString();
-                modificardatos("http://pruebataxi.laviveshop.com/app/actualizardatoscliente.php",nombre,telefon,contrasena,correo);
-                homeCliente home = new homeCliente();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+// Configura el titulo.
+                alertDialogBuilder.setTitle("Mi Dialogo");
+// Configura el mensaje.
+                alertDialogBuilder
+                        .setMessage("¿Estas seguro de modificar tus datos?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                telefon=txtTelefono.getText().toString();
+                                contrasena=txtContraseña.getText().toString();
+                                nombre=txtNombre.getText().toString();
+                                modificardatos("http://pruebataxi.laviveshop.com/app/actualizardatoscliente.php",nombre,telefon,contrasena,correo);
+                                homeCliente home = new homeCliente();
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
             }
         });
         return  view;

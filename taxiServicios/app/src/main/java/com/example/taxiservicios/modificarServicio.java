@@ -1,8 +1,10 @@
 package com.example.taxiservicios;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -41,7 +43,7 @@ public class modificarServicio extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_modificarservicio, container, false);
+        final View view=inflater.inflate(R.layout.fragment_modificarservicio, container, false);
         Bundle datosRecuperados = getArguments();
         final String idrecuperado = datosRecuperados.getString("identificador");
         fecham=view.findViewById(R.id.dpfecham);
@@ -55,37 +57,65 @@ public class modificarServicio extends Fragment {
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fechac = "" + fecham.getYear() + "-" + fecham.getMonth() + "-" + fecham.getDayOfMonth() + "";
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    horac = "" + horam.getHour() + ":" + horam.getMinute();
-                }
-                 origen = txtOrigenm.getText().toString();
-                 destino = txtDestinom.getText().toString();
-                 comentarios2 = txtcomentariosm.getText().toString();
-                 if(origen.isEmpty() && !destino.isEmpty())
-                 {
-                     Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de origen",Toast.LENGTH_SHORT).show();
-                 }
-                 else if(destino.isEmpty())
-                {
-                    Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de tu direccion",Toast.LENGTH_SHORT).show();
-                }
-                 else {
-                     modificar("http://pruebataxi.laviveshop.com/app/actualizarservicio.php", origen, destino, fechac, horac, comentarios2, idrecuperado);
-                     homeCliente home = new homeCliente();
-                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
-                 }
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder
+                        .setMessage("¿Estás seguro de modificar este servicio?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                fechac = "" + fecham.getYear() + "-" + fecham.getMonth() + "-" + fecham.getDayOfMonth() + "";
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    horac = "" + horam.getHour() + ":" + horam.getMinute();
+                                }
+                                origen = txtOrigenm.getText().toString();
+                                destino = txtDestinom.getText().toString();
+                                comentarios2 = txtcomentariosm.getText().toString();
+                                if(origen.isEmpty() && !destino.isEmpty())
+                                {
+                                    Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de origen",Toast.LENGTH_SHORT).show();
+                                }
+                                else if(destino.isEmpty())
+                                {
+                                    Toast.makeText(getActivity().getBaseContext(),"se debe ingresar la direccion de tu direccion",Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    modificar("http://pruebataxi.laviveshop.com/app/actualizarservicio.php", origen, destino, fechac, horac, comentarios2, idrecuperado);
+                                    homeCliente home = new homeCliente();
+                                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
                  }
 
         });
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarservicio("http://pruebataxi.laviveshop.com/app/eliminarservicio.php",idrecuperado);
-                homeCliente home = new homeCliente();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder
+                        .setMessage("¿Estás seguro de Eliminar este servicio?")
+                        .setCancelable(false)
+                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                eliminarservicio("http://pruebataxi.laviveshop.com/app/eliminarservicio.php",idrecuperado);
+                                homeCliente home = new homeCliente();
+                                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
             }
         });
         return view;
