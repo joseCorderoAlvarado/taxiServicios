@@ -64,7 +64,7 @@ public class historialservicioscliente extends Fragment {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloCliente modelo =new modeloCliente(
                                     jsonObject.getString("identificador"),
-                                    "Fecha del servicio: "+jsonObject.getString("fecha")+"\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
+                                    "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
                                     "Direccion de destino: "+jsonObject.getString("direccion"),
                                     "Status del servicio:"+jsonObject.getString("status"));
                             listaPersonaje.add(modelo);

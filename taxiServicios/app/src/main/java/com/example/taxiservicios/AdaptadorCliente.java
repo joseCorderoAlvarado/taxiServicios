@@ -1,5 +1,7 @@
 package com.example.taxiservicios;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,25 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtidentificador.setText(userModelList.get(position).getIdentificador());
         holder.txtfechahora.setText(userModelList.get(position).getFechahora());
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
+       if(userModelList.get(position).getStatus().equals("Status del servicio:abierta"))
+       {
+           holder.txtstatus.setTextColor(Color.rgb(0,143,57));
+       }
+       else if(userModelList.get(position).getStatus().equals("Status del servicio:realizada"))
+           {
+               holder.txtstatus.setTextColor(Color.BLACK);
+           }
+       else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
+       {
+           holder.txtstatus.setTextColor(Color.BLUE);
+       }
+       else
+           {
+               holder.txtstatus.setTextColor(Color.RED);
+           }
     }
     @Override
     public int getItemCount() {
@@ -47,7 +64,6 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         TextView txtidentificador,txtfechahora,txtdireccion,txtstatus;
         public ViewHolder(View v) {
             super(v);
-            txtidentificador= (TextView) itemView.findViewById(R.id.identificador);
             txtdireccion= (TextView) itemView.findViewById(R.id.direccion);
             txtfechahora=(TextView) itemView.findViewById(R.id.fechahora);
             txtstatus=(TextView) itemView.findViewById(R.id.status);

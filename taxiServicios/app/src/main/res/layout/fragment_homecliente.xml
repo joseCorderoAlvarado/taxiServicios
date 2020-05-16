@@ -51,23 +51,23 @@
                     android:layout_height="15dp"
                     android:background="@android:color/transparent"/>
                 <TextView
-                    android:id="@+id/serviciogratis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="Servicios pedidos"
-                    android:textSize="20sp" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="15dp"
-                    android:background="@android:color/transparent"/>
-                <TextView
                     android:id="@+id/engrywy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:text="Recuerda cada 10 servicios 1 es GRATIS"
+                    android:textSize="18sp" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="15dp"
+                    android:background="@android:color/transparent"/>
+                <TextView
+                    android:id="@+id/serviciogratis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Servicios pedidos"
                     android:textSize="20sp" />
                 <View
                     android:layout_width="fill_parent"

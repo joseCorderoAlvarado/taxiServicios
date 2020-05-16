@@ -1,15 +1,12 @@
 package com.example.taxiservicios;
-
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdministrador.ViewHolder> implements  View.OnClickListener {
     private List<modeloAdministrador> userModelList;
     private View.OnClickListener listener;
@@ -23,11 +20,26 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtidentificador.setText(userModelList.get(position).getIdentificador());
         holder.txtfechahora.setText(userModelList.get(position).getFechahora());
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
         holder.txtreferencia.setText(userModelList.get(position).getReferencia());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
+        if(userModelList.get(position).getStatus().equals("Status del servicio:abierta"))
+        {
+            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
+        }
+        else if(userModelList.get(position).getStatus().equals("Status del servicio:realizada"))
+        {
+            holder.txtstatus.setTextColor(Color.BLACK);
+        }
+        else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
+        {
+            holder.txtstatus.setTextColor(Color.BLUE);
+        }
+        else
+        {
+            holder.txtstatus.setTextColor(Color.RED);
+        }
     }
     @Override
     public int getItemCount() {
@@ -49,7 +61,6 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
         TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txtreferencia;
         public ViewHolder(View v) {
             super(v);
-            txtidentificador= (TextView) itemView.findViewById(R.id.identificador2);
             txtdireccion= (TextView) itemView.findViewById(R.id.direccion2);
             txtreferencia=(TextView) itemView.findViewById(R.id.referencia2);
             txtfechahora=(TextView) itemView.findViewById(R.id.fechahora2);
