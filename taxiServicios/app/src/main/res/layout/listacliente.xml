@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:text="status"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

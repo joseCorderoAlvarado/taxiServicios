@@ -103,10 +103,25 @@ String correo;
                         String fecha = jsonObject.getString("fecha");
                         String hora = jsonObject.getString("hora");
                         String destino = jsonObject.getString("destino");
+                        String referencia=jsonObject.getString("referencia");
+                        String taxi= jsonObject.getString("taxi");
+                        String descripcion= jsonObject.getString("descripcion");
                         if (destino.equals("null")) {
                             tvconfirmado.setText("");
                         } else {
-                            tvconfirmado.setText("  Ultimo Servicio Confirmado  \nid del servicio:" + noservicios + "\nfecha: " + fecha + "\nhora: " + hora + "\nDireccion de destino\n" + destino);
+                            if (referencia.equals(""))
+                            {
+                                tvconfirmado.setText("  Ultimo Servicio Confirmado  \nfecha del servicio:" + fecha +
+                                        "\nhora del servicio: " + hora + "\nDireccion de destino\n" +
+                                        destino+"\n\nEl taxi que pasara por ti es un:\n"
+                                        +taxi+"\n\nLa descripción del taxi es:\n"+descripcion);
+                            }else
+                                {
+                                    tvconfirmado.setText("  Ultimo Servicio Confirmado  \nfecha del servicio:" + fecha +
+                                            "\nhora del servicio: " + hora + "\nDireccion de destino\n" +
+                                            destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nEl taxi que pasara por ti es:\n"
+                                            +taxi+"\n\nLa descripción del taxi es:"+descripcion);
+                                }
                         }
                     }
                 } catch (JSONException e) {
