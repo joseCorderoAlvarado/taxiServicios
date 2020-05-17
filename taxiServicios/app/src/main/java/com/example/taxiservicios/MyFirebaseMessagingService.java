@@ -28,6 +28,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static String deviceToken;
 
 
+
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));

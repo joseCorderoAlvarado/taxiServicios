@@ -1,11 +1,13 @@
 package com.example.taxiservicios;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
    Button btningresar;
    String correo,contrasena;
    TextView registro;
+   String tokenFinal;
    //String URL_validarUsuario="http://192.168.1.105/Taxis-Pruebas/validar_usuario.php";
 
    //URLs de los servidores
@@ -64,7 +71,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                        //    Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
 
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toas
+                       // Log.d(TAG, msg);
+                       // Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                        tokenFinal=token.toString();
+                    }
+                });
+        System.out.println("Device token: " +  FirebaseInstanceId.getInstance().getInstanceId());
 
 
         //El boton para registrar
@@ -76,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
@@ -102,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
                    else if(valorLlave==1)
                        {
 
-                           //System.out.println("Device token: " + MyFirebaseMessagingService.getDeviceToken());
-                           registrarToken(URL_registrar_token,MyFirebaseMessagingService.getDeviceToken(),correo);
+
+                           registrarToken(URL_registrar_token,tokenFinal,correo);
                            guardarpreferencias2();
                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
                            startActivity(intent);
@@ -206,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("tipo",3);
         editor.putBoolean("sesion",true);
         editor.commit();
+
     }
 
 
@@ -215,4 +243,9 @@ public class MainActivity extends AppCompatActivity {
       txtcorreo.setText(preferences.getString("correo",""));
       txtcontrasena.setText(preferences.getString("contrasena",""));
   }
+
+
+
+
+
 }
