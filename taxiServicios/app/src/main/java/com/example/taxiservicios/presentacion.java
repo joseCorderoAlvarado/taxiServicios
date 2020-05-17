@@ -33,6 +33,14 @@ public class presentacion extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
+
+                    else if(tipo==1)
+                    {
+                        Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                     else if(tipo==3)
                         {
                             Intent intent =new Intent(getApplicationContext(),inicioChofer.class);
