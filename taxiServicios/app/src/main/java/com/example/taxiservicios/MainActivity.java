@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
    //URLs de los servidores
  String URL_validarUsuario="http://pruebataxi.laviveshop.com/app/validar_usuario.php";
 
-
+    final String URL_registrar_token="http://pruebataxi.laviveshop.com/app/registrar_token.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                try {
                    JSONObject valores =new JSONObject(response);
                    int valorLlave = valores.getInt("tipoUsuario_idtipoUsuario");
+
                    //Condeicion para los usuarios tipos
                    if(valorLlave==2)
                    {
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                    }
                    else if(valorLlave==1)
                        {
+
+                           //System.out.println("Device token: " + MyFirebaseMessagingService.getDeviceToken());
+                           registrarToken(URL_registrar_token,MyFirebaseMessagingService.getDeviceToken(),correo);
                            guardarpreferencias2();
                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
                            startActivity(intent);
@@ -142,6 +146,35 @@ public class MainActivity extends AppCompatActivity {
       RequestQueue requestQueue= Volley.newRequestQueue(this);
       requestQueue.add(stringRequest);
   }
+
+
+
+    private void registrarToken(String URL, final String tokenDevice, final String correo){
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("tokenDispositivo",tokenDevice);
+                parametros.put("correo",correo);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
   private  void guardarpreferencias()
   {
       SharedPreferences preferences=getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);

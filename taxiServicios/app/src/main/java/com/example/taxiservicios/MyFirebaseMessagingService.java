@@ -13,6 +13,11 @@ import static com.google.android.gms.plus.internal.PlusCommonExtras.TAG;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    public static String getDeviceToken() {
+        return deviceToken;
+    }
+
+    private static String deviceToken;
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -22,7 +27,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        String deviceToken = s;
+        this.deviceToken = s;
 
         System.out.println("Refreshed token: " + s);
 
