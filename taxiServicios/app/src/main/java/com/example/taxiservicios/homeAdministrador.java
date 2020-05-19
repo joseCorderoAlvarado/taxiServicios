@@ -77,7 +77,7 @@ public class homeAdministrador extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloAdministrador modelo =new modeloAdministrador(
-                                    "Servicio #"+jsonObject.getString("identificador"),
+                                    jsonObject.getString("identificador"),
                                     "Fecha del servicio: "+jsonObject.getString("fecha")+"\n"+"Se recogera a las: "+jsonObject.getString("hora")+"\n",
                                     "Direccion de destino: "+jsonObject.getString("direccion")+"\n",
                                     "Comentario del cliente:"+jsonObject.getString("referencia"),
@@ -90,6 +90,30 @@ public class homeAdministrador extends Fragment {
                         AdaptadorAdministrador adapter=new AdaptadorAdministrador(listaPersonaje);
                         recyclerPersonajes.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        adapter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String lista=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getStatus();
+                                String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
+                                if(lista.equals("Status del servicio:abierta")){
+                                    Bundle datosAEnviar = new Bundle();
+                                    datosAEnviar.putString("identificador",id);
+                                    confirmarServicio confirmarServicio = new confirmarServicio();
+                                    confirmarServicio.setArguments(datosAEnviar);
+                                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,confirmarServicio).addToBackStack(null).commit();
+                                }
+                                else if (lista.equals("Status del servicio:Confirmada"))
+                                {
+                                    //Bundle datosAEnviar = new Bundle();
+                                    //datosAEnviar.putString("identificador",id);
+                                   // verAutomovil verAutomovil = new verAutomovil();
+                                   // verAutomovil.setArguments(datosAEnviar);
+                                   // AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                                   // activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,verAutomovil).addToBackStack(null).commit();
+                                }
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

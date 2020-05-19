@@ -57,7 +57,7 @@ public class datosChofer extends Fragment {
             public void onClick(View v) {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder.setTitle("Modificar datos");
                 alertDialogBuilder
                         .setMessage("¿Estas seguro de modificar tus datos?")
                         .setCancelable(false)

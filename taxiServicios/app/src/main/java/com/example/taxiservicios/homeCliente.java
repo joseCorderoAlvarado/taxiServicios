@@ -39,6 +39,7 @@ public class homeCliente extends Fragment {
     // TODO: Rename and change types of parameters
 TextView tvservicios,tvserviciogratis,tvconfirmado;
 String correo;
+Button btnNuevoServicio;
     // TODO: Rename and change types and number of parameters
     @Nullable
     @Override
@@ -47,10 +48,19 @@ String correo;
        tvservicios =view.findViewById(R.id.tvservicios);
        tvserviciogratis=view.findViewById(R.id.serviciogratis);
        tvconfirmado=view.findViewById(R.id.tvconfirmado);
+       btnNuevoServicio=view.findViewById(R.id.btnnuevoservicio);
        SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
        correo=preferences.getString("correo",null);
        cargarservicios("http://pruebataxi.laviveshop.com/app/cantidadservicioscliente.php",correo);
        cargarconfirmado("http://pruebataxi.laviveshop.com/app/ultimoconfirmado.php",correo);
+       btnNuevoServicio.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               nuevoServicio servicio = new nuevoServicio();
+               AppCompatActivity activity = (AppCompatActivity) v.getContext();
+               activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, servicio).addToBackStack(null).commit();
+           }
+       });
         return view;
     }
     private  void cargarservicios(String URL, final String correov)

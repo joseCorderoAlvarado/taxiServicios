@@ -53,7 +53,7 @@ public class datosCliente extends Fragment {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 // Configura el titulo.
-                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder.setTitle("Modificar Datos");
 // Configura el mensaje.
                 alertDialogBuilder
                         .setMessage("¿Estas seguro de modificar tus datos?")

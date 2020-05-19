@@ -62,11 +62,8 @@ public class historialservicioscliente extends Fragment {
                         for(int i=0;i<jsonArray.length();i++)
                         {
                             modeloCliente modelo;
-
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
-
                             String statusServicio =jsonObject.getString("status");
-
                             if (statusServicio.contains("Confirmada")) {
                                 modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
@@ -76,23 +73,13 @@ public class historialservicioscliente extends Fragment {
                                         "El automovil que pasará por ti es: " + jsonObject.getString("vehiculoCompleto"),
 
                                         "Descripción del autómovil: " + jsonObject.getString("descripcionVehiculo"));
-
-
-
                             } else {
                                 modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
                                         "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
                                         "Direccion de destino: "+jsonObject.getString("direccion"),
                                         "Status del servicio:"+statusServicio);
-
-
-
-
                             }
-
-
-
                             listaPersonaje.add(modelo);
                         }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());

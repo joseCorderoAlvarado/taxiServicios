@@ -65,25 +65,18 @@ List<String> direccion2obt =  new ArrayList<String>();
         correo=preferences.getString("correo",null);
        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
-
         //cargardireccion1("http://192.168.1.105/Taxis-Pruebas/consultardireccion1.php",correo);
         //cargardireccion2("http://192.168.1.105/Taxis-Pruebas/consultardireccion2.php",correo);
-
          final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
         //final String URL_spnuevoservicio="http://192.168.1.105/Taxis-Pruebas/spregistrarservicio.php";
-
         final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
         //final String URL_nuevoservicio="http://192.168.1.105/Taxis-Pruebas/agendarservicio.php";
-
-
-
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 // Configura el titulo.
-                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder.setTitle("Crear Servicio");
 // Configura el mensaje.
                 alertDialogBuilder
                         .setMessage("¿Estás seguro de agendar este servicio?")
