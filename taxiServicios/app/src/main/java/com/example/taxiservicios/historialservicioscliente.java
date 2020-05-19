@@ -64,8 +64,10 @@ public class historialservicioscliente extends Fragment {
                             modeloCliente modelo;
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             String statusServicio =jsonObject.getString("status");
+
                             if (statusServicio.contains("Confirmada")) {
-                                modelo =new modeloCliente(
+
+                                 modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
                                         "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
                                         "Direccion de destino: "+jsonObject.getString("direccion"),
@@ -74,7 +76,8 @@ public class historialservicioscliente extends Fragment {
 
                                         "Descripción del autómovil: " + jsonObject.getString("descripcionVehiculo"));
                             } else {
-                                modelo =new modeloCliente(
+                                System.out.println("Refreshed token: " + statusServicio);
+                                 modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
                                         "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
                                         "Direccion de destino: "+jsonObject.getString("direccion"),

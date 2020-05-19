@@ -29,10 +29,14 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         holder.txtstatus.setText(userModelList.get(position).getStatus());
        if(userModelList.get(position).getStatus().equals("Status del servicio:abierta"))
        {
+           holder.txt_descripcion_taxi.setVisibility(View.GONE);
+           holder.txt_no_taxi.setVisibility(View.GONE);
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
        }
        else if(userModelList.get(position).getStatus().equals("Status del servicio:realizada"))
            {
+               holder.txt_descripcion_taxi.setVisibility(View.GONE);
+               holder.txt_no_taxi.setVisibility(View.GONE);
                holder.txtstatus.setTextColor(Color.BLACK);
            }
        else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
@@ -50,6 +54,8 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
        else
            {
                holder.txtstatus.setTextColor(Color.RED);
+               holder.txt_descripcion_taxi.setVisibility(View.GONE);
+               holder.txt_no_taxi.setVisibility(View.GONE);
            }
     }
     @Override
