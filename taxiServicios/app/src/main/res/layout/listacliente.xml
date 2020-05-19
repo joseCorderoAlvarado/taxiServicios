@@ -49,6 +49,36 @@
                 android:textColor="#000"
                 android:text="status"
                 android:textSize="20sp"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/noTaxi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="noTaxi"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/descripcionVehiculo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="descripcionVehiculo"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:visibility="gone" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

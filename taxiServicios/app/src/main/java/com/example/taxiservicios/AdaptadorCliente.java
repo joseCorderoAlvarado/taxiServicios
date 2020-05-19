@@ -38,6 +38,14 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
        else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
        {
            holder.txtstatus.setTextColor(Color.BLUE);
+
+           holder.txt_descripcion_taxi.setVisibility(View.VISIBLE);
+           holder.txt_no_taxi.setVisibility(View.VISIBLE);
+
+           holder.txt_no_taxi.setText(userModelList.get(position).getNotaxi());
+           holder.txt_descripcion_taxi.setText(userModelList.get(position).getDescripcionVehiculo());
+
+
        }
        else
            {
@@ -61,12 +69,15 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus;
+        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi;
         public ViewHolder(View v) {
             super(v);
             txtdireccion= (TextView) itemView.findViewById(R.id.direccion);
             txtfechahora=(TextView) itemView.findViewById(R.id.fechahora);
             txtstatus=(TextView) itemView.findViewById(R.id.status);
+            txt_no_taxi=(TextView) itemView.findViewById(R.id.noTaxi);
+            txt_descripcion_taxi=(TextView) itemView.findViewById(R.id.descripcionVehiculo);
+
         }
     }
 }
