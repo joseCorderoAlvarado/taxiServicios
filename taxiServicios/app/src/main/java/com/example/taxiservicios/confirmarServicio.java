@@ -66,10 +66,16 @@ public class confirmarServicio extends Fragment {
                             public void onClick(DialogInterface dialog,int id) {
                 valors1 = spNumeroTaxi.getSelectedItem().toString();
                 desvehiculo = txtDescripcionVehiculo.getText().toString();
-                confirmar("http://pruebataxi.laviveshop.com/app/actualizarestadoconfirmado.php",idrecuperado,valors1,desvehiculo);
-                homeAdministrador confirmarservicio = new homeAdministrador();
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,confirmarservicio).addToBackStack(null).commit();
+                if(desvehiculo.isEmpty())
+                {
+                    Toast.makeText(getActivity().getBaseContext(),"el vehiculo a asignar debe tener una descripción",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    confirmar("http://pruebataxi.laviveshop.com/app/actualizarestadoconfirmado.php", idrecuperado, valors1, desvehiculo);
+                    homeAdministrador confirmarservicio = new homeAdministrador();
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, confirmarservicio).addToBackStack(null).commit();
+                }
                             }
                         })
                         .setNegativeButton("No",new DialogInterface.OnClickListener() {

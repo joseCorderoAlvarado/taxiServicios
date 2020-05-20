@@ -55,7 +55,7 @@ public class registro extends AppCompatActivity {
                 if (Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
                     correov = correo;
                 } else {
-                    Toast.makeText(registro.this,"Este no es un correo eléctronico \n ejemplo@gmail.com ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(registro.this,"Este no es un correo eléctronico \n ejemplo@gmail.com, Cuida que no tenga espacios en blancos",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 contrasena=txtContrasena.getText().toString();
