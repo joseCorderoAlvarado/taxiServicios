@@ -76,8 +76,7 @@ Button btnNuevoServicio;
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
                         String noservicios =jsonObject.getString("cuenta");
                         String gratis=jsonObject.getString("value");
-                        tvservicios.setText("Servicios pedidos: "+noservicios);
-                        tvserviciogratis.setText("Servicio gratis:\n"+gratis);
+                        tvserviciogratis.setText(gratis);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -121,16 +120,16 @@ Button btnNuevoServicio;
                         } else {
                             if (referencia.equals(""))
                             {
-                                tvconfirmado.setText("  Ultimo Servicio Confirmado  \nfecha del servicio:" + fecha +
-                                        "\nhora del servicio: " + hora + "\nDireccion de destino\n" +
-                                        destino+"\n\nEl taxi que pasara por ti es un:\n"
-                                        +taxi+"\n\nLa descripción del taxi es:\n"+descripcion);
+                                tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFech:" + fecha +
+                                        "\nHora: " + hora + "\nDestino\n" +
+                                        destino+"\n\nTaxi:\n"
+                                        +taxi+"\n\nDescripción del taxi:\n"+descripcion);
                             }else
                                 {
-                                    tvconfirmado.setText("  Ultimo Servicio Confirmado  \nfecha del servicio:" + fecha +
-                                            "\nhora del servicio: " + hora + "\nDireccion de destino\n" +
-                                            destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nEl taxi que pasara por ti es:\n"
-                                            +taxi+"\n\nLa descripción del taxi es:"+descripcion);
+                                    tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFecha:" + fecha +
+                                            "\nHora: " + hora + "\nDestino\n" +
+                                            destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nTaxi:\n"
+                                            +taxi+"\n\nDescripción del taxi:"+descripcion);
                                 }
                         }
                     }

@@ -30,15 +30,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btnconfirmarservicio"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_margin="20dp"
+                    android:background="#ffff00"
                     android:text="Confirmar Servicio"
-                    android:textAlignment="center"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="20dp" />
                 <TextView
                     android:id="@+id/engrywy"
                     android:layout_width="match_parent"
@@ -94,16 +95,6 @@
                             android:textSize="20sp" />
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
-                <Button
-                    android:id="@+id/btnconfirmarservicio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="#000000"
-                    android:text="Confirmar Servicio"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

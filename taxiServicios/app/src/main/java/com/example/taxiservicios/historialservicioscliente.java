@@ -1,5 +1,4 @@
 package com.example.taxiservicios;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 public class historialservicioscliente extends Fragment {
     RecyclerView recyclerPersonajes; //ok
     RecyclerView.Adapter adapter;
@@ -64,24 +62,22 @@ public class historialservicioscliente extends Fragment {
                             modeloCliente modelo;
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             String statusServicio =jsonObject.getString("status");
-
                             if (statusServicio.contains("Confirmada")) {
-
                                  modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
-                                        "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
-                                        "Direccion de destino: "+jsonObject.getString("direccion"),
-                                        "Status del servicio:"+ statusServicio,
-                                        "El automovil que pasará por ti es: " + jsonObject.getString("vehiculoCompleto"),
+                                        "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
+                                        "Destino: "+jsonObject.getString("direccion"),
+                                        "Servicio:"+ statusServicio,
+                                        "Taxi: \n" + jsonObject.getString("vehiculoCompleto"),
 
-                                        "Descripción del autómovil: " + jsonObject.getString("descripcionVehiculo"));
+                                        "Descripción del Taxi: \n" + jsonObject.getString("descripcionVehiculo"));
                             } else {
                                 System.out.println("Refreshed token: " + statusServicio);
                                  modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
-                                        "Fecha del servicio: "+jsonObject.getString("fecha")+"\n\n"+"Pasaran por ti a las: "+jsonObject.getString("hora"),
-                                        "Direccion de destino: "+jsonObject.getString("direccion"),
-                                        "Status del servicio:"+statusServicio);
+                                        "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
+                                        "Destino: "+jsonObject.getString("direccion"),
+                                        "Servicio:"+statusServicio);
                             }
                             listaPersonaje.add(modelo);
                         }
@@ -95,7 +91,7 @@ public class historialservicioscliente extends Fragment {
                             public void onClick(View v) {
                                 String lista=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getStatus();
                                 String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
-                                if(lista.equals("Status del servicio:abierta")){
+                                if(lista.equals("Servicio:abierta")){
                                     Bundle datosAEnviar = new Bundle();
                                     datosAEnviar.putString("identificador",id);
                                     modificarServicio modificarservicio = new modificarServicio();
@@ -103,7 +99,7 @@ public class historialservicioscliente extends Fragment {
                                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
                                 }
-                                else if (lista.equals("Status del servicio:Confirmada"))
+                                else if (lista.equals("Servicio:Confirmada"))
                                 {
                                     Bundle datosAEnviar = new Bundle();
                                     datosAEnviar.putString("identificador",id);
@@ -112,7 +108,7 @@ public class historialservicioscliente extends Fragment {
                                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,verAutomovil).addToBackStack(null).commit();
                                 }
-                                else if (lista.equals("Status del servicio:realizada"))
+                                else if (lista.equals("Servicio:realizada"))
                                 {
                                     Bundle datosAEnviar = new Bundle();
                                     datosAEnviar.putString("identificador",id);

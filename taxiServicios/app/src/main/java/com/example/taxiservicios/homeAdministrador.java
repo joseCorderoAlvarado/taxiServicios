@@ -78,10 +78,10 @@ public class homeAdministrador extends Fragment {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloAdministrador modelo =new modeloAdministrador(
                                     jsonObject.getString("identificador"),
-                                    "Fecha del servicio: "+jsonObject.getString("fecha")+"\n"+"Se recogera a las: "+jsonObject.getString("hora")+"\n",
-                                    "Direccion de destino: "+jsonObject.getString("direccion")+"\n",
-                                    "Comentario del cliente:"+jsonObject.getString("referencia"),
-                                    "Status del servicio:"+jsonObject.getString("status"));
+                                    "Fecha: "+jsonObject.getString("fecha")+"\n"+"Hora: "+jsonObject.getString("hora")+"\n",
+                                    "Destino: "+jsonObject.getString("direccion")+"\n",
+                                    "Comentarios:\n"+jsonObject.getString("referencia"),
+                                    "Servicio:"+jsonObject.getString("status"));
                             listaPersonaje.add(modelo);
                         }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -95,7 +95,7 @@ public class homeAdministrador extends Fragment {
                             public void onClick(View v) {
                                 String lista=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getStatus();
                                 String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
-                                if(lista.equals("Status del servicio:abierta")){
+                                if(lista.equals("Servicio:abierta")){
                                     Bundle datosAEnviar = new Bundle();
                                     datosAEnviar.putString("identificador",id);
                                     confirmarServicio confirmarServicio = new confirmarServicio();
@@ -103,7 +103,7 @@ public class homeAdministrador extends Fragment {
                                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
                                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,confirmarServicio).addToBackStack(null).commit();
                                 }
-                                else if (lista.equals("Status del servicio:Confirmada"))
+                                else if (lista.equals("S:Confirmada"))
                                 {
                                     //Bundle datosAEnviar = new Bundle();
                                     //datosAEnviar.putString("identificador",id);

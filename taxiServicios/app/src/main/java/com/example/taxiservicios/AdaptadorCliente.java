@@ -27,19 +27,19 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         holder.txtfechahora.setText(userModelList.get(position).getFechahora());
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
-       if(userModelList.get(position).getStatus().equals("Status del servicio:abierta"))
+       if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
        {
            holder.txt_descripcion_taxi.setVisibility(View.GONE);
            holder.txt_no_taxi.setVisibility(View.GONE);
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
        }
-       else if(userModelList.get(position).getStatus().equals("Status del servicio:realizada"))
+       else if(userModelList.get(position).getStatus().equals("Servicio:realizada"))
            {
                holder.txt_descripcion_taxi.setVisibility(View.GONE);
                holder.txt_no_taxi.setVisibility(View.GONE);
                holder.txtstatus.setTextColor(Color.BLACK);
            }
-       else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
+       else if(userModelList.get(position).getStatus().equals("Servicio:Confirmada"))
        {
            holder.txtstatus.setTextColor(Color.BLUE);
 
@@ -48,8 +48,6 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
            holder.txt_no_taxi.setText(userModelList.get(position).getNotaxi());
            holder.txt_descripcion_taxi.setText(userModelList.get(position).getDescripcionVehiculo());
-
-
        }
        else
            {

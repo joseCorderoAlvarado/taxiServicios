@@ -137,21 +137,21 @@ public class confirmarServicio extends Fragment {
                         Log.d("destino",destino);
                             if (referencia.equals(""))
                             {
-                                tvinformacion.setText("      Datos del Servicio  \nfecha del servicio: " + fecha +
-                                        "\n\nhora del servicio: " + hora +"\n\nDirección donde se recogera:\n"+origen+
-                                        "\n\nDireccion de destino:\n" + destino+
-                                        "\n\nEl nombre del cliente es:\n"+nombre+
-                                        "\n\nEl telefono del cliente es:\n"
+                                tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
+                                        "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
+                                        "\n\nDestino:\n" + destino+
+                                        "\n\nEl cliente es:\n"+nombre+
+                                        "\n\nTelefono:\n"
                                         +telefono);
                             }
                             else
                                 {
                                     tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
-                                            "\n\nhora del servicio: " + hora +"\n\nDirección donde se recogera:\n"+origen+
-                                            "\n\nDireccion de destino:\n" + destino+
-                                            "\n\nEl nombre del cliente es:\n"+nombre+
-                                            "\n\nEl telefono del cliente es:\n"
-                                            +telefono+"\n\nEl comentario del cliente es:\n"+referencia);
+                                            "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
+                                            "\n\nDestino:\n" + destino+
+                                            "\n\nEl cliente:\n"+nombre+
+                                            "\n\nTelefono:\n"
+                                            +telefono+"\n\nComentario:\n"+referencia);
                                 }
                             }
                 } catch (JSONException e) {

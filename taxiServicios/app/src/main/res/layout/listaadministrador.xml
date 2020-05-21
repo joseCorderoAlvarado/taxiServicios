@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
-                android:text="referencia"
+                android:text=""
                 android:textSize="19sp" />
             <TextView
                 android:id="@+id/status2"

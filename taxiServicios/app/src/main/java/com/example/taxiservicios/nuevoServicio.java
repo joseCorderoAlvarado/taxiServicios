@@ -87,15 +87,17 @@ List<String> direccion2obt =  new ArrayList<String>();
                                 valors2 = sDestino.getSelectedItem().toString();
                                 fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    horac = "" + hora.getHour() + ":" + hora.getMinute();
+                                    String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
+                                            String.format("0%s", Integer.toString(hora.getMinute()));
+                                    horac = "" + hora.getHour() + ":"+minuteZero;
                                 }
                                 else{
-                                    horac = " ";
+                                    Toast.makeText(getActivity().getBaseContext(),"Tu télefono no soporta esta función",Toast.LENGTH_SHORT).show();
+                                    return;
                                 }
                                 origen = txtOrigen.getText().toString();
                                 destino = txtDestino.getText().toString();
-                                comentarios2 = txtcomentarios.getText().toString();
-                                if (origen.isEmpty() && destino.isEmpty()) {
+                                comentarios2 = txtcomentarios.getText().toString();if (origen.isEmpty() && destino.isEmpty()) {
                                     spnuevoservicio(URL_spnuevoservicio, valors1, valors2, fechac, horac, comentarios2, correo);
                                     homeCliente modificarservicio = new homeCliente();
                                     AppCompatActivity activity = (AppCompatActivity) view.getContext();

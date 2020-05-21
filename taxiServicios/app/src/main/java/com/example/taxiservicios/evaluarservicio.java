@@ -50,6 +50,9 @@ public class evaluarservicio extends Fragment {
         estrellas=view.findViewById(R.id.rbestrellas);
         nota2=view.findViewById(R.id.txtmejora);
         evaluar=view.findViewById(R.id.btnEvaluarServicio);
+        LayerDrawable stars = (LayerDrawable)  estrellas.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.rgb(229,190,1), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(1).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
         estrellas.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -61,28 +64,11 @@ public class evaluarservicio extends Fragment {
         evaluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-// Configura el titulo.
-                alertDialogBuilder.setTitle("Mi Dialogo");
-// Configura el mensaje.
-                alertDialogBuilder
-                        .setMessage("¿Estas seguro de evaluar este servicio?")
-                        .setCancelable(false)
-                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
                                 comentario=nota2.getText().toString();
                                 evaluarservicio("http://pruebataxi.laviveshop.com/app/evaluarservicio.php",idrecuperado,calificacion,comentario);
                                 homeCliente home = new homeCliente();
                                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
-                            }
-                        })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        }).create().show();
             }
         });
         return view;

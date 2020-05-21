@@ -20,19 +20,29 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtfechahora.setText(userModelList.get(position).getFechahora());
-        holder.txtdireccion.setText(userModelList.get(position).getDireccion());
-        holder.txtreferencia.setText(userModelList.get(position).getReferencia());
-        holder.txtstatus.setText(userModelList.get(position).getStatus());
-        if(userModelList.get(position).getStatus().equals("Status del servicio:abierta"))
+        if (userModelList.get(position).getReferencia().equals("Comentarios:\n"))
+        {
+            holder.txtfechahora.setText(userModelList.get(position).getFechahora());
+            holder.txtdireccion.setText(userModelList.get(position).getDireccion());
+       //     holder.txtreferencia.setText(userModelList.get(position).getReferencia());
+            holder.txtstatus.setText(userModelList.get(position).getStatus());
+        }
+        else
+            {
+                holder.txtfechahora.setText(userModelList.get(position).getFechahora());
+                holder.txtdireccion.setText(userModelList.get(position).getDireccion());
+                holder.txtreferencia.setText(userModelList.get(position).getReferencia());
+                holder.txtstatus.setText(userModelList.get(position).getStatus());
+            }
+        if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
         {
             holder.txtstatus.setTextColor(Color.rgb(0,143,57));
         }
-        else if(userModelList.get(position).getStatus().equals("Status del servicio:realizada"))
+        else if(userModelList.get(position).getStatus().equals("Servicio:realizada"))
         {
             holder.txtstatus.setTextColor(Color.BLACK);
         }
-        else if(userModelList.get(position).getStatus().equals("Status del servicio:Confirmada"))
+        else if(userModelList.get(position).getStatus().equals("Servicio:Confirmada"))
         {
             holder.txtstatus.setTextColor(Color.BLUE);
         }
