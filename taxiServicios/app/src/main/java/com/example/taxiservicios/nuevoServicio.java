@@ -93,7 +93,9 @@ List<String> direccion2obt =  new ArrayList<String>();
                                 }
                                 else{
                                     Toast.makeText(getActivity().getBaseContext(),"Tu télefono no soporta esta función",Toast.LENGTH_SHORT).show();
-                                    return;
+
+                                    //return;
+                                    horac="";
                                 }
                                 origen = txtOrigen.getText().toString();
                                 destino = txtDestino.getText().toString();
