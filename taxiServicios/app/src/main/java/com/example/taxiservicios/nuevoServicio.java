@@ -92,10 +92,14 @@ List<String> direccion2obt =  new ArrayList<String>();
                                     horac = "" + hora.getHour() + ":"+minuteZero;
                                 }
                                 else{
-                                    Toast.makeText(getActivity().getBaseContext(),"Tu télefono no soporta esta función",Toast.LENGTH_SHORT).show();
+                                    //sss;
+                                   // Toast.makeText(getActivity().getBaseContext(),"Tu télefono no soporta esta función",Toast.LENGTH_SHORT).show();
+                                    String minuteZero = (hora.getCurrentMinute()>=10)? Integer.toString(hora.getCurrentMinute()):
+                                            String.format("0%s", Integer.toString(hora.getCurrentMinute()));
 
-                                    //return;
-                                    horac="";
+
+
+                                    horac=" " +  hora.getCurrentHour() + ":" +minuteZero;
                                 }
                                 origen = txtOrigen.getText().toString();
                                 destino = txtDestino.getText().toString();
