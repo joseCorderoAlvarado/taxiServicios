@@ -105,9 +105,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|center_horizontal"
                     android:layout_margin="20dp"
-                    android:background="#000000"
+                    android:background="#ffff00"
                     android:text="   Registrarme  "
-                    android:textColor="#ffffff"
+                    android:textColor="#000"
                     android:textSize="20dp">
 
                 </Button>
