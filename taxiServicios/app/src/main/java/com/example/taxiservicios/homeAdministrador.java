@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,9 @@ public class homeAdministrador extends Fragment {
     String correo;
     //String URL_sss="http://192.168.1.105/Taxis-Pruebas/consultarServiciosAdmin.php";
 
-
+    public static final long PERIODO = 60000; // 60 segundos (60 * 1000 millisegundos)
+    private Handler handler;
+    private Runnable runnable;
     String URL_sss="http://pruebataxi.laviveshop.com/app/consultarServiciosAdmin.php";
 
 
@@ -60,9 +63,26 @@ public class homeAdministrador extends Fragment {
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosAdmin);
         recyclerPersonajes.setHasFixedSize(true);
         recyclerPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
-        listaPersonaje= new ArrayList<>();
-        llenarLista(URL_sss);
         return view;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        handler = new Handler();
+        runnable = new Runnable(){
+            @Override
+            public void run(){
+                listaPersonaje= new ArrayList<>();
+                llenarLista(URL_sss);
+                handler.postDelayed(this, 6000);
+            }
+        };
+        handler.postDelayed(runnable, 1000);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
     private void llenarLista(String URL) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

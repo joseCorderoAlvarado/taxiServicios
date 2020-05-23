@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,8 @@ public class homeCliente extends Fragment {
 TextView tvservicios,tvserviciogratis,tvconfirmado;
 String correo;
 Button btnNuevoServicio;
+    private Handler handler;
+    private Runnable runnable;
     // TODO: Rename and change types and number of parameters
     @Nullable
     @Override
@@ -52,7 +55,6 @@ Button btnNuevoServicio;
        SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
        correo=preferences.getString("correo",null);
        cargarservicios("http://pruebataxi.laviveshop.com/app/cantidadservicioscliente.php",correo);
-       cargarconfirmado("http://pruebataxi.laviveshop.com/app/ultimoconfirmado.php",correo);
        btnNuevoServicio.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -62,6 +64,24 @@ Button btnNuevoServicio;
            }
        });
         return view;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        handler = new Handler();
+        runnable = new Runnable(){
+            @Override
+            public void run(){
+                cargarconfirmado("http://pruebataxi.laviveshop.com/app/ultimoconfirmado.php",correo);
+                handler.postDelayed(this, 6000);
+            }
+        };
+        handler.postDelayed(runnable, 1000);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
     private  void cargarservicios(String URL, final String correov)
     {
