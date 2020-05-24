@@ -74,7 +74,7 @@ public class homeAdministrador extends Fragment {
             public void run(){
                 listaPersonaje= new ArrayList<>();
                 llenarLista(URL_sss);
-                handler.postDelayed(this, 6000);
+                handler.postDelayed(this, PERIODO);
             }
         };
         handler.postDelayed(runnable, 1000);
@@ -101,7 +101,10 @@ public class homeAdministrador extends Fragment {
                                     "Fecha: "+jsonObject.getString("fecha")+"\n"+"Hora: "+jsonObject.getString("hora")+"\n",
                                     "Destino: "+jsonObject.getString("direccion")+"\n",
                                     "Comentarios:\n"+jsonObject.getString("referencia"),
-                                    "Servicio:"+jsonObject.getString("status"));
+                                    "Servicio:"+jsonObject.getString("status"),
+                                    "Cliente: " + jsonObject.getString("nombre"),
+                                    "Vehiculo:  " + jsonObject.getString("vehiculoCompleto")
+                                    );
                             listaPersonaje.add(modelo);
                         }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());

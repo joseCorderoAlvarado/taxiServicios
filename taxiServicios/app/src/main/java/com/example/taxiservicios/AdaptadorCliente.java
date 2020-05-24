@@ -1,13 +1,16 @@
 package com.example.taxiservicios;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import static androidx.recyclerview.widget.RecyclerView.*;
@@ -23,21 +26,55 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         return new ViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.txtfechahora.setText(userModelList.get(position).getFechahora());
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
+
+
+        holder.btnComandoCliente.setVisibility(View.GONE);
+        holder.txt_descripcion_taxi.setVisibility(View.GONE);
+        holder.txt_no_taxi.setVisibility(View.GONE);
+
        if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
        {
-           holder.txt_descripcion_taxi.setVisibility(View.GONE);
-           holder.txt_no_taxi.setVisibility(View.GONE);
+
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
+           holder.btnComandoCliente.setVisibility(View.VISIBLE);
+           holder.btnComandoCliente.setText("Modificar");
+
+           holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   String id=userModelList.get(position).getIdentificador();
+                   Bundle datosAEnviar = new Bundle();
+                   datosAEnviar.putString("identificador",id);
+                   modificarServicio modificarservicio = new modificarServicio();
+                   modificarservicio.setArguments(datosAEnviar);
+                   AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+               }
+           });
+
        }
        else if(userModelList.get(position).getStatus().equals("Servicio:realizada"))
            {
-               holder.txt_descripcion_taxi.setVisibility(View.GONE);
-               holder.txt_no_taxi.setVisibility(View.GONE);
+
                holder.txtstatus.setTextColor(Color.BLACK);
+               holder.btnComandoCliente.setVisibility(View.VISIBLE);
+               holder.btnComandoCliente.setText("Calificar");
+               holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                       String id=userModelList.get(position).getIdentificador();
+                       Bundle datosAEnviar = new Bundle();
+                       datosAEnviar.putString("identificador",id);
+                       evaluarservicio evaluarservicio = new evaluarservicio();
+                       evaluarservicio.setArguments(datosAEnviar);
+                       AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                       activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,evaluarservicio).addToBackStack(null).commit();
+                   }
+               });
            }
        else if(userModelList.get(position).getStatus().equals("Servicio:Confirmada"))
        {
@@ -72,8 +109,11 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         }
     }
 
+
+    //Asociacion con los elementos de la interfaz lista cliente txt
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi;
+                Button btnComandoCliente;
         public ViewHolder(View v) {
             super(v);
             txtdireccion= (TextView) itemView.findViewById(R.id.direccion);
@@ -81,7 +121,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
             txtstatus=(TextView) itemView.findViewById(R.id.status);
             txt_no_taxi=(TextView) itemView.findViewById(R.id.noTaxi);
             txt_descripcion_taxi=(TextView) itemView.findViewById(R.id.descripcionVehiculo);
-
+            btnComandoCliente=(Button) itemView.findViewById(R.id.btnEfectoCliente);
         }
     }
 }

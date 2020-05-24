@@ -5,14 +5,39 @@ public class modeloAdministrador {
     private String direccion;
     private String referencia;
     private String status;
-    public modeloAdministrador(String identificador,String fechahora,String direccion,String referencia,String status)
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getVehiculoCompleto() {
+        return vehiculoCompleto;
+    }
+
+    public void setVehiculoCompleto(String vehiculoCompleto) {
+        this.vehiculoCompleto = vehiculoCompleto;
+    }
+
+    private String nombre;
+    private String vehiculoCompleto;
+
+    public modeloAdministrador(String identificador,String fechahora,String direccion,String referencia,
+                               String status,String nombre,String vehiculoCompleto)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
         this.direccion=direccion;
         this.referencia=referencia;
         this.status=status;
+        this.nombre=nombre;
+        this.vehiculoCompleto=vehiculoCompleto;
     }
+
+
     public  String getIdentificador() {
         return identificador;
     }

@@ -12,7 +12,9 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -23,38 +25,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <Button
+            android:id="@+id/btnEvaluarServicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_margin="20dp"
+            android:background="#ffff00"
+            android:text="Evaluar Servicio"
+            android:textColor="#000"
+            android:textSize="20dp" />
+
+
         <ScrollView
+            android:id="@+id/Scroll1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/LinearScroll1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <Button
-                    android:id="@+id/btnEvaluarServicio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="#ffff00"
-                    android:text="Evaluar Servicio"
-                    android:textColor="#000"
-                    android:textSize="20dp"/>
+
                 <TextView
                     android:id="@+id/textView9"
-                    android:textColor="#000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:text="¿Como estuvo el servicio?"
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView14"
-                    android:textColor="#000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1.-Malo, 2.-Regular, 3.- bueno, 4.-Muy bueno, 5.-Excelente"
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
                 <RatingBar
@@ -70,8 +78,8 @@
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
                     android:text="¿Qué mejorarias?"
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
                 <EditText
@@ -82,7 +90,54 @@
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
 
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Como se le hizo el vehiculo?"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1.-Malo, 2.-Regular, 3.- bueno, 4.-Muy bueno, 5.-Excelente"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <RatingBar
+                    android:id="@+id/rbestrellas2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Qué mejorarias?"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/txtmejora2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine" />
+
+
             </LinearLayout>
+
+
         </ScrollView>
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
