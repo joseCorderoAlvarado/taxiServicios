@@ -53,6 +53,7 @@ public class modificarServicio extends Fragment {
         txtcomentariosm=view.findViewById(R.id.txtComentariosm);
         btnModificar=view.findViewById(R.id.btnmodificar);
         btnEliminar=view.findViewById(R.id.btnEliminar);
+        fecham.setMinDate(System.currentTimeMillis() - 1000);
         cargardatos("http://pruebataxi.laviveshop.com/app/consultarservicioabierto.php",idrecuperado);
         btnModificar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,7 +41,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
            holder.btnComandoCliente.setVisibility(View.VISIBLE);
-           holder.btnComandoCliente.setText("Modificar");
+           holder.btnComandoCliente.setText("Modificar servicio");
 
            holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -62,7 +62,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
                holder.txtstatus.setTextColor(Color.BLACK);
                holder.btnComandoCliente.setVisibility(View.VISIBLE);
-               holder.btnComandoCliente.setText("Calificar");
+               holder.btnComandoCliente.setText("Calificar servicio");
                holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View view) {

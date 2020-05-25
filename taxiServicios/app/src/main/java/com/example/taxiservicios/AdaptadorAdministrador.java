@@ -47,7 +47,7 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
         {
             holder.txtstatus.setTextColor(Color.rgb(0,143,57));
             holder.btnComando.setVisibility(View.VISIBLE);
-            holder.btnComando.setText("Confirmar");
+            holder.btnComando.setText("Confirmar servicio");
             holder.btnComando.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

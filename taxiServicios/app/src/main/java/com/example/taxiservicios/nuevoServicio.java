@@ -61,23 +61,18 @@ List<String> direccion2obt =  new ArrayList<String>();
         txtDestino=view.findViewById(R.id.txtDestino);
         txtcomentarios=view.findViewById(R.id.txtComentarios);
         btnNuevo=view.findViewById(R.id.btnmodificar);
+        fecha.setMinDate(System.currentTimeMillis() - 1000);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
-       cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
+        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
-        //cargardireccion1("http://192.168.1.105/Taxis-Pruebas/consultardireccion1.php",correo);
-        //cargardireccion2("http://192.168.1.105/Taxis-Pruebas/consultardireccion2.php",correo);
          final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
-        //final String URL_spnuevoservicio="http://192.168.1.105/Taxis-Pruebas/spregistrarservicio.php";
         final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
-        //final String URL_nuevoservicio="http://192.168.1.105/Taxis-Pruebas/agendarservicio.php";
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-// Configura el titulo.
                 alertDialogBuilder.setTitle("Crear Servicio");
-// Configura el mensaje.
                 alertDialogBuilder
                         .setMessage("¿Estás seguro de agendar este servicio?")
                         .setCancelable(false)
@@ -92,22 +87,24 @@ List<String> direccion2obt =  new ArrayList<String>();
                                     horac = "" + hora.getHour() + ":"+minuteZero;
                                 }
                                 else{
-                                    //sss;
-                                   // Toast.makeText(getActivity().getBaseContext(),"Tu télefono no soporta esta función",Toast.LENGTH_SHORT).show();
                                     String minuteZero = (hora.getCurrentMinute()>=10)? Integer.toString(hora.getCurrentMinute()):
                                             String.format("0%s", Integer.toString(hora.getCurrentMinute()));
-
-
-
                                     horac=" " +  hora.getCurrentHour() + ":" +minuteZero;
                                 }
                                 origen = txtOrigen.getText().toString();
                                 destino = txtDestino.getText().toString();
-                                comentarios2 = txtcomentarios.getText().toString();if (origen.isEmpty() && destino.isEmpty()) {
+                                comentarios2 = txtcomentarios.getText().toString();
+                                if (origen.isEmpty() && destino.isEmpty()) {
+                                    if(valors1.equals("seleccione una direccion") || valors2.equals("seleccione una direccion") )
+                                    {
+                                        Toast.makeText(getActivity().getBaseContext(), "necesitas seleccionar una direccion de origen y destino", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
                                     spnuevoservicio(URL_spnuevoservicio, valors1, valors2, fechac, horac, comentarios2, correo);
                                     homeCliente modificarservicio = new homeCliente();
                                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+                                }
                                 }
                                 else if (origen.isEmpty() && !destino.isEmpty()) {
                                     Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();

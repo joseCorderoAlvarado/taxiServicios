@@ -73,7 +73,7 @@ Button btnNuevoServicio;
             @Override
             public void run(){
                 cargarconfirmado("http://pruebataxi.laviveshop.com/app/ultimoconfirmado.php",correo);
-                handler.postDelayed(this, 6000);
+                handler.postDelayed(this, 1000);
             }
         };
         handler.postDelayed(runnable, 1000);
