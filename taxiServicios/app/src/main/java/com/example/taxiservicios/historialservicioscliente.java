@@ -69,7 +69,6 @@ public class historialservicioscliente extends Fragment {
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+ statusServicio,
                                         "Taxi: \n" + jsonObject.getString("vehiculoCompleto"),
-
                                         "Descripción del Taxi: \n" + jsonObject.getString("descripcionVehiculo"));
                             } else {
                                 System.out.println("Refreshed token: " + statusServicio);

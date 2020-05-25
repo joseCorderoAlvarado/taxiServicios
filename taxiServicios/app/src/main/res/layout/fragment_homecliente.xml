@@ -72,11 +72,13 @@
                     android:background="@android:color/white"
                     android:orientation="vertical">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardBackgroundColor="#fff"
                     card_view:cardCornerRadius="10dp"
                     card_view:cardElevation="5dp"
+                    android:visibility="gone"
                     card_view:cardUseCompatPadding="true">
                     <TextView
                         android:id="@+id/tvconfirmado"

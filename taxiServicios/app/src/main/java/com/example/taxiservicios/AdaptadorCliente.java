@@ -82,7 +82,6 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
            holder.txt_descripcion_taxi.setVisibility(View.VISIBLE);
            holder.txt_no_taxi.setVisibility(View.VISIBLE);
-
            holder.txt_no_taxi.setText(userModelList.get(position).getNotaxi());
            holder.txt_descripcion_taxi.setText(userModelList.get(position).getDescripcionVehiculo());
        }

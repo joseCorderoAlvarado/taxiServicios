@@ -68,7 +68,10 @@ public class confirmarServicio extends Fragment {
                 desvehiculo = txtDescripcionVehiculo.getText().toString();
                 if(desvehiculo.isEmpty())
                 {
-                    Toast.makeText(getActivity().getBaseContext(),"el vehiculo a asignar debe tener una descripción",Toast.LENGTH_SHORT).show();
+                    confirmar("http://pruebataxi.laviveshop.com/app/actualizarestadoconfirmado.php", idrecuperado, valors1, "");
+                    homeAdministrador confirmarservicio = new homeAdministrador();
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, confirmarservicio).addToBackStack(null).commit();
                 }
                 else {
                     confirmar("http://pruebataxi.laviveshop.com/app/actualizarestadoconfirmado.php", idrecuperado, valors1, desvehiculo);

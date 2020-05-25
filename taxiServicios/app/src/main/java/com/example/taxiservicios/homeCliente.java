@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class homeCliente extends Fragment {
 TextView tvservicios,tvserviciogratis,tvconfirmado;
 String correo;
 Button btnNuevoServicio;
+CardView card1;
     private Handler handler;
     private Runnable runnable;
     // TODO: Rename and change types and number of parameters
@@ -52,6 +54,7 @@ Button btnNuevoServicio;
        tvserviciogratis=view.findViewById(R.id.serviciogratis);
        tvconfirmado=view.findViewById(R.id.tvconfirmado);
        btnNuevoServicio=view.findViewById(R.id.btnnuevoservicio);
+       card1=view.findViewById(R.id.card1);
        SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
        correo=preferences.getString("correo",null);
        cargarservicios("http://pruebataxi.laviveshop.com/app/cantidadservicioscliente.php",correo);
@@ -73,7 +76,7 @@ Button btnNuevoServicio;
             @Override
             public void run(){
                 cargarconfirmado("http://pruebataxi.laviveshop.com/app/ultimoconfirmado.php",correo);
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 12000);
             }
         };
         handler.postDelayed(runnable, 1000);
@@ -140,16 +143,39 @@ Button btnNuevoServicio;
                         } else {
                             if (referencia.equals(""))
                             {
-                                tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFech:" + fecha +
-                                        "\nHora: " + hora + "\nDestino\n" +
-                                        destino+"\n\nTaxi:\n"
-                                        +taxi+"\n\nDescripción del taxi:\n"+descripcion);
+                                if(descripcion.equals(""))
+                                {
+                                    card1.setVisibility(View.VISIBLE);
+                                    tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFech:" + fecha +
+                                            "\nHora: " + hora + "\nDestino\n" +
+                                            destino+"\n\nTaxi:\n"
+                                            +taxi);
+                                }
+                                else
+                                    {
+                                        card1.setVisibility(View.VISIBLE);
+                                        tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFech:" + fecha +
+                                                "\nHora: " + hora + "\nDestino\n" +
+                                                destino+"\n\nTaxi:\n"
+                                                +taxi+"\n\nDescripción del taxi:\n"+descripcion);
+                                    }
                             }else
                                 {
-                                    tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFecha:" + fecha +
-                                            "\nHora: " + hora + "\nDestino\n" +
-                                            destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nTaxi:\n"
-                                            +taxi+"\n\nDescripción del taxi:"+descripcion);
+                                    if (descripcion.equals("")){
+                                    //    card1.setVisibility(View.VISIBLE);
+                                        tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFecha:" + fecha +
+                                                "\nHora: " + hora + "\nDestino\n" +
+                                                destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nTaxi:\n"
+                                                +taxi);
+                                    }
+                                    else
+                                        {
+                                      //      card1.setVisibility(View.VISIBLE);
+                                            tvconfirmado.setText("  Ultimo Servicio Confirmado  \nFecha:" + fecha +
+                                                    "\nHora: " + hora + "\nDestino\n" +
+                                                    destino+"\n\nReferencia del viaje:\n"+referencia+"\n\nTaxi:\n"
+                                                    +taxi+"\n\nDescripción del taxi:"+descripcion);
+                                        }
                                 }
                         }
                     }

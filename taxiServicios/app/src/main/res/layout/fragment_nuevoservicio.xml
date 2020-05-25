@@ -63,48 +63,11 @@
                     android:textColor="#000"
                     android:text="¿A qué hora?"
                     android:textSize="20sp" />
-
                 <TimePicker
                     android:id="@+id/tphora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:timePickerMode="spinner" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="¿Donde te recogemos?"
-                    android:textSize="20sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerpartida"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="¿A donde te diriges?"
-                    android:textSize="20sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerdestino"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="Si no encuestras tu dirección escribela a continuación:"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
@@ -112,15 +75,19 @@
                     android:textColor="#000"
                     android:text="¿Donde te recogemos? (Calle,Colonia,Numero)"
                     android:textSize="17dp" />
-
+                <fragment
+                    android:id="@+id/autcomplete_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
                 <EditText
                     android:id="@+id/txtOrigen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:enabled="false"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
-
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
@@ -128,12 +95,17 @@
                     android:textColor="#000"
                     android:text="¿A donde te diriges? (Calle,Colonia,Numero)"
                     android:textSize="17dp" />
-
+                <fragment
+                    android:id="@+id/autcomplete_fragment2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
                 <EditText
                     android:id="@+id/txtDestino"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:enabled="false"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
 
