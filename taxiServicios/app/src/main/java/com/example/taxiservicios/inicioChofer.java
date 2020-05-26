@@ -15,7 +15,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class inicioChofer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -73,6 +83,11 @@ public class inicioChofer extends AppCompatActivity implements NavigationView.On
         if(menuItem.getItemId()==R.id.Cerrar)
         {
             SharedPreferences preferences= getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+            final String URL_registrar_token="http://pruebataxi.laviveshop.com/app/eliminar_token.php";
+            final String correo=preferences.getString("correo",null);
+            //   System.out.println("El correo es: " + correo);
+            eliminar(URL_registrar_token,correo);
+
             preferences.edit().clear().commit();
             Intent intent= new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
@@ -81,4 +96,32 @@ public class inicioChofer extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+
+
+    private void eliminar(String URL, final String correo){
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("correo",correo);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
+
 }

@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                try {
                    JSONObject valores =new JSONObject(response);
                    int valorLlave = valores.getInt("tipoUsuario_idtipoUsuario");
+                   registrarToken(URL_registrar_token,tokenFinal,correo);
 
                    //Condeicion para los usuarios tipos
                    if(valorLlave==2)
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                        {
 
 
-                           registrarToken(URL_registrar_token,tokenFinal,correo);
+
                            guardarpreferencias2();
                            Intent intent =new Intent(getApplicationContext(),inicioAdministrador.class);
                            startActivity(intent);
