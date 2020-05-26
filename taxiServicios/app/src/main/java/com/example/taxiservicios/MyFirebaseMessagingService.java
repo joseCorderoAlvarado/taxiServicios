@@ -66,7 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // En este método recibimos el mensaje
         Intent notificationIntent;
-        notificationIntent = new Intent(this, inicioAdministrador.class);
+        notificationIntent = new Intent(this, presentacion.class);
 
 
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
