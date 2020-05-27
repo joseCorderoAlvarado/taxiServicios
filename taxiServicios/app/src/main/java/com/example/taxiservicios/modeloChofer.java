@@ -1,11 +1,51 @@
 package com.example.taxiservicios;
 
 public class modeloChofer {
-    public modeloChofer(String cliente, String evaluacion, String nota, String fecha_hora) {
+
+
+
+
+
+    public modeloChofer(String cliente, String fechahora, String direccionRecoger, String direccionLlevar, String telefono) {
         this.cliente = cliente;
-        this.evaluacion = evaluacion;
-        this.nota = nota;
-        this.fecha_hora = fecha_hora;
+        this.fechahora = fechahora;
+        this.direccionRecoger = direccionRecoger;
+        this.direccionLlevar = direccionLlevar;
+        this.telefono = telefono;
+    }
+
+    private String fechahora;
+
+    public String getFechahora() {
+        return fechahora;
+    }
+
+    public void setFechahora(String fechahora) {
+        this.fechahora = fechahora;
+    }
+
+    public String getDireccionRecoger() {
+        return direccionRecoger;
+    }
+
+    public void setDireccionRecoger(String direccionRecoger) {
+        this.direccionRecoger = direccionRecoger;
+    }
+
+    public String getDireccionLlevar() {
+        return direccionLlevar;
+    }
+
+    public void setDireccionLlevar(String direccionLlevar) {
+        this.direccionLlevar = direccionLlevar;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getCliente() {
@@ -16,36 +56,10 @@ public class modeloChofer {
         this.cliente = cliente;
     }
 
-    public String getEvaluacion() {
-        return evaluacion;
-    }
-
-    public void setEvaluacion(String evaluacion) {
-        this.evaluacion = evaluacion;
-    }
-
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
-    }
-
-
+    private String direccionRecoger;
+    private String direccionLlevar;
+    private String telefono;
     private String cliente;
-    private String evaluacion;
-    private String nota;
-
-    public String getFecha_hora() {
-        return fecha_hora;
-    }
-
-    public void setFecha_hora(String fecha_hora) {
-        this.fecha_hora = fecha_hora;
-    }
-
-    private String fecha_hora;
 
 
 

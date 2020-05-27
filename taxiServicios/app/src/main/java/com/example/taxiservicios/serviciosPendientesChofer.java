@@ -3,6 +3,7 @@ package com.example.taxiservicios;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,30 +39,30 @@ public class serviciosPendientesChofer extends Fragment {
     // TODO: Rename and change types of parameters
     RecyclerView recyclerPersonajes; //ok
     RecyclerView.Adapter adapter;
-     TextView txtTitulo;
     ArrayList<modeloChoferServiciosPendientes> listaPersonaje;
     String correo;
-    //String URL_consultarServiciosChoferPendientes="http://192.168.1.105/Taxis-Pruebas/consultarServiciosChoferPendientes.php";
+    TextView txtTitulo;
+    //String URL_consultarServiciosChofer="http://192.168.1.105/Taxis-Pruebas/consultarServiciosChofer.php";
 
 
-   String URL_consultarServiciosChoferPendientes="http://pruebataxi.laviveshop.com/app/consultarServiciosChoferPendientes.php";
+    String URL_consultarServiciosChofer="http://pruebataxi.laviveshop.com/app/consultarHistorialChofer.php";
 
 
     // TODO: Rename and change types and number of parameters
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_servicios_pendientes_chofer, container, false);
+        View view = inflater.inflate(R.layout.fragment_homechofer, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
+        txtTitulo = (TextView)view.findViewById(R.id.titulo);
+        txtTitulo.setText("Servicios Confirmados");
 
-             txtTitulo = (TextView)view.findViewById(R.id.titulo);
-            txtTitulo.setText("Servicios Pendientes");
         correo=preferences.getString("correo",null);
-        recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosServiciosPendientesChofer);
+        recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosChofer);
         recyclerPersonajes.setHasFixedSize(true);
         recyclerPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
         listaPersonaje= new ArrayList<>();
-        llenarLista(URL_consultarServiciosChoferPendientes,correo);
+        llenarLista(URL_consultarServiciosChofer,correo);
         return view;
     }
     private void llenarLista(String URL,final String correov) {
@@ -78,11 +79,9 @@ public class serviciosPendientesChofer extends Fragment {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloChoferServiciosPendientes modelo =new modeloChoferServiciosPendientes(
                                     "Cliente: " + jsonObject.getString("cliente")  + "\n",
-                                      "Recoger el dia: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n",
-                                    "Donde se recogera: "+ jsonObject.getString("recoger") + "\n",
-                            "Donde se dirige: "+ jsonObject.getString("llevar") + "\n",
-                            "Télefono: "+ jsonObject.getString("telefono") + "\n"
-                            );
+                                    "Calificación: " + jsonObject.getString("evaluacion") + " Estrellas " + "\n",
+                                    "Nota del servicio: "+ jsonObject.getString("nota") + "\n",
+                                    "Fecha/Hora realizado: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n") ;
                             listaPersonaje.add(modelo);
 
                         }

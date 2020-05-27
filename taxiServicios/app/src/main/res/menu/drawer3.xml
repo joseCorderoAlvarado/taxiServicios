@@ -9,7 +9,7 @@
         android:id="@+id/Pendientes"
         android:icon="@drawable/ic_spellcheck_black_24dp"
         android:textColor="#000"
-        android:title="Servicios Pendientes" />
+        android:title="Historial de Servicios" />
     <item
         android:id="@+id/Datos"
         android:icon="@drawable/ic_contact_mail_black_24dp"

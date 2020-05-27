@@ -21,7 +21,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listachofer,null,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listachoferserviciospendientes,null,false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
@@ -29,9 +29,11 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtCliente.setText(userModelList.get(position).getCliente());
-        holder.txtEvaluacion.setText(userModelList.get(position).getEvaluacion());
-        holder.txtNota.setText(userModelList.get(position).getNota());
-        holder.txtFechaHora.setText(userModelList.get(position).getFecha_hora());
+        holder.txtFechaHora.setText(userModelList.get(position).getFechahora());
+        holder.txtRecoger.setText(userModelList.get(position).getDireccionRecoger());
+        holder.txtLlevar.setText(userModelList.get(position).getDireccionLlevar());
+        holder.txtTelefono.setText(userModelList.get(position).getTelefono());
+
     }
     @Override
     public int getItemCount() {
@@ -50,13 +52,14 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtCliente,txtEvaluacion,txtNota,txtFechaHora;
+        TextView txtCliente,txtFechaHora,txtRecoger,txtLlevar,txtTelefono;
         public ViewHolder(View v) {
             super(v);
             txtCliente= (TextView) itemView.findViewById(R.id.cliente);
-            txtEvaluacion= (TextView) itemView.findViewById(R.id.evaluacion);
-            txtNota=(TextView) itemView.findViewById(R.id.nota);
-            txtFechaHora=(TextView) itemView.findViewById(R.id.fechahora3);
+            txtFechaHora= (TextView) itemView.findViewById(R.id.fechahora4);
+            txtRecoger=(TextView) itemView.findViewById(R.id.direccionRecoger);
+            txtLlevar=(TextView) itemView.findViewById(R.id.direccionLlevar);
+            txtTelefono=(TextView) itemView.findViewById(R.id.telefono);
         }
     }
 }
