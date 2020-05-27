@@ -45,7 +45,7 @@ public class serviciosPendientesChofer extends Fragment {
     //String URL_consultarServiciosChofer="http://192.168.1.105/Taxis-Pruebas/consultarServiciosChofer.php";
 
 
-    String URL_consultarServiciosChofer="http://pruebataxi.laviveshop.com/app/consultarHistorialChofer.php";
+    String URL_consultarServiciosChoferRealizados="http://pruebataxi.laviveshop.com/app/consultarHistorialChofer.php";
 
 
     // TODO: Rename and change types and number of parameters
@@ -55,14 +55,14 @@ public class serviciosPendientesChofer extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homechofer, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
-        txtTitulo.setText("Servicios Confirmados");
+        txtTitulo.setText("Servicios Realizados");
 
         correo=preferences.getString("correo",null);
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosChofer);
         recyclerPersonajes.setHasFixedSize(true);
         recyclerPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
         listaPersonaje= new ArrayList<>();
-        llenarLista(URL_consultarServiciosChofer,correo);
+        llenarLista(URL_consultarServiciosChoferRealizados,correo);
         return view;
     }
     private void llenarLista(String URL,final String correov) {
