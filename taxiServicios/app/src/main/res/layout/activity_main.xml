@@ -95,6 +95,15 @@
                     android:text="Si no Tienes Cuenta Registrate"
                     android:textColor="#0000FF"
                     android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/viewrecuperar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="¿Olvidaste Tu contraseña?"
+                    android:textColor="#0000FF"
+                    android:textSize="20dp" />
             </LinearLayout>
         </ScrollView>
 

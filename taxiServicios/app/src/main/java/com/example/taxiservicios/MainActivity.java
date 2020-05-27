@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
    EditText txtcorreo,txtcontrasena;
    Button btningresar;
    String correo,contrasena;
-   TextView registro;
+   TextView registro,recuperar;
    String tokenFinal;
    //String URL_validarUsuario="http://192.168.1.105/Taxis-Pruebas/validar_usuario.php";
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         txtcontrasena=findViewById(R.id.txtcontrasena);
         btningresar=findViewById(R.id.btnregistro);
         registro=findViewById(R.id.viewiniciarsesion);
+        recuperar=findViewById(R.id.viewrecuperar);
         recuperarpreferencias();
 
 
@@ -100,12 +101,45 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        recuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                correo=txtcorreo.getText().toString();
+                if(correo.equals("")) {
+                    Toast.makeText(getApplicationContext(),"Escribir tu correo a restablecer en en campo de texto",Toast.LENGTH_SHORT).show();
+                }
+                else
+                    {
+                        recuperarcontrasena("http://pruebataxi.laviveshop.com/app/recuperarcontra.php",correo );
+                    }
+            }
+        });
     }
 
-
-
-
-
+private  void recuperarcontrasena(String URL, final String correov)
+{
+    StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            Toast.makeText(getApplicationContext(),"Tu contraseña se restablecio y se envio a tu correo eléctronico",Toast.LENGTH_SHORT).show();
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(getApplicationContext(),"Error al recuperar tu contraseña",Toast.LENGTH_SHORT).show();
+        }
+    })
+    {
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String,String> parametros = new HashMap<String, String>();
+            parametros.put("correo",correov);
+            return parametros;
+        }
+    };
+    RequestQueue requestQueue= Volley.newRequestQueue(this);
+    requestQueue.add(stringRequest);
+}
     //El meotodo del Login
   private  void validarUsuario(String URL)
   {
