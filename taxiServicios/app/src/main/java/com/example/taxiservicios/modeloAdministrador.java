@@ -5,7 +5,7 @@ public class modeloAdministrador {
     private String direccion;
     private String referencia;
     private String status;
-
+    private String costo;
     public String getNombre() {
         return nombre;
     }
@@ -13,7 +13,6 @@ public class modeloAdministrador {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getVehiculoCompleto() {
         return vehiculoCompleto;
     }
@@ -22,11 +21,19 @@ public class modeloAdministrador {
         this.vehiculoCompleto = vehiculoCompleto;
     }
 
+    public String getCosto() {
+        return costo;
+    }
+
+    public void setCosto(String costo) {
+        this.costo = costo;
+    }
+
     private String nombre;
     private String vehiculoCompleto;
 
     public modeloAdministrador(String identificador,String fechahora,String direccion,String referencia,
-                               String status,String nombre,String vehiculoCompleto)
+                               String status,String nombre,String vehiculoCompleto,String costo)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
@@ -35,6 +42,7 @@ public class modeloAdministrador {
         this.status=status;
         this.nombre=nombre;
         this.vehiculoCompleto=vehiculoCompleto;
+        this.costo=costo;
     }
 
 

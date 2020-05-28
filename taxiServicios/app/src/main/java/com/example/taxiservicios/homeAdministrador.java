@@ -103,7 +103,8 @@ public class homeAdministrador extends Fragment {
                                     "Comentarios:\n"+jsonObject.getString("referencia"),
                                     "Servicio:"+jsonObject.getString("status"),
                                     "Cliente: " + jsonObject.getString("nombre"),
-                                    "Vehiculo:  " + jsonObject.getString("vehiculoCompleto")
+                                    "Vehiculo:  " + jsonObject.getString("vehiculoCompleto"),
+                                    jsonObject.getString("costo")
                                     );
                             listaPersonaje.add(modelo);
                         }

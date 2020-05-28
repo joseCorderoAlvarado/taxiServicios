@@ -27,9 +27,11 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
         {
             holder.txtfechahora.setText(userModelList.get(position).getFechahora());
             holder.txtdireccion.setText(userModelList.get(position).getDireccion());
-       //     holder.txtreferencia.setText(userModelList.get(position).getReferencia());
+       //
             holder.txtstatus.setText(userModelList.get(position).getStatus());
             holder.txtCliente.setText(userModelList.get(position).getNombre());
+            holder.txtcostoso.setText(userModelList.get(position).getCosto());
+//
         }
         else
             {
@@ -38,8 +40,7 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
                 holder.txtreferencia.setText(userModelList.get(position).getReferencia());
                 holder.txtstatus.setText(userModelList.get(position).getStatus());
                 holder.txtCliente.setText(userModelList.get(position).getNombre());
-
-
+            holder.txtcostoso.setText(userModelList.get(position).getCosto());
             }
         holder.txtVehiculo.setVisibility(View.GONE);
         holder.btnComando.setVisibility(View.GONE);
@@ -100,7 +101,7 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
     //Las asociaciones coj la listaadminsitrador xml
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtidentificador,txtfechahora,txtdireccion,
-                txtstatus,txtreferencia,txtCliente,txtVehiculo;
+                txtstatus,txtreferencia,txtCliente,txtVehiculo,txtcostoso;
         Button btnComando;
         public ViewHolder(View v) {
             super(v);
@@ -110,6 +111,7 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
             txtstatus=(TextView) itemView.findViewById(R.id.status2);
             txtCliente=(TextView) itemView.findViewById(R.id.cliente);
             txtVehiculo=(TextView) itemView.findViewById(R.id.vehiculo);
+            txtcostoso=(TextView) itemView.findViewById(R.id.gratis);
             btnComando=(Button) itemView.findViewById(R.id.btnEfectoAdmin);
         }
     }

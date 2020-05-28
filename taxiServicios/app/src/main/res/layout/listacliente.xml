@@ -49,7 +49,6 @@
                 android:textColor="#000"
                 android:text="status"
                 android:textSize="20sp"/>
-
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -79,7 +78,6 @@
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:visibility="gone" />
-
             <Button
                 android:id="@+id/btnEfectoCliente"
                 android:layout_width="wrap_content"

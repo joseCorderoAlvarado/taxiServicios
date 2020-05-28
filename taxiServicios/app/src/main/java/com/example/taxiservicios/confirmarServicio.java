@@ -137,24 +137,47 @@ public class confirmarServicio extends Fragment {
                         String origen = jsonObject.getString("origen");
                         String destino = jsonObject.getString("destino");
                         String referencia=jsonObject.getString("referencia");
+                        String costo=jsonObject.getString("costo");
+                        Log.d("costo",costo);
                         Log.d("destino",destino);
                             if (referencia.equals(""))
                             {
-                                tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
-                                        "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
-                                        "\n\nDestino:\n" + destino+
-                                        "\n\nEl cliente es:\n"+nombre+
-                                        "\n\nTelefono:\n"
-                                        +telefono);
+                                if (costo.equals(""))
+                                {
+                                    tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
+                                            "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
+                                            "\n\nDestino:\n" + destino+
+                                            "\n\nEl cliente es:\n"+nombre+
+                                            "\n\nTelefono:\n"
+                                            +telefono);
+                                }else {
+                                    tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
+                                            "\n\nHora: " + hora +"\n\nServicio:"+costo +"\n\nOrigen:\n" + origen +
+                                            "\n\nDestino:\n" + destino +
+                                            "\n\nEl cliente es:\n" + nombre +
+                                            "\n\nTelefono:\n"
+                                            + telefono);
+                                }
                             }
                             else
                                 {
-                                    tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
-                                            "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
-                                            "\n\nDestino:\n" + destino+
-                                            "\n\nEl cliente:\n"+nombre+
-                                            "\n\nTelefono:\n"
-                                            +telefono+"\n\nComentario:\n"+referencia);
+                                    if (costo.equals("")) {
+                                        tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
+                                                "\n\nHora: " + hora + "\n\nOrigen:\n" + origen +
+                                                "\n\nDestino:\n" + destino +
+                                                "\n\nEl cliente:\n" + nombre +
+                                                "\n\nTelefono:\n"
+                                                + telefono + "\n\nComentario:\n" + referencia);
+                                    }
+                                    else
+                                        {
+                                            tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
+                                                    "\n\nHora: " + hora + "\n\nOrigen:\n" + origen +
+                                                    "\n\nDestino:\n" + destino +
+                                                    "\n\nEl cliente:\n" + nombre +
+                                                    "\n\nTelefono:\n"
+                                                    + telefono + "\n\nComentario:\n" + referencia+"\n\nServicio:"+costo);
+                                        }
                                 }
                             }
                 } catch (JSONException e) {
