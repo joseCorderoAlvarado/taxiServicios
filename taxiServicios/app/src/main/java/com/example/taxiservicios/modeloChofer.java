@@ -6,12 +6,13 @@ public class modeloChofer {
 
 
 
-    public modeloChofer(String cliente, String fechahora, String direccionRecoger, String direccionLlevar, String telefono) {
+    public modeloChofer(String cliente, String fechahora, String direccionRecoger, String direccionLlevar, String telefono,String identificador) {
         this.cliente = cliente;
         this.fechahora = fechahora;
         this.direccionRecoger = direccionRecoger;
         this.direccionLlevar = direccionLlevar;
         this.telefono = telefono;
+        this.identificador=identificador;
     }
 
     private String fechahora;
@@ -40,6 +41,13 @@ public class modeloChofer {
         this.direccionLlevar = direccionLlevar;
     }
 
+    public  String getIdentificador() {
+        return identificador;
+    }
+    public  void  setIdentificador(String identificador)
+    {
+        this.identificador=identificador;
+    }
     public String getTelefono() {
         return telefono;
     }
@@ -55,13 +63,9 @@ public class modeloChofer {
     public void setCliente(String cliente) {
         this.cliente = cliente;
     }
-
     private String direccionRecoger;
     private String direccionLlevar;
     private String telefono;
     private String cliente;
-
-
-
-
+    private String identificador;
 }

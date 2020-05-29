@@ -3,6 +3,7 @@ package com.example.taxiservicios;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtCliente,txtFechaHora,txtRecoger,txtLlevar,txtTelefono;
+        Button btnfinalizar;
         public ViewHolder(View v) {
             super(v);
             txtCliente= (TextView) itemView.findViewById(R.id.cliente);

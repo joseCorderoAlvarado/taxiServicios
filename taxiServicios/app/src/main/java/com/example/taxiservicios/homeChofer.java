@@ -1,16 +1,20 @@
 package com.example.taxiservicios;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +59,7 @@ public class homeChofer extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
 
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
-        txtTitulo.setText("Servicios Asigndaos");
+        txtTitulo.setText("Servicios Asignados");
         correo=preferences.getString("correo",null);
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosServiciosPendientesChofer);
         recyclerPersonajes.setHasFixedSize(true);
@@ -77,11 +81,13 @@ public class homeChofer extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloChofer modelo =new modeloChofer(
+
                                     "Cliente: " + jsonObject.getString("cliente")  + "\n",
                                     "Recoger el dia: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n",
                                     "Donde se recogera: "+ jsonObject.getString("recoger") + "\n",
                                     "Donde se dirige: "+ jsonObject.getString("llevar") + "\n",
-                                    "Télefono: "+ jsonObject.getString("telefono") + "\n"
+                                    "Télefono: "+ jsonObject.getString("telefono") + "\n",
+                                    jsonObject.getString("idservicio")
                             );
                             listaPersonaje.add(modelo);
 
@@ -91,7 +97,13 @@ public class homeChofer extends Fragment {
                         recyclerPersonajes.setHasFixedSize(true);
                         AdaptadorChofer adapter=new AdaptadorChofer(listaPersonaje);
                         recyclerPersonajes.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                        adapter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
+                                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php",id);
+                            }
+                        });
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -111,6 +123,33 @@ public class homeChofer extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
                 parametros.put("correo",correov);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+    private  void finalizarruta(String URL, final String identificador)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity().getBaseContext(),"Servicio finalizado con exito!!",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(getContext(),inicioChofer.class);
+                startActivity(intent);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getBaseContext(),"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("idservicio",identificador.toString());
                 return parametros;
             }
         };
