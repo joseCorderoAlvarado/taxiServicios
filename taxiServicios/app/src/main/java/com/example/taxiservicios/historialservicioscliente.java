@@ -76,7 +76,9 @@ public class historialservicioscliente extends Fragment {
                                         jsonObject.getString("identificador"),
                                         "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
                                         "Destino: "+jsonObject.getString("direccion"),
-                                        "Servicio:"+statusServicio);
+                                        "Servicio:"+statusServicio,
+                                         jsonObject.getString("evaluacion")
+                                         );
                             }
                             listaPersonaje.add(modelo);
                         }

@@ -35,7 +35,10 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         holder.btnComandoCliente.setVisibility(View.GONE);
         holder.txt_descripcion_taxi.setVisibility(View.GONE);
         holder.txt_no_taxi.setVisibility(View.GONE);
+        holder.txt_evaluacion.setVisibility(View.GONE);
 
+
+        //Abierta
        if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
        {
 
@@ -57,10 +60,13 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
            });
 
        }
-       else if(userModelList.get(position).getStatus().equals("Servicio:realizada"))
+       else if(userModelList.get(position).getStatus().equals("Servicio:realizada")
+       )
            {
 
                holder.txtstatus.setTextColor(Color.BLACK);
+
+               if(userModelList.get(position).getEvaluacion().equals("0")){
                holder.btnComandoCliente.setVisibility(View.VISIBLE);
                holder.btnComandoCliente.setText("Calificar servicio");
                holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +79,16 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                        evaluarservicio.setArguments(datosAEnviar);
                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,evaluarservicio).addToBackStack(null).commit();
+
+
                    }
                });
+               } else{
+                   holder.txt_evaluacion.setText("Ya realizaste la evaluación");
+                   holder.txt_evaluacion.setVisibility(View.VISIBLE);
+               }
+
+
            }
        else if(userModelList.get(position).getStatus().equals("Servicio:Confirmada"))
        {
@@ -111,7 +125,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
     //Asociacion con los elementos de la interfaz lista cliente txt
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi;
+        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi, txt_evaluacion;
                 Button btnComandoCliente;
         public ViewHolder(View v) {
             super(v);
@@ -120,6 +134,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
             txtstatus=(TextView) itemView.findViewById(R.id.status);
             txt_no_taxi=(TextView) itemView.findViewById(R.id.noTaxi);
             txt_descripcion_taxi=(TextView) itemView.findViewById(R.id.descripcionVehiculo);
+            txt_evaluacion=(TextView) itemView.findViewById(R.id.evaluacion);
             btnComandoCliente=(Button) itemView.findViewById(R.id.btnEfectoCliente);
         }
     }

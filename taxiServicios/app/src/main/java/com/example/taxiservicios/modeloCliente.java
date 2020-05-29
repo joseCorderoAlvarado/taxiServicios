@@ -7,6 +7,16 @@ public class modeloCliente {
     private String status;
     private String notaxi;
 
+    public String getEvaluacion() {
+        return evaluacion;
+    }
+
+    public void setEvaluacion(String evaluacion) {
+        this.evaluacion = evaluacion;
+    }
+
+    private String evaluacion;
+
     public String getNotaxi() {
         return notaxi;
     }
@@ -26,12 +36,13 @@ public class modeloCliente {
     private  String descripcionVehiculo;
 
 
-    public modeloCliente(String identificador,String fechahora,String direccion, String status)
+    public modeloCliente(String identificador,String fechahora,String direccion, String status, String evaluacion)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
         this.direccion=direccion;
         this.status=status;
+        this.evaluacion=evaluacion;
     }
 
     //Cuando el estatus ya esta confirmado

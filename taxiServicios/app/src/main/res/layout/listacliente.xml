@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -27,6 +28,7 @@
                 android:textColor="#000"
                 android:text="Fecha/Hora"
                 android:textSize="20sp" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="15dp"
@@ -88,6 +90,15 @@
                 android:text="Boton"
                 android:textColor="#000"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/evaluacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="evaluacion"
+                android:textColor="#000"
+                android:textSize="20sp"
+                tools:visibility="gone" />
 
 
         </LinearLayout>

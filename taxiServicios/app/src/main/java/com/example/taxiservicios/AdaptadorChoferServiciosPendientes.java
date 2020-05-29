@@ -1,5 +1,6 @@
 package com.example.taxiservicios;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,27 @@ public class AdaptadorChoferServiciosPendientes extends Adapter<AdaptadorChoferS
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+
         holder.txtCliente.setText(userModelList.get(position).getCliente());
-        holder.txtEvaluacion.setText(userModelList.get(position).getEvaluacion());
-        holder.txtNota.setText(userModelList.get(position).getNota());
+        holder.txtEvaluacion.setVisibility(View.GONE);
         holder.txtFechaHora.setText(userModelList.get(position).getFecha_hora());
+
+        //cancelada
+        if(userModelList.get(position).getStatus_idstatus().equals("2")) {
+            holder.txtNota.setTextColor(Color.RED);
+            holder.txtNota.setText("El usuario cancelo el servicio");
+
+        } else{
+            holder.txtNota.setTextColor(Color.rgb(0,0,0));
+            holder.txtEvaluacion.setVisibility(View.VISIBLE);
+
+            holder.txtEvaluacion.setText(userModelList.get(position).getEvaluacion());
+            holder.txtNota.setText(userModelList.get(position).getNota());
+
+
+        }
+
     }
     @Override
     public int getItemCount() {

@@ -55,7 +55,7 @@ public class serviciosPendientesChofer extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homechofer, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
-        txtTitulo.setText("Servicios Realizados");
+        txtTitulo.setText("Servicios Realizados y Cancelados");
 
         correo=preferences.getString("correo",null);
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosChofer);
@@ -81,7 +81,9 @@ public class serviciosPendientesChofer extends Fragment {
                                     "Cliente: " + jsonObject.getString("cliente")  + "\n",
                                     "Calificación: " + jsonObject.getString("evaluacion") + " Estrellas " + "\n",
                                     "Nota del servicio: "+ jsonObject.getString("nota") + "\n",
-                                    "Fecha/Hora realizado: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n") ;
+                                    "Fecha/Hora realizado: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n",
+                                    jsonObject.getString("status_idstatus")
+                            ) ;
                             listaPersonaje.add(modelo);
 
                         }

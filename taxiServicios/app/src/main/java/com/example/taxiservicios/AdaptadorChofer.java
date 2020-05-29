@@ -34,6 +34,11 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         holder.txtLlevar.setText(userModelList.get(position).getDireccionLlevar());
         holder.txtTelefono.setText(userModelList.get(position).getTelefono());
 
+
+
+
+
+
     }
     @Override
     public int getItemCount() {

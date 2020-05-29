@@ -49,20 +49,16 @@
                     android:textColor="#e5be01"
                     android:text="Servicios pedidos"
                     android:textSize="20sp" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="15dp"
-                    android:background="@android:color/transparent"/>
 
                 <Button
                     android:id="@+id/btnnuevoservicio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_margin="20dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_margin="5dp"
                     android:background="#ffff00"
                     android:text="Agendar Servicio"
-                     android:textColor="#000"
+                    android:textColor="#000"
                     android:textSize="20dp" />
 
                 <RelativeLayout
