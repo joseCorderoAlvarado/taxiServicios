@@ -61,6 +61,18 @@
                 android:textColor="#000"
                 android:text="telefono"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btnfinalizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_margin="20dp"
+                android:background="#ffff00"
+                android:enabled="false"
+                android:text="Finalizar Servicio"
+                android:textColor="#000"
+                android:textSize="20dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -32,14 +32,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btnmodificar"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_margin="20dp"
+                    android:background="#ffff00"
                     android:text="Agendar Servicio"
                     android:textColor="#000"
-                    android:textAlignment="center"
-                    android:textSize="30sp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -124,16 +126,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
-                <Button
-                    android:id="@+id/btnmodificar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="#ffff00"
-                    android:text="Agendar Servicio"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
