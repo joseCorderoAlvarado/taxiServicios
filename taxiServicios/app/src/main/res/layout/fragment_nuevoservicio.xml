@@ -71,6 +71,39 @@
                     android:layout_height="wrap_content"
                     android:timePickerMode="spinner" />
                 <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="¿Donde te recogemos?"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerpartida"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="¿A donde te diriges?"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerdestino"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Si no encuestras tu dirección escribela a continuación:"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
