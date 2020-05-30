@@ -46,6 +46,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,10 @@ List<String> direccion2obt =  new ArrayList<String>();
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view =inflater.inflate(R.layout.fragment_nuevoservicio,container,false);
         fecha=view.findViewById(R.id.dpfecha);
+        fecha.setMinDate(System.currentTimeMillis() - 1000);
         hora=view.findViewById(R.id.tphora);
+
+
        // sOrigen=view.findViewById(R.id.spinnerpartida);
        // sDestino=view.findViewById(R.id.spinnerdestino);
         txtOrigen=view.findViewById(R.id.txtOrigen);
@@ -123,54 +127,109 @@ List<String> direccion2obt =  new ArrayList<String>();
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle("Crear Servicio");
-                alertDialogBuilder
-                        .setMessage("¿Estás seguro de agendar este servicio?")
-                        .setCancelable(false)
-                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                              //  valors1 = sOrigen.getSelectedItem().toString();
-                              //  valors2 = sDestino.getSelectedItem().toString();
-                                fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
-                                            String.format("0%s", Integer.toString(hora.getMinute()));
-                                    horac = "" + hora.getHour() + ":"+minuteZero;
-                                }
-                                else{
-                                    String minuteZero = (hora.getCurrentMinute()>=10)? Integer.toString(hora.getCurrentMinute()):
-                                            String.format("0%s", Integer.toString(hora.getCurrentMinute()));
-                                    horac=" " +  hora.getCurrentHour() + ":" +minuteZero;
-                                }
-                                origen = txtOrigen.getText().toString();
-                                destino = txtDestino.getText().toString();
-                                comentarios2 = txtcomentarios.getText().toString();
-                                if (origen.isEmpty() && destino.isEmpty()) {
-                                    Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar tus direcciones", Toast.LENGTH_SHORT).show();
-                                }
-                                else if (origen.isEmpty() && !destino.isEmpty()) {
-                                    Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de origen", Toast.LENGTH_SHORT).show();
-                                } else if (destino.isEmpty() && !origen.isEmpty()) {
-                                    Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    nuevoservicio(URL_nuevoservicio, origen, destino, origen, destino, fechac, horac, comentarios2, correo);
-                                    homeCliente modificarservicio = new homeCliente();
-                                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
-                                }
-                            }
-                        })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        }).create().show();
+                Calendar rightNow = Calendar.getInstance();
+                int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
+                int currentDay = rightNow.get(Calendar.DAY_OF_MONTH);
+                int currentMonth = rightNow.get(Calendar.MONTH);
+                int currentYear = rightNow.get(Calendar.YEAR);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(hora.getHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
+                        verificarServicio(URL_nuevoservicio,view);
+
+
+                    }else{
+
+                        hora.setHour(currentHourIn24Format);
+                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                else{
+                    if(hora.getCurrentHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
+                        verificarServicio(URL_nuevoservicio,view);
+
+                    } else{
+                        hora.setCurrentHour(currentHourIn24Format);
+                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
                 }
         });
         return view;
     }
+
+
+
+    private void verificarServicio(final String URL, final View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setTitle("Crear Servicio");
+        alertDialogBuilder
+                .setMessage("¿Estás seguro de agendar este servicio?")
+                .setCancelable(false)
+                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        //  valors1 = sOrigen.getSelectedItem().toString();
+                        //  valors2 = sDestino.getSelectedItem().toString();
+                        fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
+
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+
+                            String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
+                                    String.format("0%s", Integer.toString(hora.getMinute()));
+                            horac = "" + hora.getHour() + ":"+minuteZero;
+
+                        }
+
+                        else{
+
+                            String minuteZero = (hora.getCurrentMinute() >= 10) ? Integer.toString(hora.getCurrentMinute()) :
+                                    String.format("0%s", Integer.toString(hora.getCurrentMinute()));
+                            horac = " " + hora.getCurrentHour() + ":" + minuteZero;
+
+
+
+                        }
+
+
+
+
+                        origen = txtOrigen.getText().toString();
+                        destino = txtDestino.getText().toString();
+                        comentarios2 = txtcomentarios.getText().toString();
+                        if (origen.isEmpty() && destino.isEmpty()) {
+                            Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar tus direcciones", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (origen.isEmpty() && !destino.isEmpty()) {
+                            Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de origen", Toast.LENGTH_SHORT).show();
+                        } else if (destino.isEmpty() && !origen.isEmpty()) {
+                            Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            nuevoservicio(URL, origen, destino, origen, destino, fechac, horac, comentarios2, correo);
+                            homeCliente modificarservicio = new homeCliente();
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
+                        }
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+
+    }
+
+
+
     private  void nuevoservicio(String URL, final String sd1, final String sd2, final String d1, final String d2,
                                 final String fecha, final String hora, final String comentario, final String correov)
     {
