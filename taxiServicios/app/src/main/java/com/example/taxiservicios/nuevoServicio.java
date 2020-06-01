@@ -128,7 +128,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                 Calendar rightNow = Calendar.getInstance();
                 int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
                 int currentDay = rightNow.get(Calendar.DAY_OF_MONTH);
-                int currentMonth = rightNow.get(Calendar.MONTH);
+                int currentMonth = rightNow.get(Calendar.MONTH) ;
                 int currentYear = rightNow.get(Calendar.YEAR);
 
 
@@ -144,7 +144,10 @@ List<String> direccion2obt =  new ArrayList<String>();
                 }
 
                 else{
+                    Log.d("currentMonth",currentMonth + "");
+                    Log.d("fecha get month",fecha.getMonth() + "");
                     if(hora.getCurrentHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
+
                         verificarServicio(URL_nuevoservicio,view);
 
                     } else{
@@ -247,8 +250,8 @@ List<String> direccion2obt =  new ArrayList<String>();
                     public void onClick(DialogInterface dialog,int id) {
                          valors1 = sOrigen.getSelectedItem().toString();
                          valors2 = sDestino.getSelectedItem().toString();
-                        fechac = "" + fecha.getYear() + "-" + fecha.getMonth() + "-" + fecha.getDayOfMonth() + "";
-                        Log.d("fechac",fechac);
+                        fechac = "" + fecha.getYear() + "-" + (fecha.getMonth()+1) + "-" + fecha.getDayOfMonth() + "";
+                      Log.d("fechac",fechac);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
                                     String.format("0%s", Integer.toString(hora.getMinute()));
@@ -267,12 +270,14 @@ List<String> direccion2obt =  new ArrayList<String>();
                         if (origen.isEmpty() && destino.isEmpty()) {
                             if (valors1.equals("seleccione una direccion"))
                             {
+
                                 Toast.makeText(getActivity().getBaseContext(), "selecciona una direccion de origen", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 if (valors2.equals("seleccione una direccion")) {
                                     Toast.makeText(getActivity().getBaseContext(), "selecciona una direccion de destino", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    Log.d("fechac",fechac);
                                     spnuevoservicio("http://pruebataxi.laviveshop.com/app/spregistrarservicio.php", valors1, valors2, fechac, horac, comentarios2, correo);
                                     homeCliente modificarservicio = new homeCliente();
                                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
@@ -286,6 +291,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                             Toast.makeText(getActivity().getBaseContext(), "necesitas ingresar la direccion de destino", Toast.LENGTH_SHORT).show();
                         }
                         else {
+                            Log.d("fechac",fechac);
                             nuevoservicio(URL, origen, destino, origen, destino, fechac, horac, comentarios2, correo);
                             homeCliente modificarservicio = new homeCliente();
                             AppCompatActivity activity = (AppCompatActivity) view.getContext();
