@@ -95,15 +95,9 @@ public class homeChofer extends Fragment {
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerPersonajes.setLayoutManager(manager);
                         recyclerPersonajes.setHasFixedSize(true);
-                        AdaptadorChofer adapter=new AdaptadorChofer(listaPersonaje);
+                        AdaptadorChofer adapter=new AdaptadorChofer(listaPersonaje,getContext());
                         recyclerPersonajes.setAdapter(adapter);
-                        adapter.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String id=listaPersonaje.get(recyclerPersonajes.getChildAdapterPosition(v)).getIdentificador();
-                                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php",id);
-                            }
-                        });
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

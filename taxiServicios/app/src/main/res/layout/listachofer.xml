@@ -43,13 +43,15 @@
                 android:textColor="#000"
                 android:text="nota"
                 android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/fechahora3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
                 android:text="fecha/hora"
+                android:textColor="#000"
                 android:textSize="20sp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
