@@ -74,19 +74,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Llamar" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/btnfinalizar"
+            <Button
+                android:id="@+id/btnFinalizar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="#ffff00"
-                android:enabled="false"
                 android:text="Finalizar Servicio"
                 android:textColor="#000"
                 android:textSize="20dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

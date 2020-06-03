@@ -14,12 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import static androidx.recyclerview.widget.RecyclerView.Adapter;
@@ -75,6 +86,20 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
 
 
 
+        holder.btnfinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id=userModelList.get(position).getIdentificador().toString();
+
+
+                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php",id);
+            }
+
+
+
+        });
+
+
 
     }
     @Override
@@ -104,6 +129,37 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
             txtLlevar=(TextView) itemView.findViewById(R.id.direccionLlevar);
             txtTelefono=(TextView) itemView.findViewById(R.id.telefono);
             btnCall= (Button)itemView.findViewById(R.id.botonllamar);
+            btnfinalizar =(Button)itemView.findViewById(R.id.btnFinalizar);
         }
     }
+
+    private  void finalizarruta(String URL, final String identificador)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"Servicio finalizado con exito!!",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(context,inicioChofer.class);
+                context.startActivity(intent);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("idservicio",identificador.toString());
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+
+
 }

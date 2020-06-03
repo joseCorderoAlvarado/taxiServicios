@@ -18,7 +18,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="8dp"
         android:text="El servicio puede costar de 40 a 60 pesos"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

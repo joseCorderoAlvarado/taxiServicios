@@ -123,31 +123,4 @@ public class homeChofer extends Fragment {
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
-    private  void finalizarruta(String URL, final String identificador)
-    {
-        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getActivity().getBaseContext(),"Servicio finalizado con exito!!",Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(getContext(),inicioChofer.class);
-                startActivity(intent);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity().getBaseContext(),"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String, String>();
-                parametros.put("idservicio",identificador.toString());
-                return parametros;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
-        requestQueue.add(stringRequest);
-    }
-}
+ }

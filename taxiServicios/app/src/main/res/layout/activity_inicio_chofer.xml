@@ -10,18 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/drawer_toolbar"/>
+
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/content_main"/>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/navigationView"
-        app:menu="@menu/drawer3"
-        app:headerLayout="@layout/drawer_head"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        />
+        app:headerLayout="@layout/drawer_head"
+        app:menu="@menu/drawer3">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Version 1.7.2" />
+    </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>
