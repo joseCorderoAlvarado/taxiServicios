@@ -3,6 +3,7 @@ package com.example.taxiservicios;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.maps.android.SphericalUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +62,7 @@ Spinner sOrigen, sDestino;
 EditText txtOrigen, txtDestino,txtcomentarios;
 Button btnNuevo;
 String correo,valors1,valors2,fechac,horac,origen,destino,comentarios2;
+Double latitudorigen,longitudorigen,latituddestino,longituddestino;
 List<String> direccion1obt =  new ArrayList<String>();
 List<String> direccion2obt =  new ArrayList<String>();
     @Nullable
@@ -85,12 +88,14 @@ List<String> direccion2obt =  new ArrayList<String>();
                 new LatLng(21.5039,-104.895 ),
                 new LatLng(21.5039,-104.895)));
         autocompleteFragment.setCountries("MX");
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Log.i(TAG,"Place"+ place.getAddress()+","+place.getAddressComponents()+","+place.getTypes()+","+place.getLatLng());
-                txtOrigen.setText(place.getAddress());
+                Log.i(TAG, "*Place (pick-up) latitude: " + place.getLatLng().latitude + " longitude: " + place.getLatLng().longitude);
+                // Log.i(TAG,"Place"+ place.getAddress()+","+place.getAddressComponents()+","+place.getTypes()+","+place.getLatLng());
+              // txtOrigen.setText(""+place.getLatLng().latitude);
+               txtOrigen.setText(place.getAddress());
             }
             @Override
             public void onError(@NonNull Status status) {
@@ -104,11 +109,12 @@ List<String> direccion2obt =  new ArrayList<String>();
                 new LatLng(21.5039,-104.895 ),
                 new LatLng(21.5039,-104.895)));
         autocompleteFragment2.setCountries("MX");
-        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS));
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS, Place.Field.LAT_LNG));
         autocompleteFragment2.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Log.i(TAG,"Place"+ place.getAddress()+","+place.getAddressComponents()+","+place.getTypes()+","+place.getLatLng());
+                Log.i(TAG, "*Place2 (pick-up) latitude: " + place.getLatLng().latitude + " longitude: " + place.getLatLng().longitude);
+                //       Log.i(TAG,"Place"+ place.getAddress()+","+place.getLatLng()+","+place.getTypes()+","+place.getLatLng());
                 txtDestino.setText(place.getAddress());
             }
             @Override
@@ -130,8 +136,6 @@ List<String> direccion2obt =  new ArrayList<String>();
                 int currentDay = rightNow.get(Calendar.DAY_OF_MONTH);
                 int currentMonth = rightNow.get(Calendar.MONTH) ;
                 int currentYear = rightNow.get(Calendar.YEAR);
-
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if(hora.getHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
                         verificarServicio(URL_nuevoservicio,view);
@@ -251,7 +255,6 @@ List<String> direccion2obt =  new ArrayList<String>();
                          valors1 = sOrigen.getSelectedItem().toString();
                          valors2 = sDestino.getSelectedItem().toString();
                         fechac = "" + fecha.getYear() + "-" + (fecha.getMonth()+1) + "-" + fecha.getDayOfMonth() + "";
-                      Log.d("fechac",fechac);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
                                     String.format("0%s", Integer.toString(hora.getMinute()));
@@ -270,7 +273,6 @@ List<String> direccion2obt =  new ArrayList<String>();
                         if (origen.isEmpty() && destino.isEmpty()) {
                             if (valors1.equals("seleccione una direccion"))
                             {
-
                                 Toast.makeText(getActivity().getBaseContext(), "selecciona una direccion de origen", Toast.LENGTH_SHORT).show();
                             }
                             else {

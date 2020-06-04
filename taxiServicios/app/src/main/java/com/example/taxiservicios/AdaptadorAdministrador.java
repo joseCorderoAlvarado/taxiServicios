@@ -30,8 +30,14 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
        //
             holder.txtstatus.setText(userModelList.get(position).getStatus());
             holder.txtCliente.setText(userModelList.get(position).getNombre());
-            holder.txtcostoso.setText(userModelList.get(position).getCosto());
-//
+            if(userModelList.get(position).getCosto().equals("Servicio gratis"))
+            {
+                holder.txtcostoso.setText(userModelList.get(position).getCosto());
+            }
+            else
+                {
+                    holder.txtcostoso.setText("Costo: $"+userModelList.get(position).getCosto());
+                }
         }
         else
             {
@@ -40,7 +46,14 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
                 holder.txtreferencia.setText(userModelList.get(position).getReferencia());
                 holder.txtstatus.setText(userModelList.get(position).getStatus());
                 holder.txtCliente.setText(userModelList.get(position).getNombre());
-            holder.txtcostoso.setText(userModelList.get(position).getCosto());
+                if(userModelList.get(position).getCosto().equals("Servicio gratis"))
+                {
+                    holder.txtcostoso.setText(userModelList.get(position).getCosto());
+                }
+                else
+                {
+                    holder.txtcostoso.setText("Costo: $"+userModelList.get(position).getCosto());
+                }
             }
         holder.txtVehiculo.setVisibility(View.GONE);
         holder.btnComando.setVisibility(View.GONE);
