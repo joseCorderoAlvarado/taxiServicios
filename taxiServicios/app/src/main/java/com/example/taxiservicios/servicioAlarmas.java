@@ -46,7 +46,7 @@ public class servicioAlarmas extends BroadcastReceiver {
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(
                 context).setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Recordatorio")
-                .setContentText("20 minutos para tu ese").setSound(alarmSound)
+                .setContentText("Faltan 20 minutos para tu servicio").setSound(alarmSound)
                 .setAutoCancel(true).setWhen(when)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("sss"))
