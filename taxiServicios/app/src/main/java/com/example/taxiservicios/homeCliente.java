@@ -42,7 +42,7 @@ public class homeCliente extends Fragment {
     Button btnNuevoServicio;
     private Handler handler;
     private Runnable runnable;
-
+    public static final long PERIODO = 30000; // 60 segundos (60 * 1000 millisegundos)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,8 +58,6 @@ public class homeCliente extends Fragment {
         tvconfirmado=view.findViewById(R.id.tvconfirmado);
         btnNuevoServicio=view.findViewById(R.id.btnnuevoservicio);
 
-
-        cargarservicios("http://pruebataxi.laviveshop.com/app/cantidadservicioscliente.php",correo);
         btnNuevoServicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,12 +71,28 @@ public class homeCliente extends Fragment {
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosh);
         recyclerPersonajes.setHasFixedSize(true);
         recyclerPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
-        listaPersonaje= new ArrayList<>();
-        llenarLista("http://pruebataxi.laviveshop.com/app/consultarServiciosClienteHome.php",correo);
         return view;
     }
-
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        handler = new Handler();
+        runnable = new Runnable(){
+            @Override
+            public void run(){
+                cargarservicios("http://pruebataxi.laviveshop.com/app/cantidadservicioscliente.php",correo);
+                listaPersonaje= new ArrayList<>();
+                llenarLista("http://pruebataxi.laviveshop.com/app/consultarServiciosClienteHome.php",correo);
+                handler.postDelayed(this, PERIODO);
+            }
+        };
+        handler.postDelayed(runnable, 1000);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
 
     private void llenarLista(String URL, final String correov) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
