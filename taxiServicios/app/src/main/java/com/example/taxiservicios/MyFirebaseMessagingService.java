@@ -29,6 +29,12 @@ import static com.google.android.gms.plus.internal.PlusCommonExtras.TAG;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+
+
+
+
+
+
     public static String getDeviceToken() {
         return deviceToken;
     }
