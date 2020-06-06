@@ -78,6 +78,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_ONE_SHOT);
+
+        //Notificacion
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // Configuramos la notificación para Android Oreo o superior
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

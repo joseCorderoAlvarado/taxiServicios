@@ -1,6 +1,7 @@
 package com.example.taxiservicios;
 
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -8,17 +9,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
 
 import android.app.Service;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
+import java.util.Random;
 
 public class servicioAlarmas extends BroadcastReceiver {
 
-//        DatabaseHelper databaseHelper;
+    private NotificationManager notificationManager;
+    private static final String ADMIN_CHANNEL_ID ="admin_channel";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -42,9 +49,15 @@ public class servicioAlarmas extends BroadcastReceiver {
         // get your quote here
         // quote = doSomeMethod();
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            setupChannels();
+        }
+        int notificationId = new Random().nextInt(60000);
+
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(
-                context).setSmallIcon(R.mipmap.ic_launcher)
+                context,ADMIN_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Recordatorio")
                 .setContentText("Faltan 20 minutos para tu servicio").setSound(alarmSound)
                 .setAutoCancel(true).setWhen(when)
@@ -52,8 +65,24 @@ public class servicioAlarmas extends BroadcastReceiver {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("sss"))
                 .setContentIntent(pendingIntent)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});  // Declair VIBRATOR Permission in AndroidManifest.xml
-        notificationManager.notify(5, mNotifyBuilder.build());
+        notificationManager.notify(notificationId, mNotifyBuilder.build());
     }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        private void setupChannels() {
+            CharSequence adminChannelName = "Cliente";
+            String adminChannelDescription = "Canal del Cliente";
+            NotificationChannel adminChannel;
+            adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_HIGH);
+            adminChannel.setDescription(adminChannelDescription);
+            adminChannel.enableLights(true);
+            adminChannel.setLightColor(Color.RED);
+            adminChannel.enableVibration(true);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(adminChannel);
+            }
+
+        }
 
 
 }
