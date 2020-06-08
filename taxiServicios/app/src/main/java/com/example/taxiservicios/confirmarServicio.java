@@ -138,20 +138,19 @@ public class confirmarServicio extends Fragment {
                         String destino = jsonObject.getString("destino");
                         String referencia=jsonObject.getString("referencia");
                         String costo=jsonObject.getString("costo");
-                        Log.d("costo",costo);
-                        Log.d("destino",destino);
+                        String gratis=jsonObject.getString("gratis");
                             if (referencia.equals(""))
                             {
                                 if (costo.equals(""))
                                 {
-                                    tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
+                                    tvinformacion.setText("Ha obtenido: "+gratis +" Servicios gratis\n\n      Datos del Servicio  \nFecha: " + fecha +
                                             "\n\nHora: " + hora +"\n\nOrigen:\n"+origen+
                                             "\n\nDestino:\n" + destino+
                                             "\n\nEl cliente es:\n"+nombre+
                                             "\n\nTelefono:\n"
                                             +telefono);
                                 }else {
-                                    tvinformacion.setText("      Datos del Servicio  \nFecha: " + fecha +
+                                    tvinformacion.setText("Ha obtenido: "+gratis +" Servicios gratis\n\n       Datos del Servicio  \nFecha: " + fecha +
                                             "\n\nHora: " + hora +"\n\nServicio:"+costo +"\n\nOrigen:\n" + origen +
                                             "\n\nDestino:\n" + destino +
                                             "\n\nEl cliente es:\n" + nombre +
@@ -162,7 +161,7 @@ public class confirmarServicio extends Fragment {
                             else
                                 {
                                     if (costo.equals("")) {
-                                        tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
+                                        tvinformacion.setText("Ha obtenido: "+gratis +" Servicios gratis\n\n      Datos del Servicio  \nfecha del servicio: " + fecha +
                                                 "\n\nHora: " + hora + "\n\nOrigen:\n" + origen +
                                                 "\n\nDestino:\n" + destino +
                                                 "\n\nEl cliente:\n" + nombre +
@@ -171,7 +170,7 @@ public class confirmarServicio extends Fragment {
                                     }
                                     else
                                         {
-                                            tvinformacion.setText("     Datos del Servicio  \nfecha del servicio: " + fecha +
+                                            tvinformacion.setText("Ha obtenido: "+gratis +" Servicios gratis\n\n      Datos del Servicio  \nfecha del servicio: " + fecha +
                                                     "\n\nHora: " + hora + "\n\nOrigen:\n" + origen +
                                                     "\n\nDestino:\n" + destino +
                                                     "\n\nEl cliente:\n" + nombre +

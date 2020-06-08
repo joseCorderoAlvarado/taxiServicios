@@ -49,7 +49,6 @@
                     android:textColor="#e5be01"
                     android:text="Servicios pedidos"
                     android:textSize="20sp" />
-
                 <Button
                     android:id="@+id/btnnuevoservicio"
                     android:layout_width="wrap_content"
@@ -85,6 +84,7 @@
                         android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

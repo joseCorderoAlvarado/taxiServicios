@@ -23,8 +23,14 @@
         android:textColor="#000"
         android:title="Historial Servicios" />
     <item
+        android:id="@+id/ci"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:textColor="#000"
+        android:title="Codigo de invitación" />
+    <item
         android:id="@+id/Cerrar"
         android:textColor="#000"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:title="Cerrar Sesión " />
+
 </menu>

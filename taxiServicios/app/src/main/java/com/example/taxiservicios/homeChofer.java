@@ -35,9 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class homeChofer extends Fragment {
     // TODO: Rename and change types of parameters
     RecyclerView recyclerPersonajes; //ok

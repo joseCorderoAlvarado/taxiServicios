@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class homeCliente extends Fragment {
     RecyclerView.Adapter adapter;
     ArrayList<modeloCliente> listaPersonaje;
     String correo;
-    TextView tvservicios,tvserviciogratis,tvconfirmado;
+    TextView tvservicios,tvserviciogratis,tvconfirmado,tvsgratisobt;
     Button btnNuevoServicio;
     private Handler handler;
     private Runnable runnable;
@@ -49,15 +50,10 @@ public class homeCliente extends Fragment {
         View view = inflater.inflate(R.layout.fragment_historialservicioclientehome, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
-
-
-
-
         tvservicios =view.findViewById(R.id.tvservicios);
         tvserviciogratis=view.findViewById(R.id.serviciogratis);
         tvconfirmado=view.findViewById(R.id.tvconfirmado);
         btnNuevoServicio=view.findViewById(R.id.btnnuevoservicio);
-
         btnNuevoServicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,12 +201,15 @@ public class homeCliente extends Fragment {
                 try {
                     JSONObject valores = new JSONObject(response);
                     JSONArray jsonArray=valores.getJSONArray("cantidad");
+
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
                         String noservicios =jsonObject.getString("cuenta");
                         String gratis=jsonObject.getString("value");
-                        tvserviciogratis.setText(gratis);
+                        String sgratis= jsonObject.getString("gratis");
+                        tvserviciogratis.setText(gratis+"\n\n Has Obtenido: "+sgratis +" Servicios gratis");
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
