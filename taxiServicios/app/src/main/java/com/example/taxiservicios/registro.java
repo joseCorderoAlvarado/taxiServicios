@@ -26,10 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class registro extends AppCompatActivity {
- EditText txtNombre,txtTelefono,txtcorreo,txtContrasena;
+ EditText txtNombre,txtTelefono,txtcorreo,txtContrasena,txtci;
  Button btnregistro;
  TextView iniciarsesion;
-    String correo,contrasena,nombre,telefono,correov;
+    String correo,contrasena,nombre,telefono,correov,ci;
    // String URL_RegistroUsuario="http://192.168.1.105/Taxis-Pruebas/registro.php";
     //String URL_ValidarRegistro="http://192.168.1.105/Taxis-Pruebas/validarRegistro.php";
 
@@ -45,6 +45,7 @@ public class registro extends AppCompatActivity {
         txtTelefono=findViewById(R.id.txtTelefono);
         txtcorreo=findViewById(R.id.txtcorreo);
         txtContrasena=findViewById(R.id.txtcontrasena);
+        txtci=findViewById(R.id.txtci);
         btnregistro=findViewById(R.id.btnregistro);
         iniciarsesion=findViewById(R.id.viewiniciarsesion);
         recuperarpreferencias();
@@ -61,6 +62,7 @@ public class registro extends AppCompatActivity {
                 contrasena=txtContrasena.getText().toString();
              nombre=txtNombre.getText().toString();
              telefono=txtTelefono.getText().toString();
+             ci=txtci.getText().toString();
              if(!correo.isEmpty() && !contrasena.isEmpty() && !nombre.isEmpty() && !telefono.isEmpty()){
                  validarRegistro(URL_ValidarRegistro);
              }
@@ -134,6 +136,7 @@ public class registro extends AppCompatActivity {
                 parametros.put("telefono",telefono);
                 parametros.put("correo",correov);
                 parametros.put("contrasena",contrasena);
+                parametros.put("ci",ci);
                 return parametros;
             }
         };

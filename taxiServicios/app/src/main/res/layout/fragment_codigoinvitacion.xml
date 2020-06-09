@@ -41,11 +41,18 @@
                     android:textColor="#000"
                     android:textSize="20dp" />
                 <TextView
+                    android:id="@+id/codigo0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Mi codigo de invitación:"
+                    android:textSize="18sp" />
+                <TextView
                     android:id="@+id/codigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
-                    android:text="Mi codigo de inivitacion es"
+                    android:text=""
                     android:textSize="18sp" />
                 <View
                     android:layout_width="fill_parent"
