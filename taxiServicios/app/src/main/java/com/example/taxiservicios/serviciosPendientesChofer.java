@@ -82,7 +82,9 @@ public class serviciosPendientesChofer extends Fragment {
                                     "Calificación: " + jsonObject.getString("evaluacion") + " Estrellas " + "\n",
                                     "Nota del servicio: "+ jsonObject.getString("nota") + "\n",
                                     "Fecha/Hora realizado: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n",
-                                    jsonObject.getString("status_idstatus")
+                                    jsonObject.getString("status_idstatus"),
+                                    jsonObject.getString("idservicios"),
+                                    jsonObject.getString("evaluacionCliente")
                             ) ;
                             listaPersonaje.add(modelo);
 

@@ -1,12 +1,15 @@
 package com.example.taxiservicios;
 
 public class modeloChoferServiciosPendientes {
-    public modeloChoferServiciosPendientes(String cliente, String evaluacion, String nota, String fecha_hora,String status_idstatus) {
+    public modeloChoferServiciosPendientes(String cliente, String evaluacion, String nota,
+                                           String fecha_hora,String status_idstatus,String identificador,String evaluacionCliente ) {
         this.cliente = cliente;
         this.evaluacion = evaluacion;
         this.nota = nota;
         this.fecha_hora = fecha_hora;
         this.status_idstatus=status_idstatus;
+        this.identificador=identificador;
+        this.evaluacionCliente=evaluacionCliente;
     }
 
     public String getCliente() {
@@ -54,7 +57,22 @@ public class modeloChoferServiciosPendientes {
 
     private String fecha_hora;
 
+    public String getIdentificador() {
+        return identificador;
+    }
 
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
 
+    private String identificador;
+    private String evaluacionCliente;
 
+    public String getEvaluacionCliente() {
+        return evaluacionCliente;
+    }
+
+    public void setEvaluacionCliente(String evaluacionCliente) {
+        this.evaluacionCliente = evaluacionCliente;
+    }
 }
