@@ -71,9 +71,9 @@ public class evaluarCliente extends Fragment {
 
                 evaluarCliente("http://pruebataxi.laviveshop.com/app/evaluarcliente.php",idrecuperado,
                                         calificacion,comentario);
-                                homeCliente home = new homeCliente();
+                                homeChofer home = new homeChofer();
                                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, home).addToBackStack(null).commit();
+                                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,home).addToBackStack(null).commit();
             }
         });
         return view;

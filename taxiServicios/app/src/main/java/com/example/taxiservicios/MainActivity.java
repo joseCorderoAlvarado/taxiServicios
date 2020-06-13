@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         btningresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                correo=txtcorreo.getText().toString();
                 contrasena=txtcontrasena.getText().toString();
+                correo=txtcorreo.getText().toString();
                 if(!correo.isEmpty() && !contrasena.isEmpty()){
                     validarUsuario(URL_validarUsuario);
                 }
@@ -181,7 +181,6 @@ private  void recuperarcontrasena(String URL, final String correov)
 
 
                } catch (JSONException e) {
-                   e.printStackTrace();
                }
 
            }
@@ -193,7 +192,7 @@ private  void recuperarcontrasena(String URL, final String correov)
       }, new Response.ErrorListener() {
           @Override
           public void onErrorResponse(VolleyError error) {
-            Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"cargando datos de inicio",Toast.LENGTH_SHORT).show();
           }
       }){
           @Override
@@ -201,7 +200,6 @@ private  void recuperarcontrasena(String URL, final String correov)
               Map<String,String> parametros = new HashMap<String, String>();
               parametros.put("correo",correo);
               parametros.put("contrasena",contrasena);
-
               return parametros;
           }
       };
