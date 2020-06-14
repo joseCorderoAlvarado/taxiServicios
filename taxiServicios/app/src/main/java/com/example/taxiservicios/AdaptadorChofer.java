@@ -40,7 +40,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
     private Context context;
     private List<modeloChofer> userModelList;
     private OnClickListener listener;
-    public AdaptadorChofer(List<modeloChofer> userModelList,Context context)
+        public AdaptadorChofer(List<modeloChofer> userModelList,Context context)
     {
         this.userModelList = userModelList;
         this.context = context;

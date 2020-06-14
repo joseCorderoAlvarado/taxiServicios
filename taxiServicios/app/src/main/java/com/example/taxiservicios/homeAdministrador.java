@@ -104,14 +104,15 @@ public class homeAdministrador extends Fragment {
                                     "Servicio:"+jsonObject.getString("status"),
                                     "Cliente: " + jsonObject.getString("nombre"),
                                     "Vehiculo:  " + jsonObject.getString("vehiculoCompleto"),
-                                    jsonObject.getString("costo")
+                                    jsonObject.getString("costo"),
+                                    "Télefono: "+ jsonObject.getString("telefono")
                                     );
                             listaPersonaje.add(modelo);
                         }
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerPersonajes.setLayoutManager(manager);
                         recyclerPersonajes.setHasFixedSize(true);
-                        AdaptadorAdministrador adapter=new AdaptadorAdministrador(listaPersonaje);
+                        AdaptadorAdministrador adapter=new AdaptadorAdministrador(listaPersonaje,getContext());
                         recyclerPersonajes.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                         adapter.setOnClickListener(new View.OnClickListener() {

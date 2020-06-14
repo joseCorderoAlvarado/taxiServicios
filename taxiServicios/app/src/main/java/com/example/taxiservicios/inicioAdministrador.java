@@ -85,6 +85,13 @@ public class inicioAdministrador extends AppCompatActivity implements Navigation
             startActivity(intent);
             finish();
         }
+        if(menuItem.getItemId()==R.id.buzon)
+        {
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction= fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment,new verBuzon());
+            fragmentTransaction.commit();
+        }
         if(menuItem.getItemId()==R.id.datos)
         {
             fragmentManager = getSupportFragmentManager();

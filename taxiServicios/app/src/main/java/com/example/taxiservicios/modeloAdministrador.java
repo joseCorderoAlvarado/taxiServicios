@@ -32,8 +32,18 @@ public class modeloAdministrador {
     private String nombre;
     private String vehiculoCompleto;
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    private String telefono;
+
     public modeloAdministrador(String identificador,String fechahora,String direccion,String referencia,
-                               String status,String nombre,String vehiculoCompleto,String costo)
+                               String status,String nombre,String vehiculoCompleto,String costo, String telefono)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
@@ -43,6 +53,7 @@ public class modeloAdministrador {
         this.nombre=nombre;
         this.vehiculoCompleto=vehiculoCompleto;
         this.costo=costo;
+        this.telefono=telefono;
     }
 
 

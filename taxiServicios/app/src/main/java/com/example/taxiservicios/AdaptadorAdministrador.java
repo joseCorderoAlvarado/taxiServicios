@@ -1,5 +1,8 @@
 package com.example.taxiservicios;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +16,10 @@ import java.util.List;
 public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdministrador.ViewHolder> implements  View.OnClickListener {
     private List<modeloAdministrador> userModelList;
     private View.OnClickListener listener;
-    public AdaptadorAdministrador(List<modeloAdministrador> userModelList) {
+    private Context context;
+    public AdaptadorAdministrador(List<modeloAdministrador> userModelList,Context context   ) {
         this.userModelList = userModelList;
+        this.context = context;
     }
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listaadministrador,null,false);
@@ -55,8 +60,36 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
                     holder.txtcostoso.setText("Costo: $"+userModelList.get(position).getCosto());
                 }
             }
+
+
         holder.txtVehiculo.setVisibility(View.GONE);
         holder.btnComando.setVisibility(View.GONE);
+
+        holder.txtTelefono.setText(userModelList.get(position).getTelefono());
+
+        holder.btnCall.setText("Llamar");
+
+        holder.btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String telefono=userModelList.get(position).getTelefono().toString();
+
+                StringBuilder sb = new StringBuilder(telefono);
+
+                sb.delete(0, 8);
+                sb.deleteCharAt(0);
+
+                String result = sb.toString();
+                System.out.println("El telefono es: " + result);
+                Intent llamar = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", result, null));
+                context.startActivity(llamar);
+            }
+
+
+
+        });
+
+
         if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
         {
             holder.txtstatus.setTextColor(Color.rgb(0,143,57));
@@ -114,8 +147,8 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
     //Las asociaciones coj la listaadminsitrador xml
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtidentificador,txtfechahora,txtdireccion,
-                txtstatus,txtreferencia,txtCliente,txtVehiculo,txtcostoso;
-        Button btnComando;
+                txtstatus,txtreferencia,txtCliente,txtVehiculo,txtcostoso,txtTelefono;
+        Button btnComando,btnCall;
         public ViewHolder(View v) {
             super(v);
             txtdireccion= (TextView) itemView.findViewById(R.id.direccion2);
@@ -126,6 +159,9 @@ public class AdaptadorAdministrador extends RecyclerView.Adapter<AdaptadorAdmini
             txtVehiculo=(TextView) itemView.findViewById(R.id.vehiculo);
             txtcostoso=(TextView) itemView.findViewById(R.id.gratis);
             btnComando=(Button) itemView.findViewById(R.id.btnEfectoAdmin);
+
+            txtTelefono=(TextView) itemView.findViewById(R.id.telefono);
+            btnCall= (Button)itemView.findViewById(R.id.botonllamar);
         }
     }
 }
