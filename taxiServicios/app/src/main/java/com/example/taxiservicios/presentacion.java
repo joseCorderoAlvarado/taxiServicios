@@ -51,7 +51,10 @@ public class presentacion extends AppCompatActivity {
                 int tipo=preferences.getInt("tipo",3);
                 final String URL_alarmasDia="http://pruebataxi.laviveshop.com/app/consultarServiciosDelDia.php";
                 final String correo=preferences.getString("correo",null);
-                llenarListaAlarmas(URL_alarmasDia,correo,getBaseContext());
+
+                //Lo dejo por si se ocupara a futuro,pero no lo mando a llamar
+                //llenarListaAlarmas(URL_alarmasDia,correo,getBaseContext());
+
                 if(sesion)
                 {
                     if(tipo==2)
