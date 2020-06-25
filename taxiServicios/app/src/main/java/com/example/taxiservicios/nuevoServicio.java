@@ -140,20 +140,16 @@ List<String> direccion2obt =  new ArrayList<String>();
                     if(hora.getHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
                         verificarServicio(URL_nuevoservicio,view);
                     }else{
-
                         hora.setHour(currentHourIn24Format);
                         Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
-
                     }
                 }
 
                 else{
                     Log.d("currentMonth",currentMonth + "");
                     Log.d("fecha get month",fecha.getMonth() + "");
-                    if(hora.getCurrentHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
-
+                    if(hora.getCurrentHour()>currentHourIn24Format||fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
                         verificarServicio(URL_nuevoservicio,view);
-
                     } else{
                         hora.setCurrentHour(currentHourIn24Format);
                         Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();

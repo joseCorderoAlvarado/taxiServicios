@@ -70,6 +70,7 @@ public class homeChofer extends Fragment {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("respuesta",response);
                 if(!response.isEmpty())
                 {
                     try {
@@ -85,8 +86,10 @@ public class homeChofer extends Fragment {
                                     "Donde se recogera: "+ jsonObject.getString("recoger") + "\n",
                                     "Donde se dirige: "+ jsonObject.getString("llevar") + "\n",
                                     "Télefono: "+ jsonObject.getString("telefono") + "\n",
-                                    jsonObject.getString("idservicio")
+                                    jsonObject.getString("idservicio"),
+                                    "Costo aprox del servicio: $"+jsonObject.getString("costo")+"\n"
                             );
+
                             listaPersonaje.add(modelo);
 
                         }

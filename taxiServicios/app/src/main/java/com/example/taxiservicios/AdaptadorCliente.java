@@ -31,13 +31,10 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
         holder.txtdireccion.setText(userModelList.get(position).getDireccion());
         holder.txtstatus.setText(userModelList.get(position).getStatus());
 
-
         holder.btnComandoCliente.setVisibility(View.GONE);
         holder.txt_descripcion_taxi.setVisibility(View.GONE);
         holder.txt_no_taxi.setVisibility(View.GONE);
         holder.txt_evaluacion.setVisibility(View.GONE);
-
-
         //Abierta
        if(userModelList.get(position).getStatus().equals("Servicio:abierta"))
        {
@@ -45,7 +42,6 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
            holder.btnComandoCliente.setVisibility(View.VISIBLE);
            holder.btnComandoCliente.setText("Modificar servicio");
-
            holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
@@ -63,11 +59,24 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
        else if(userModelList.get(position).getStatus().equals("Servicio:realizada")
        )
            {
-
                holder.txtstatus.setTextColor(Color.BLACK);
-
                if(userModelList.get(position).getEvaluacion().equals("0")){
                holder.btnComandoCliente.setVisibility(View.VISIBLE);
+               holder.txtcosto.setVisibility(View.VISIBLE);
+               if (userModelList.get(position).getCosto().equals("Costo aprox del servicio: $"))
+               {
+                   holder.txtcosto.setText("");
+               }
+               else
+                   {
+                       if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis"))
+                       {
+                           holder.txtcosto.setText("Servicio gratis");
+                       }
+                       else {
+                           holder.txtcosto.setText(userModelList.get(position).getCosto());
+                       }
+               }
                holder.btnComandoCliente.setText("Calificar servicio");
                holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
                    @Override
@@ -93,11 +102,20 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
        else if(userModelList.get(position).getStatus().equals("Servicio:Confirmada"))
        {
            holder.txtstatus.setTextColor(Color.BLUE);
-
            holder.txt_descripcion_taxi.setVisibility(View.VISIBLE);
            holder.txt_no_taxi.setVisibility(View.VISIBLE);
+           holder.txtcosto.setVisibility(View.VISIBLE);
            holder.txt_no_taxi.setText(userModelList.get(position).getNotaxi());
            holder.txt_descripcion_taxi.setText(userModelList.get(position).getDescripcionVehiculo());
+               holder.txtcosto.setText(userModelList.get(position).getCosto());
+               if (userModelList.get(position).getCosto().equals("\nCosto aproximado del servicio: $Servicio gratis"))
+               {
+                   holder.txtcosto.setText("Servicio gratis");
+               }
+               else
+                   {
+                       holder.txtcosto.setText(userModelList.get(position).getCosto());
+                   }
        }
        else
            {
@@ -125,7 +143,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
 
     //Asociacion con los elementos de la interfaz lista cliente txt
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi, txt_evaluacion;
+        TextView txtidentificador,txtfechahora,txtdireccion,txtstatus,txt_no_taxi, txt_descripcion_taxi, txt_evaluacion, txtcosto;
                 Button btnComandoCliente;
         public ViewHolder(View v) {
             super(v);
@@ -135,6 +153,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
             txt_no_taxi=(TextView) itemView.findViewById(R.id.noTaxi);
             txt_descripcion_taxi=(TextView) itemView.findViewById(R.id.descripcionVehiculo);
             txt_evaluacion=(TextView) itemView.findViewById(R.id.evaluacion);
+            txtcosto=(TextView) itemView.findViewById(R.id.costo);
             btnComandoCliente=(Button) itemView.findViewById(R.id.btnEfectoCliente);
         }
     }

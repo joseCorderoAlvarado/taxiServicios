@@ -32,35 +32,36 @@ public class modeloCliente {
     public void setDescripcionVehiculo(String descripcionVehiculo) {
         this.descripcionVehiculo = descripcionVehiculo;
     }
-
     private  String descripcionVehiculo;
 
+    public  String getCosto()
+        {
+            return costo;
+        }
+    private String costo;
 
-    public modeloCliente(String identificador,String fechahora,String direccion, String status, String evaluacion)
+    public modeloCliente(String identificador,String fechahora,String direccion, String status, String evaluacion,String costo)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
         this.direccion=direccion;
         this.status=status;
         this.evaluacion=evaluacion;
+        this.costo=costo;
     }
 
     //Cuando el estatus ya esta confirmado
     public modeloCliente(String identificador,String fechahora,String direccion, String status,
-                         String notaxi,  String descripcionVehiculo)
+                         String notaxi,  String descripcionVehiculo,String costo)
     {
         this.identificador=identificador;
         this.fechahora=fechahora;
         this.direccion=direccion;
         this.status=status;
-
         this.notaxi = notaxi;
         this.descripcionVehiculo = descripcionVehiculo;
+        this.costo=costo;
     }
-
-
-
-
     public  String getIdentificador() {
         return identificador;
     }

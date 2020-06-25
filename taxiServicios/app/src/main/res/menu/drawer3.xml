@@ -19,7 +19,7 @@
         android:id="@+id/buzon"
         android:icon="@android:drawable/ic_dialog_email"
         android:textColor="#000"
-        android:title="Buzon de notas" />
+        android:title="Buzon de sugerencias" />
     <item
         android:id="@+id/Cerrar"
         android:icon="@drawable/ic_exit_to_app_black_24dp"

@@ -151,7 +151,7 @@ public class confirmarServicio extends Fragment {
                                             +telefono);
                                 }else {
                                     tvinformacion.setText("Ha obtenido: "+gratis +" Servicios gratis\n\n       Datos del Servicio  \nFecha: " + fecha +
-                                            "\n\nHora: " + hora +"\n\nServicio:"+costo +"\n\nOrigen:\n" + origen +
+                                            "\n\nHora: " + hora +"\n\nServicio:$"+costo +"\n\nOrigen:\n" + origen +
                                             "\n\nDestino:\n" + destino +
                                             "\n\nEl cliente es:\n" + nombre +
                                             "\n\nTelefono:\n"
@@ -175,7 +175,7 @@ public class confirmarServicio extends Fragment {
                                                     "\n\nDestino:\n" + destino +
                                                     "\n\nEl cliente:\n" + nombre +
                                                     "\n\nTelefono:\n"
-                                                    + telefono + "\n\nComentario:\n" + referencia+"\n\nServicio:"+costo);
+                                                    + telefono + "\n\nComentario:\n" + referencia+"\n\nServicio:$"+costo);
                                         }
                                 }
                             }

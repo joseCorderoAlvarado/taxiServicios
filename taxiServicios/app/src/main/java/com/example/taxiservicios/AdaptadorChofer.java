@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,13 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         holder.txtRecoger.setText(userModelList.get(position).getDireccionRecoger());
         holder.txtLlevar.setText(userModelList.get(position).getDireccionLlevar());
         holder.txtTelefono.setText(userModelList.get(position).getTelefono());
-
+      if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis\n"))
+      {
+          holder.txtCosto.setText("Servicio Gratis");
+      }
+      else {
+          holder.txtCosto.setText(userModelList.get(position).getCosto());
+      }
         holder.btnCall.setText("Llamar");
 
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +126,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtCliente,txtFechaHora,txtRecoger,txtLlevar,txtTelefono;
+        TextView txtCliente,txtFechaHora,txtRecoger,txtLlevar,txtTelefono,txtCosto;
         Button btnfinalizar, btnCall;
         public ViewHolder(View v) {
             super(v);
@@ -128,6 +135,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
             txtRecoger=(TextView) itemView.findViewById(R.id.direccionRecoger);
             txtLlevar=(TextView) itemView.findViewById(R.id.direccionLlevar);
             txtTelefono=(TextView) itemView.findViewById(R.id.telefono);
+            txtCosto=(TextView) itemView.findViewById(R.id.costo);
             btnCall= (Button)itemView.findViewById(R.id.botonllamar);
             btnfinalizar =(Button)itemView.findViewById(R.id.btnFinalizar);
         }

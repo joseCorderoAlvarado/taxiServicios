@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,16 +69,19 @@ public class historialservicioscliente extends Fragment {
                                         "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+ statusServicio,
+                                        "Costo aprox del servicio: $"+jsonObject.getString("costo"),
                                         "Taxi: \n" + jsonObject.getString("vehiculoCompleto"),
                                         "Descripción del Taxi: \n" + jsonObject.getString("descripcionVehiculo"));
                             } else {
                                 System.out.println("Refreshed token: " + statusServicio);
+                                Log.d("cosstoso",jsonObject.getString("costo"));
                                  modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
                                         "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+statusServicio,
-                                         jsonObject.getString("evaluacion")
+                                         jsonObject.getString("evaluacion"),
+                                         "Costo aprox del servicio: $"+jsonObject.getString("costo")
                                          );
                             }
                             listaPersonaje.add(modelo);

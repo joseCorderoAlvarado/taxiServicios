@@ -51,6 +51,7 @@ public class AdaptadorBuzon extends Adapter<AdaptadorBuzon.ViewHolder> implement
         holder.txtCorreo.setText(userModelList.get(position).getCorreo());
         holder.txtMensaje.setText(userModelList.get(position).getMensaje());
         holder.txtFechaBuzon.setText(userModelList.get(position).getFechaMensaje());
+        holder.txtNombre.setText(userModelList.get(position).getNombre());
 
 
 
@@ -73,15 +74,14 @@ public class AdaptadorBuzon extends Adapter<AdaptadorBuzon.ViewHolder> implement
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtCorreo, txtMensaje,txtFechaBuzon;
+        TextView txtCorreo, txtMensaje,txtFechaBuzon,txtNombre;
 
         public ViewHolder(View v) {
             super(v);
             txtCorreo= (TextView) itemView.findViewById(R.id.correo);
             txtMensaje= (TextView) itemView.findViewById(R.id.mensaje);
             txtFechaBuzon=(TextView) itemView.findViewById(R.id.fechaBuzon);
-
-
+            txtNombre=(TextView) itemView.findViewById(R.id.nombre);
         }
     }
 

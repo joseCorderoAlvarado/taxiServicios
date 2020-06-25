@@ -111,7 +111,8 @@ public class homeCliente extends Fragment {
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+ statusServicio,
                                         "Taxi: \n" + jsonObject.getString("vehiculoCompleto"),
-                                        "Descripción del Taxi: \n" + jsonObject.getString("descripcionVehiculo"));
+                                        "Descripción del Taxi: \n" + jsonObject.getString("descripcionVehiculo"),
+                                        "\nCosto aproximado del servicio: $"+jsonObject.getString("costo"));
                             } else {
                                 System.out.println("Refreshed token: " + statusServicio);
                                 modelo =new modeloCliente(
@@ -119,7 +120,8 @@ public class homeCliente extends Fragment {
                                         "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+statusServicio,
-                                        jsonObject.getString("evaluacion")
+                                        jsonObject.getString("evaluacion"),
+                                        ""
                                 );
                             }
                             listaPersonaje.add(modelo);

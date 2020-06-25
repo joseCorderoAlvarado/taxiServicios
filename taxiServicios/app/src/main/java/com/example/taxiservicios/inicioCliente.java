@@ -77,13 +77,6 @@ public class inicioCliente extends AppCompatActivity implements NavigationView.O
         fragmentTransaction.replace(R.id.container_fragment,new nuevoServicio());
         fragmentTransaction.commit();
     }
-        if(menuItem.getItemId()==R.id.Nuevo)
-        {
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction= fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_fragment,new nuevoServicio());
-            fragmentTransaction.commit();
-        }
     if(menuItem.getItemId()==R.id.Cerrar)
     {
         SharedPreferences preferences= getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);

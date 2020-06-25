@@ -52,7 +52,7 @@ public class verBuzon extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
 
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
-        txtTitulo.setText("Buzon de notas");
+        txtTitulo.setText("Buzon de sugerencias");
         correo=preferences.getString("correo",null);
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosBuzon);
         recyclerPersonajes.setHasFixedSize(true);
@@ -74,11 +74,10 @@ public class verBuzon extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloBuzon modelo =new modeloBuzon(
-
                                     "Correo: " + jsonObject.getString("correo")  + "\n",
+                                    "Nombre:"+jsonObject.getString("nombre")+"\n",
                                     "Mensaje: "+ jsonObject.getString("mensaje") + "\n",
                                     "Fecha: "+ jsonObject.getString("fecha") + "\n"
-
                             );
                             listaPersonaje.add(modelo);
 

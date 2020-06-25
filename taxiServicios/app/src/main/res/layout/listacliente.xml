@@ -80,6 +80,14 @@
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/costo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="costo"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:visibility="gone" />
             <Button
                 android:id="@+id/btnEfectoCliente"
                 android:layout_width="wrap_content"
