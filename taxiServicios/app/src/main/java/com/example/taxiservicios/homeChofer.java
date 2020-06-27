@@ -1,13 +1,24 @@
 package com.example.taxiservicios;
 
+import android.Manifest;
+import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +26,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +44,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -43,9 +59,15 @@ public class homeChofer extends Fragment {
     TextView txtTitulo;
     ArrayList<modeloChofer> listaPersonaje;
     String correo;
+    private Handler handler;
+    private Runnable runnable;
+    public static final long PERIODO = 10000; // 60 segundos (60 * 1000 millisegundos)
+    Geocoder geocoder;
+    List<Address> direccion;
+    private LocationManager locManager;
+    private Location loc;
+    private static final int REQUEST_CODE_ASK_PERMISSIONS = 507;
     //String URL_consultarServiciosChoferPendientes="http://192.168.1.105/Taxis-Pruebas/consultarHistorialChofer.php.php";
-
-
     String URL_consultarServiciosAsignados="http://pruebataxi.laviveshop.com/app/consultarServiciosChofer.php";
 
 
@@ -55,7 +77,7 @@ public class homeChofer extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_servicios_pendientes_chofer, container, false);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
-
+       getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
         txtTitulo.setText("Servicios Asignados");
         correo=preferences.getString("correo",null);
@@ -65,6 +87,65 @@ public class homeChofer extends Fragment {
         listaPersonaje= new ArrayList<>();
         llenarLista(URL_consultarServiciosAsignados,correo);
         return view;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        handler = new Handler();
+        runnable = new Runnable(){
+            @Override
+            public void run(){
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        // Se tiene permiso
+                        locManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
+                        loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        double Latusuer=loc.getLatitude();
+                        double Longuser=loc.getLongitude();
+                        try {
+                            direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
+                            String address = direccion.get(0).getAddressLine(0);
+                            Log.d("address",address+""+correo);
+                            // 1 representa la cantidad de resultados a obtener
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSIONS);
+                        return;
+                    }
+                }else{
+                    // No se necesita requerir permiso, OS menor a 6.0.
+                }
+                handler.postDelayed(this, PERIODO);
+            }
+        };
+        handler.postDelayed(runnable, 500);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    // El usuario acepto los permisos.
+                    Toast.makeText(getActivity(), "Gracias, aceptaste los permisos requeridos para el correcto funcionamiento de esta aplicación.", Toast.LENGTH_SHORT).show();
+                }else{
+                    // Permiso denegado.
+                    Toast.makeText(getActivity(), "No se aceptó permisos", Toast.LENGTH_SHORT).show();
+                }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
     private void llenarLista(String URL,final String correov) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

@@ -1,11 +1,21 @@
 package com.example.taxiservicios;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +32,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -32,7 +44,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -46,70 +62,74 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
-public class nuevoServicio extends Fragment {
-DatePicker fecha;
-TimePicker hora;
-Spinner sOrigen, sDestino;
-EditText txtOrigen, txtDestino,txtcomentarios;
-Button btnNuevo;
-String correo,valors1,valors2,fechac,horac,origen,destino,comentarios2;
-Double latitudorigen,longitudorigen,latituddestino,longituddestino;
-List<String> direccion1obt =  new ArrayList<String>();
-List<String> direccion2obt =  new ArrayList<String>();
+public class nuevoServicio extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
+    DatePicker fecha;
+
+    TimePicker hora;
+    Spinner sOrigen, sDestino;
+    EditText txtOrigen, txtDestino, txtcomentarios;
+    Button btnNuevo;
+    String correo, valors1, valors2, fechac, horac, origen, destino, comentarios2;
+    Double latitudorigen, longitudorigen, latituddestino, longituddestino;
+    List<String> direccion1obt = new ArrayList<String>();
+    List<String> direccion2obt = new ArrayList<String>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view =inflater.inflate(R.layout.fragment_nuevoservicio,container,false);
-        fecha=view.findViewById(R.id.dpfecha);
+        final View view = inflater.inflate(R.layout.fragment_nuevoservicio, container, false);
+        fecha = view.findViewById(R.id.dpfecha);
         fecha.setMinDate(System.currentTimeMillis() - 1000);
-        hora=view.findViewById(R.id.tphora);
-        sOrigen=view.findViewById(R.id.spinnerpartida);
-        sDestino=view.findViewById(R.id.spinnerdestino);
-        txtOrigen=view.findViewById(R.id.txtOrigen);
-        txtDestino=view.findViewById(R.id.txtDestino);
-        txtcomentarios=view.findViewById(R.id.txtComentarios);
-        btnNuevo=view.findViewById(R.id.btnmodificar);
+        hora = view.findViewById(R.id.tphora);
+        sOrigen = view.findViewById(R.id.spinnerpartida);
+        sDestino = view.findViewById(R.id.spinnerdestino);
+        txtOrigen = view.findViewById(R.id.txtOrigen);
+        txtDestino = view.findViewById(R.id.txtDestino);
+        txtcomentarios = view.findViewById(R.id.txtComentarios);
+        btnNuevo = view.findViewById(R.id.btnmodificar);
         fecha.setMinDate(System.currentTimeMillis() - 1000);
-        Places.initialize(getContext(),"AIzaSyC9fjPKZnzHxEQTPf97KLzprLcoss5DGcE");
-        PlacesClient placesClient=Places.createClient(getContext());
+        Places.initialize(getContext(), "AIzaSyC9fjPKZnzHxEQTPf97KLzprLcoss5DGcE");
+        PlacesClient placesClient = Places.createClient(getContext());
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autcomplete_fragment);
-       // autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
+        // autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
         autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(21.5039,-104.895 ),
-                new LatLng(21.5039,-104.895)));
+                new LatLng(21.5039, -104.895),
+                new LatLng(21.5039, -104.895)));
         autocompleteFragment.setCountries("MX");
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 Log.i(TAG, "*Place (pick-up) latitude: " + place.getLatLng().latitude + " longitude: " + place.getLatLng().longitude);
                 // Log.i(TAG,"Place"+ place.getAddress()+","+place.getAddressComponents()+","+place.getTypes()+","+place.getLatLng());
-              // txtOrigen.setText(""+place.getLatLng().latitude);
-               txtOrigen.setText(place.getAddress());
+                // txtOrigen.setText(""+place.getLatLng().latitude);
+                txtOrigen.setText(place.getAddress());
             }
+
             @Override
             public void onError(@NonNull Status status) {
-                Log.i(TAG,"un error a ocurrido"+status);
+                Log.i(TAG, "un error a ocurrido" + status);
             }
         });
         AutocompleteSupportFragment autocompleteFragment2 = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autcomplete_fragment2);
         // autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
         autocompleteFragment2.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(21.5039,-104.895 ),
-                new LatLng(21.5039,-104.895)));
+                new LatLng(21.5039, -104.895),
+                new LatLng(21.5039, -104.895)));
         autocompleteFragment2.setCountries("MX");
-        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS, Place.Field.LAT_LNG));
+        autocompleteFragment2.setPlaceFields(Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
         autocompleteFragment2.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
@@ -117,20 +137,22 @@ List<String> direccion2obt =  new ArrayList<String>();
                 //       Log.i(TAG,"Place"+ place.getAddress()+","+place.getLatLng()+","+place.getTypes()+","+place.getLatLng());
                 txtDestino.setText(place.getAddress());
             }
+
             @Override
             public void onError(@NonNull Status status) {
-                Log.i(TAG,"un error a ocurrido"+status);
+                Log.i(TAG, "un error a ocurrido" + status);
             }
         });
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
-        correo=preferences.getString("correo",null);
-        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
-        cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
-         final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
-        final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
+        correo = preferences.getString("correo", null);
+        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php", correo);
+        cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php", correo);
+        final String URL_spnuevoservicio = "http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
+        final String URL_nuevoservicio = "http://pruebataxi.laviveshop.com/app/agendarservicio.php";
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // La App esta en ejecución
                 Calendar rightNow = Calendar.getInstance();
                 int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
                 int currentDay = rightNow.get(Calendar.DAY_OF_MONTH);
@@ -153,10 +175,8 @@ List<String> direccion2obt =  new ArrayList<String>();
                     } else{
                         hora.setCurrentHour(currentHourIn24Format);
                         Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
-
                     }
                 }
-
                 }
         });
         return view;
