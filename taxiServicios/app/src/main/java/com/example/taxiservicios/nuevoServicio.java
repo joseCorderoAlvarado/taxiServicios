@@ -132,27 +132,37 @@ List<String> direccion2obt =  new ArrayList<String>();
             @Override
             public void onClick(View v) {
                 Calendar rightNow = Calendar.getInstance();
+                int currentMinute =rightNow.get(Calendar.MINUTE);
                 int currentHourIn24Format = rightNow.get(Calendar.HOUR_OF_DAY);
                 int currentDay = rightNow.get(Calendar.DAY_OF_MONTH);
                 int currentMonth = rightNow.get(Calendar.MONTH) ;
                 int currentYear = rightNow.get(Calendar.YEAR);
+
+
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(hora.getHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
+                    int axuliarMinutos = hora.getMinute()-currentMinute;
+
+
+                    if(axuliarMinutos>10 || hora.getHour()>currentHourIn24Format || fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
                         verificarServicio(URL_nuevoservicio,view);
                     }else{
+
+
                         hora.setHour(currentHourIn24Format);
                         Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 else{
-                    Log.d("currentMonth",currentMonth + "");
-                    Log.d("fecha get month",fecha.getMonth() + "");
-                    if(hora.getCurrentHour()>currentHourIn24Format||fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
+                  //  Log.d("currentMonth",currentMonth + "");
+                   // Log.d("fecha get month",fecha.getMonth() + "");
+                    int axuliarMinutos = hora.getCurrentMinute()-currentMinute;
+                    if(axuliarMinutos>10 || hora.getCurrentHour()>currentHourIn24Format||fecha.getDayOfMonth()>currentDay || fecha.getMonth()>currentMonth || fecha.getYear()>currentYear ){
                         verificarServicio(URL_nuevoservicio,view);
                     } else{
                         hora.setCurrentHour(currentHourIn24Format);
-                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo 10 minutos de anticipacion", Toast.LENGTH_SHORT).show();
 
                     }
                 }

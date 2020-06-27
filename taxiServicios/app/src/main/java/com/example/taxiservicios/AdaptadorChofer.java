@@ -150,6 +150,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
                 Intent intent= new Intent(context,inicioChofer.class);
                 context.startActivity(intent);
 
+
             }
         }, new Response.ErrorListener() {
             @Override
