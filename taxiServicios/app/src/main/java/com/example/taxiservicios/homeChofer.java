@@ -103,17 +103,26 @@ public class homeChofer extends Fragment {
                         // Se tiene permiso
                         locManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
                         loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        double Latusuer=loc.getLatitude();
-                        double Longuser=loc.getLongitude();
-                        try {
-                            direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
-                            String address = direccion.get(0).getAddressLine(0);
-                            Log.d("address",address+""+correo);
-                            // 1 representa la cantidad de resultados a obtener
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (loc!=null) {
+
+
+                            double Latusuer = loc.getLatitude();
+                            double Longuser = loc.getLongitude();
+
+                            geocoder = new Geocoder(getContext(), Locale.getDefault());
+                            try {
+                                direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
+                                String address = direccion.get(0).getAddressLine(0);
+                                Log.d("address", address + "" + correo);
+                                asignacionautomatica("http://pruebataxi.laviveshop.com/app/asignacionautomatica.php", address, correo);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        else
+                            {
+
+                            }
                     }else{
                         ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSIONS);
                         return;
@@ -146,7 +155,33 @@ public class homeChofer extends Fragment {
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
     }
+    private  void asignacionautomatica(String URL, final String ubicacion, final String correox)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity().getBaseContext(),"Servicio Creado con exito!!",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("ubicacion",ubicacion);
+                parametros.put("correo",correox);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
+
     private void llenarLista(String URL,final String correov) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
