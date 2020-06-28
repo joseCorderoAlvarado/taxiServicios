@@ -1,5 +1,7 @@
 package com.example.taxiservicios;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,8 +19,11 @@ import static androidx.recyclerview.widget.RecyclerView.*;
 public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.ViewHolder> implements  View.OnClickListener{
     private List<modeloCliente> userModelList;
     private View.OnClickListener listener;
-    public AdaptadorCliente(List<modeloCliente> userModelList) {
+    private Context context;
+
+    public AdaptadorCliente(List<modeloCliente> userModelList,Context context ) {
         this.userModelList = userModelList;
+        this.context = context;
     }
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listacliente,null,false);
@@ -50,7 +55,10 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                    datosAEnviar.putString("identificador",id);
                    modificarServicio modificarservicio = new modificarServicio();
                    modificarservicio.setArguments(datosAEnviar);
-                   AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+
+
+                   AppCompatActivity activity = (AppCompatActivity) context;
                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,modificarservicio).addToBackStack(null).commit();
                }
            });

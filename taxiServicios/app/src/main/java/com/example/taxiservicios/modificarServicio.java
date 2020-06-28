@@ -197,7 +197,7 @@ public class modificarServicio extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getActivity().getBaseContext(),"Servicio eliminado con exito!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(),"¡Servicio cancelado con exito!",Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override

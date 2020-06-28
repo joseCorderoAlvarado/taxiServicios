@@ -89,7 +89,7 @@ public class historialservicioscliente extends Fragment {
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         recyclerPersonajes.setLayoutManager(manager);
                         recyclerPersonajes.setHasFixedSize(true);
-                        AdaptadorCliente adapter=new AdaptadorCliente(listaPersonaje);
+                        AdaptadorCliente adapter=new AdaptadorCliente(listaPersonaje,getContext());
                         recyclerPersonajes.setAdapter(adapter);
                         adapter.setOnClickListener(new View.OnClickListener() {
                             @Override
