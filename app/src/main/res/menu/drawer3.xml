@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Inicio"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:textColor="#000"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/Pendientes"
+        android:icon="@drawable/ic_spellcheck_black_24dp"
+        android:textColor="#000"
+        android:title="Historial de Servicios" />
+    <item
+        android:id="@+id/Datos"
+        android:icon="@drawable/ic_contact_mail_black_24dp"
+        android:textColor="#000"
+        android:title="Mis datos" />
+    <item
+        android:id="@+id/buzon"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:textColor="#000"
+        android:title="Buzon de sugerencias" />
+    <item
+        android:id="@+id/avisoprivacidad"
+        android:icon="@drawable/ic_stay_current_portrait_black_24dp"
+        android:textColor="#000"
+        android:title="Aviso Privacidad" />
+    <item
+        android:id="@+id/Cerrar"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:textColor="#000"
+        android:title="Cerrar Sesión " />
+</menu>

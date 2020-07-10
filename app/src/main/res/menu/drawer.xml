@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/Inicio"
+        android:textColor="#000"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/Nuevo"
+        android:textColor="#000"
+        android:icon="@drawable/ic_spellcheck_black_24dp"
+        android:title="Nuevo Servicio" />
+    <item
+        android:id="@+id/datos"
+        android:textColor="#000"
+        android:icon="@drawable/ic_contact_mail_black_24dp"
+        android:title="Mis datos" />
+    <item
+        android:id="@+id/historial"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:textColor="#000"
+        android:title="Historial Servicios" />
+    <item
+        android:id="@+id/ci"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:textColor="#000"
+        android:title="Codigo de invitación" />
+    <item
+        android:id="@+id/avisoprivacidad"
+        android:icon="@drawable/ic_stay_current_portrait_black_24dp"
+        android:textColor="#000"
+        android:title="Aviso Privacidad" />
+    <item
+        android:id="@+id/buzon"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:textColor="#000"
+        android:title="Buzon de sugerencias" />
+    <item
+        android:id="@+id/Cerrar"
+        android:textColor="#000"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="Cerrar Sesión " />
+
+</menu>

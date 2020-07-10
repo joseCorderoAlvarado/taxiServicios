@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "400587696484",
+    "firebase_url": "https://taxiservicios-7ed21.firebaseio.com",
+    "project_id": "taxiservicios-7ed21",
+    "storage_bucket": "taxiservicios-7ed21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400587696484:android:b57a17429d02636a08f271",
+        "android_client_info": {
+          "package_name": "app.proyecto.taxiservicios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400587696484-p892t52bimr06cj7j5sjuncb6ada396a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.proyecto.taxiservicios",
+            "certificate_hash": "550b60343916240e8612553687c19565f16492c9"
+          }
+        },
+        {
+          "client_id": "400587696484-htc163452sqj0b7rbov1j7skdgnqa4ck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrnOU6ghc-ilLFC5VWPv--4ZGW0Fi94Ck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400587696484-htc163452sqj0b7rbov1j7skdgnqa4ck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
