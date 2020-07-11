@@ -49,6 +49,7 @@
                     android:textColor="#e5be01"
                     android:text="Servicios pedidos"
                     android:textSize="20sp" />
+
                 <Button
                     android:id="@+id/btnnuevoservicio"
                     android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
                     android:layout_gravity="top|center_horizontal"
                     android:layout_margin="5dp"
                     android:background="#ffff00"
-                    android:text="Agendar Servicio"
+                    android:text="Solicitar Taxi"
                     android:textColor="#000"
                     android:textSize="20dp" />
 
