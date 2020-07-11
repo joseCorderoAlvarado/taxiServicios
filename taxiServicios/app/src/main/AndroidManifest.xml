@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="app.proyecto.taxiservicios.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -27,7 +27,7 @@
 
 
         <receiver
-            android:name="com.example.taxiservicios.servicioAlarmas"
+            android:name="com.example.taxiservicios.app.example.taxiservicios.servicioAlarmas"
             android:enabled="true" />
 
 
@@ -43,36 +43,36 @@
             android:resource="@color/colorAccent" />
 
 
-        <activity android:name=".registro" />
+        <activity android:name="app.proyecto.taxiservicios.registro" />
         <activity
-            android:name=".MainActivity"
+            android:name="app.proyecto.taxiservicios.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".inicioAdministrador"
+            android:name="app.proyecto.taxiservicios.inicioAdministrador"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".inicioCliente"
+            android:name="app.proyecto.taxiservicios.inicioCliente"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".inicioChofer"
+            android:name="app.proyecto.taxiservicios.inicioChofer"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".inicioChoferServiciosPendientes"
+            android:name="app.proyecto.taxiservicios.inicioChoferServiciosPendientes"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentacion"
+            android:name="app.proyecto.taxiservicios.presentacion"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>

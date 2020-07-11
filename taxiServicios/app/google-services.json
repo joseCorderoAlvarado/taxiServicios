@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:400587696484:android:b57a17429d02636a08f271",
         "android_client_info": {
-          "package_name": "com.example.taxiservicios"
+          "package_name": "app.proyecto.taxiservicios"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "400587696484-p892t52bimr06cj7j5sjuncb6ada396a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.taxiservicios",
+            "package_name": "app.proyecto.taxiservicios",
             "certificate_hash": "550b60343916240e8612553687c19565f16492c9"
           }
         },

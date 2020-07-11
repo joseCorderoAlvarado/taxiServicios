@@ -6,12 +6,12 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.taxiservicios"
+        applicationId "app.proyecto.taxiservicios"
         minSdkVersion 16
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "1.7.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

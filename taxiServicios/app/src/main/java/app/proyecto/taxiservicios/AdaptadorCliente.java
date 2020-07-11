@@ -48,6 +48,24 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
            holder.txtstatus.setTextColor(Color.rgb(0,143,57));
            holder.btnComandoCliente.setVisibility(View.VISIBLE);
            holder.btnComandoCliente.setText("Modificar servicio");
+           holder.txtcosto.setVisibility(View.VISIBLE);
+           if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $"))
+           {
+               holder.txtcosto.setText("");
+               holder.txtcosto.setTextColor(Color.rgb(229,190,1));
+           }
+           else
+               {
+                   if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis"))
+                   {
+                       holder.txtcosto.setText("Servicio gratis");
+                       holder.txtcosto.setTextColor(Color.rgb(229,190,1));
+                   }
+                   else {
+                       holder.txtcosto.setText(userModelList.get(position).getCosto());
+                       holder.txtcosto.setTextColor(Color.rgb(229,190,1));
+                   }
+               }
            holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
@@ -72,15 +90,18 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                if (userModelList.get(position).getCosto().equals("Costo aprox del servicio: $"))
                {
                    holder.txtcosto.setText("");
+                   holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                }
                else
                    {
                        if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis"))
                        {
                            holder.txtcosto.setText("Servicio gratis");
+                           holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                        }
                        else {
                            holder.txtcosto.setText(userModelList.get(position).getCosto());
+                           holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                        }
                }
                holder.btnComandoCliente.setText("Calificar servicio");
@@ -117,10 +138,12 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                if (userModelList.get(position).getCosto().equals("\nCosto aproximado del servicio: $Servicio gratis"))
                {
                    holder.txtcosto.setText("Servicio gratis");
+                   holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                }
                else
                    {
                        holder.txtcosto.setText(userModelList.get(position).getCosto());
+                       holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                    }
        }
        else

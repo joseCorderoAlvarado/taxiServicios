@@ -35,7 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taxiservicios.R;
-
+import android.location.LocationListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,6 +62,8 @@ public class homeChofer extends Fragment {
     List<Address> direccion;
     private LocationManager locManager;
     private Location loc;
+    double Latusuer;
+    double Longuser;
     private static final int REQUEST_CODE_ASK_PERMISSIONS = 507;
     //String URL_consultarServiciosChoferPendientes="http://192.168.1.105/Taxis-Pruebas/consultarHistorialChofer.php.php";
     String URL_consultarServiciosAsignados="http://pruebataxi.laviveshop.com/app/consultarServiciosChofer.php";
@@ -91,20 +93,36 @@ public class homeChofer extends Fragment {
         runnable = new Runnable(){
             @Override
             public void run(){
-
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ContextCompat.checkSelfPermission(getContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&ContextCompat.checkSelfPermission(getContext(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                     {
-                        // Se tiene permiso
+                        LocationListener locationListener= new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+                                Latusuer = location.getLongitude();
+                                Longuser = location.getLatitude();
+                            }
+                            @Override
+                            public void onStatusChanged(String provider, int status, Bundle extras) {
+                            }
+                            @Override
+                            public void onProviderEnabled(String provider) {
+                            }
+                            @Override
+                            public void onProviderDisabled(String provider) {
+                            }
+                        };
                         locManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
-                        loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10,locationListener);
+                        loc = locManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+
                         if (loc!=null) {
-
-
-                            double Latusuer = loc.getLatitude();
-                            double Longuser = loc.getLongitude();
-
+                             Latusuer = loc.getLatitude();
+                             Longuser = loc.getLongitude();
+                            Log.d("x",""+Latusuer);
                             geocoder = new Geocoder(getContext(), Locale.getDefault());
                             try {
                                 direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
@@ -116,9 +134,9 @@ public class homeChofer extends Fragment {
                             }
                         }
                         else
-                            {
-
-                            }
+                        {
+                            Log.d("address",  correo);
+                        }
                     }else{
                         ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSIONS);
                         return;
@@ -126,16 +144,17 @@ public class homeChofer extends Fragment {
                 }else{
                     // No se necesita requerir permiso, OS menor a 6.0.
                 }
-                handler.postDelayed(this, PERIODO);
+                handler.postDelayed(this, 500);
             }
         };
-        handler.postDelayed(runnable, 6000);
+        handler.postDelayed(runnable, 500);
     }
     @Override
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runnable);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

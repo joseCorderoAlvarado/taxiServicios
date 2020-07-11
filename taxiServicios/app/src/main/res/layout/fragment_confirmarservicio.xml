@@ -30,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <Button
                     android:id="@+id/btnconfirmarservicio"
                     android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
                     android:layout_gravity="center|center_horizontal"
                     android:layout_margin="20dp"
                     android:background="#ffff00"
-                    android:text="Solicitar Taxi"
+                    android:text="Confirmar Servicio"
                     android:textColor="#000"
                     android:textSize="20dp" />
                 <TextView

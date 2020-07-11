@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,9 +61,11 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
       if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis\n"))
       {
           holder.txtCosto.setText("Servicio Gratis");
+          holder.txtCosto.setTextColor(Color.rgb(229,190,1));
       }
       else {
           holder.txtCosto.setText(userModelList.get(position).getCosto());
+          holder.txtCosto.setTextColor(Color.rgb(229,190,1));
       }
         holder.btnCall.setText("Llamar");
 

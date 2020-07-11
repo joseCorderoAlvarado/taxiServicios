@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,13 +134,14 @@ public class homeCliente extends Fragment {
                                         "\nCosto aproximado del servicio: $"+jsonObject.getString("costo"));
                             } else {
                                 System.out.println("Refreshed token: " + statusServicio);
+                                Log.d("hola",""+jsonObject.getString("costo"));
                                 modelo =new modeloCliente(
                                         jsonObject.getString("identificador"),
                                         "Fecha: "+jsonObject.getString("fecha")+"\n\n"+"Hora: "+jsonObject.getString("hora"),
                                         "Destino: "+jsonObject.getString("direccion"),
                                         "Servicio:"+statusServicio,
                                         jsonObject.getString("evaluacion"),
-                                        ""
+                                        "\nCosto aproximado del servicio: $"+jsonObject.getString("costo")
                                 );
                             }
                             listaPersonaje.add(modelo);
@@ -220,6 +222,7 @@ public class homeCliente extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject valores = new JSONObject(response);
+                    Log.d("vola",response);
                     JSONArray jsonArray=valores.getJSONArray("cantidad");
 
                     for(int i=0;i<jsonArray.length();i++)
