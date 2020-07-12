@@ -1,21 +1,33 @@
 package app.proyecto.taxiservicios;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.taxiservicios.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.ViewHolder> implements  View.OnClickListener{
     private List<modeloCliente> userModelList;
@@ -134,6 +146,7 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
            holder.txtcosto.setVisibility(View.VISIBLE);
            holder.txt_no_taxi.setText(userModelList.get(position).getNotaxi());
            holder.txt_descripcion_taxi.setText(userModelList.get(position).getDescripcionVehiculo());
+           holder.btnComandoCliente.setVisibility(View.VISIBLE);
                holder.txtcosto.setText(userModelList.get(position).getCosto());
                if (userModelList.get(position).getCosto().equals("\nCosto aproximado del servicio: $Servicio gratis"))
                {
@@ -145,6 +158,22 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                        holder.txtcosto.setText(userModelList.get(position).getCosto());
                        holder.txtcosto.setTextColor(Color.rgb(229,190,1));
                    }
+
+
+               /////////////////////////////
+           holder.btnComandoCliente.setText("Cancelar  servicio");
+           holder.btnComandoCliente.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   String id=userModelList.get(position).getIdentificador();
+                   Log.d("iddelboton",id);
+                   eliminarservicio("http://pruebataxi.laviveshop.com/app/eliminarservicio.php",id);
+                   homeCliente homeCliente = new homeCliente();
+                   AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                   activity.getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment,homeCliente).addToBackStack(null).commit();
+               }
+           });
+               ////////////////////////////////////////////////////
        }
        else
            {
@@ -152,6 +181,30 @@ public class AdaptadorCliente extends RecyclerView.Adapter<AdaptadorCliente.View
                holder.txt_descripcion_taxi.setVisibility(View.GONE);
                holder.txt_no_taxi.setVisibility(View.GONE);
            }
+    }
+    private  void eliminarservicio(String URL, final String identificador)
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"¡Servicio cancelado con exito!",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Error al eliminar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("id",identificador);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this.context);
+        requestQueue.add(stringRequest);
     }
     @Override
     public int getItemCount() {
