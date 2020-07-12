@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,21 +59,19 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         holder.txtRecoger.setText(userModelList.get(position).getDireccionRecoger());
         holder.txtLlevar.setText(userModelList.get(position).getDireccionLlevar());
         holder.txtTelefono.setText(userModelList.get(position).getTelefono());
-      if(userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis\n"))
-      {
-          holder.txtCosto.setText("Servicio Gratis");
-          holder.txtCosto.setTextColor(Color.rgb(229,190,1));
-      }
-      else {
-          holder.txtCosto.setText(userModelList.get(position).getCosto());
-          holder.txtCosto.setTextColor(Color.rgb(229,190,1));
-      }
+        if (userModelList.get(position).getCosto().equals("Costo aprox del servicio: $Servicio gratis\n")) {
+            holder.txtCosto.setText("Servicio Gratis");
+            holder.txtCosto.setTextColor(Color.rgb(229, 190, 1));
+        } else {
+            holder.txtCosto.setText(userModelList.get(position).getCosto());
+            holder.txtCosto.setTextColor(Color.rgb(229, 190, 1));
+        }
         holder.btnCall.setText("Llamar");
 
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String telefono=userModelList.get(position).getTelefono().toString();
+                String telefono = userModelList.get(position).getTelefono().toString();
 
                 StringBuilder sb = new StringBuilder(telefono);
 
@@ -86,26 +85,26 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
             }
 
 
-
         });
-
 
 
         holder.btnfinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id=userModelList.get(position).getIdentificador().toString();
-
-
-                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php",id);
+                String id = userModelList.get(position).getIdentificador().toString();
+                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php", id);
             }
 
 
-
         });
-
-
-
+        holder.btnCancelar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = userModelList.get(position).getIdentificador().toString();
+                Log.d("rechazo","rechazo");
+                rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -125,7 +124,7 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtCliente,txtFechaHora,txtRecoger,txtLlevar,txtTelefono,txtCosto;
-        Button btnfinalizar, btnCall;
+        Button btnfinalizar, btnCall,btnCancelar;
         public ViewHolder(View v) {
             super(v);
             txtCliente= (TextView) itemView.findViewById(R.id.cliente);
@@ -136,9 +135,38 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
             txtCosto=(TextView) itemView.findViewById(R.id.costo);
             btnCall= (Button)itemView.findViewById(R.id.botonllamar);
             btnfinalizar =(Button)itemView.findViewById(R.id.btnFinalizar);
+            btnCancelar =(Button)itemView.findViewById(R.id.btnEliminar);
         }
     }
 
+    private  void rechazarservicio(String URL, final String identificador)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"Servicio rechazado con exito",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(context,inicioChofer.class);
+                context.startActivity(intent);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("idservicio",identificador.toString());
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
     private  void finalizarruta(String URL, final String identificador)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
