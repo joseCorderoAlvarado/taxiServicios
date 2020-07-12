@@ -58,7 +58,7 @@
                 android:layout_gravity="top|center_horizontal"
                 android:layout_margin="5dp"
                 android:background="#ffff00"
-                android:text="Agendar Servicio"
+                android:text="Solicitar Taxi"
                 android:textColor="#000"
                 android:textSize="20dp" />
 

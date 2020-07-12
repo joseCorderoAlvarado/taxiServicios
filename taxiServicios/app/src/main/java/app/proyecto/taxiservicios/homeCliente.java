@@ -61,7 +61,7 @@ public class homeCliente extends Fragment {
         correo=preferences.getString("correo",null);
         tvservicios =view.findViewById(R.id.tvservicios);
         tvserviciogratis=view.findViewById(R.id.serviciogratis);
-        tvconfirmado=view.findViewById(R.id.tvconfirmado);
+      //  tvconfirmado=view.findViewById(R.id.tvconfirmado);
         btnNuevoServicio=view.findViewById(R.id.btnnuevoservicio);
         btnNuevoServicio.setOnClickListener(new View.OnClickListener() {
             @Override
