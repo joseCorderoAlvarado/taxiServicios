@@ -143,6 +143,45 @@ public class homeChofer extends Fragment {
                     }
                 }else{
                     // No se necesita requerir permiso, OS menor a 6.0.
+                    LocationListener locationListener= new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            Latusuer = location.getLongitude();
+                            Longuser = location.getLatitude();
+                        }
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                        }
+                        @Override
+                        public void onProviderEnabled(String provider) {
+                        }
+                        @Override
+                        public void onProviderDisabled(String provider) {
+                        }
+                    };
+                    locManager = (LocationManager) getActivity().getSystemService(getContext().LOCATION_SERVICE);
+                    locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10,locationListener);
+                    loc = locManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+
+                    if (loc!=null) {
+                        Latusuer = loc.getLatitude();
+                        Longuser = loc.getLongitude();
+                        Log.d("x",""+Latusuer);
+                        geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+                            direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
+                            String address = direccion.get(0).getAddressLine(0);
+                            Log.d("address", address + "" + correo);
+                            asignacionautomatica("http://pruebataxi.laviveshop.com/app/asignacionautomatica.php", address, correo);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else
+                    {
+                        Log.d("address",  correo);
+                    }
                 }
                 handler.postDelayed(this, 500);
             }

@@ -148,7 +148,7 @@ List<String> direccion2obt =  new ArrayList<String>();
 
 
                         hora.setHour(currentHourIn24Format);
-                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo una hora de anticipacion", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getBaseContext(), "Necesitas pedir el taxi con minimo  10 minutos de anticipacion", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -318,7 +318,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getActivity().getBaseContext(),"Servicio Creado con exito!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(),"tu servicio de taxi se creo con exito!!",Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -351,7 +351,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getActivity().getBaseContext(),"Servicio Creado con exito!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(),"tu servicio de taxi se creo con exito!!",Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
