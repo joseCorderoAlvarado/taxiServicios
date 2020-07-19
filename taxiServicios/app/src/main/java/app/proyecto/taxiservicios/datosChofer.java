@@ -3,6 +3,7 @@ package app.proyecto.taxiservicios;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class datosChofer extends Fragment {
-    EditText txtNombre,txtTelefono;
+    EditText txtNombre,txtTelefono,txtTaxi;
     Button btnmodificar;
     String correo, nombre,telefono;
 
@@ -49,6 +50,8 @@ public class datosChofer extends Fragment {
         final View view =inflater.inflate(R.layout.fragment_datos_chofer,container,false);
         txtNombre=view.findViewById(R.id.txtNombreC);
         txtTelefono=view.findViewById(R.id.txtTelefonoC);
+        txtTaxi=view.findViewById(R.id.txtTaxi);
+
         btnmodificar=view.findViewById(R.id.btnModificarC);
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
@@ -94,8 +97,11 @@ public class datosChofer extends Fragment {
                         JSONObject jsonObject=jsonArray.getJSONObject(i);
                         String nombre =jsonObject.getString("nombre");
                         String telefono =jsonObject.getString("telefono");
+                        String vehiculoCompleto =jsonObject.getString("vehiculoCompleto");
                         txtTelefono.setText(telefono);
                         txtNombre.setText(nombre);
+                        txtTaxi.setText(vehiculoCompleto);
+                        txtTaxi.setTextColor(Color.rgb(0, 0, 0));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

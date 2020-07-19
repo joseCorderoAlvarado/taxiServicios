@@ -70,6 +70,22 @@
                     android:inputType="number" />
 
 
+                <TextView
+                    android:id="@+id/lblTaxi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Taxi"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/txtTaxi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:inputType="number" />
+
                 <Button
                     android:id="@+id/btnModificarC"
                     android:layout_width="wrap_content"
