@@ -6,7 +6,7 @@ public class modeloChofer {
 
 
 
-    public modeloChofer(String cliente, String fechahora, String direccionRecoger, String direccionLlevar, String telefono,String identificador,String costo) {
+    public modeloChofer(String cliente, String fechahora, String direccionRecoger, String direccionLlevar, String telefono,String identificador,String costo,String status,String correochofer) {
         this.cliente = cliente;
         this.fechahora = fechahora;
         this.direccionRecoger = direccionRecoger;
@@ -14,6 +14,8 @@ public class modeloChofer {
         this.telefono = telefono;
         this.identificador=identificador;
         this.costo=costo;
+        this.status=status;
+        this.correochofer=correochofer;
     }
 
     private String fechahora;
@@ -70,10 +72,29 @@ public class modeloChofer {
     public void setCliente(String cliente) {
         this.cliente = cliente;
     }
+
+    public String  getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCorreochofer() {
+        return correochofer;
+    }
+
+    public void setCorreochofer(String correochofer) {
+        this.correochofer = correochofer;
+    }
+
     private String direccionRecoger;
     private String direccionLlevar;
     private String telefono;
     private String cliente;
     private String identificador;
     private  String costo;
+    private String status;
+    private String correochofer;
 }

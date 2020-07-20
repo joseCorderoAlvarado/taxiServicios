@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -43,15 +44,11 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         this.userModelList = userModelList;
         this.context = context;
     }
-
-
-
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType ) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listachoferserviciospendientes,null,false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder,final int position) {
         holder.txtCliente.setText(userModelList.get(position).getCliente());
@@ -67,17 +64,13 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
             holder.txtCosto.setTextColor(Color.rgb(229, 190, 1));
         }
         holder.btnCall.setText("Llamar");
-
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String telefono = userModelList.get(position).getTelefono().toString();
-
                 StringBuilder sb = new StringBuilder(telefono);
-
                 sb.delete(0, 8);
                 sb.deleteCharAt(0);
-
                 String result = sb.toString();
                 System.out.println("El telefono es: " + result);
                 Intent llamar = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", result, null));
@@ -87,12 +80,37 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
 
         });
 
+if(userModelList.get(position).getStatus().equals("Confirmada"))
+{
+    /////////////////////////esto esta bien no moverle
+    holder.btnfinalizar.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String id = userModelList.get(position).getIdentificador().toString();
+            finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php", id);
+        }
 
+
+    });
+    ////////////////////////////////////////////////////
+    holder.btnCancelar.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String id = userModelList.get(position).getIdentificador().toString();
+            Log.d("rechazo","rechazo");
+            rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id);
+        }
+    });
+}
+else
+    {
+        holder.btnfinalizar.setText("Aceptar Servicio");
         holder.btnfinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String id = userModelList.get(position).getIdentificador().toString();
-                finalizarruta("http://pruebataxi.laviveshop.com/app/actualizarfinalizado.php", id);
+                String correochofer=userModelList.get(position).getCorreochofer();
+                aceptarservicio("http://pruebataxi.laviveshop.com/app/aceptarservicio.php",correochofer,id);
             }
 
 
@@ -105,6 +123,9 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
                 rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id);
             }
         });
+    }
+
+
     }
     @Override
     public int getItemCount() {
@@ -139,6 +160,35 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         }
     }
 
+    private  void aceptarservicio(String URL,final String correo, final String id)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context,"Servicio confirmador  con exito",Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(context,inicioChofer.class);
+                context.startActivity(intent);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("correo",correo.toString());
+                parametros.put("id",id.toString());
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
     private  void rechazarservicio(String URL, final String identificador)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -195,6 +245,4 @@ public class AdaptadorChofer extends Adapter<AdaptadorChofer.ViewHolder> impleme
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-
-
 }

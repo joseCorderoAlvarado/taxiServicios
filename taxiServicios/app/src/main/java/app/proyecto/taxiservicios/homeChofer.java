@@ -57,6 +57,7 @@ public class homeChofer extends Fragment {
     String correo;
     private Handler handler;
     private Runnable runnable;
+    private Runnable runnable2;
     public static final long PERIODO = 10000; // 60 segundos (60 * 1000 millisegundos)
     Geocoder geocoder;
     List<Address> direccion;
@@ -82,8 +83,6 @@ public class homeChofer extends Fragment {
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosServiciosPendientesChofer);
         recyclerPersonajes.setHasFixedSize(true);
         recyclerPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
-        listaPersonaje= new ArrayList<>();
-        llenarLista(URL_consultarServiciosAsignados,correo);
         return view;
     }
     @Override
@@ -128,7 +127,7 @@ public class homeChofer extends Fragment {
                                 direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
                                 String address = direccion.get(0).getAddressLine(0);
                                 Log.d("address", address + "" + correo);
-                                asignacionautomatica("http://pruebataxi.laviveshop.com/app/asignacionautomatica.php", address, correo);
+                                envioubicacion("http://pruebataxi.laviveshop.com/app/envioubicacion.php", address, correo);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -173,7 +172,7 @@ public class homeChofer extends Fragment {
                             direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
                             String address = direccion.get(0).getAddressLine(0);
                             Log.d("address", address + "" + correo);
-                            asignacionautomatica("http://pruebataxi.laviveshop.com/app/asignacionautomatica.php", address, correo);
+                            envioubicacion("http://pruebataxi.laviveshop.com/app/envioubicacion.php", address, correo);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -186,7 +185,17 @@ public class homeChofer extends Fragment {
                 handler.postDelayed(this, 500);
             }
         };
+
+        runnable2= new Runnable() {
+            @Override
+            public void run() {
+                listaPersonaje= new ArrayList<>();
+                llenarLista("http://pruebataxi.laviveshop.com/app/asignacioncarro.php",correo);
+                handler.postDelayed(runnable2, 60000);
+            }
+        };
         handler.postDelayed(runnable, 500);
+        handler.postDelayed(runnable2, 500);
     }
     @Override
     public void onPause() {
@@ -211,7 +220,7 @@ public class homeChofer extends Fragment {
         }
 
     }
-    private  void asignacionautomatica(String URL, final String ubicacion, final String correox)
+    private  void envioubicacion(String URL, final String ubicacion, final String correox)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -250,14 +259,15 @@ public class homeChofer extends Fragment {
                         {
                             JSONObject jsonObject=jsonArray.getJSONObject(i);
                             modeloChofer modelo =new modeloChofer(
-
                                     "Cliente: " + jsonObject.getString("cliente")  + "\n",
                                     "Recoger el dia: " + jsonObject.getString("fecha") + " a las: " + jsonObject.getString("hora") + " horas " + "\n",
                                     "Donde se recogera: "+ jsonObject.getString("recoger") + "\n",
                                     "Donde se dirige: "+ jsonObject.getString("llevar") + "\n",
                                     "Télefono: "+ jsonObject.getString("telefono") + "\n",
                                     jsonObject.getString("idservicio"),
-                                    "Costo aprox del servicio: $"+jsonObject.getString("costo")+"\n"
+                                    "Costo aprox del servicio: $"+jsonObject.getString("costo")+"\n",
+                                    jsonObject.getString("status"),
+                                    correov
                             );
 
                             listaPersonaje.add(modelo);
