@@ -57,6 +57,7 @@ public class homeChofer extends Fragment {
     String correo;
     private Handler handler;
     private Runnable runnable;
+    private RequestQueue requestQueue;
     private Runnable runnable2;
     public static final long PERIODO = 10000; // 60 segundos (60 * 1000 millisegundos)
     Geocoder geocoder;
@@ -171,7 +172,6 @@ public class homeChofer extends Fragment {
                         try {
                             direccion = geocoder.getFromLocation(Latusuer, Longuser, 1);
                             String address = direccion.get(0).getAddressLine(0);
-                            Log.d("address", address + "" + correo);
                             envioubicacion("http://pruebataxi.laviveshop.com/app/envioubicacion.php", address, correo);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -241,15 +241,13 @@ public class homeChofer extends Fragment {
                 return parametros;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
-        requestQueue.add(stringRequest);
+        uploadData(stringRequest);
     }
 
     private void llenarLista(String URL,final String correov) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("respuesta",response);
                 if(!response.isEmpty())
                 {
                     try {
@@ -301,7 +299,12 @@ public class homeChofer extends Fragment {
                 return parametros;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
-        requestQueue.add(stringRequest);
+      uploadData(stringRequest);
+    }
+    public void uploadData(StringRequest s) {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getActivity().getBaseContext());
+            requestQueue.add(s);
+        }
     }
  }

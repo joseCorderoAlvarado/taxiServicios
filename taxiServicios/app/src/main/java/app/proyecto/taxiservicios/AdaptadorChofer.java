@@ -93,14 +93,16 @@ if(userModelList.get(position).getStatus().equals("Confirmada"))
 
     });
     ////////////////////////////////////////////////////
-    holder.btnCancelar.setOnClickListener(new OnClickListener() {
+    holder.btnCancelar.setVisibility(View.GONE);
+   /* holder.btnCancelar.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View v) {
             String id = userModelList.get(position).getIdentificador().toString();
             Log.d("rechazo","rechazo");
-            rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id);
+            String correochofer=userModelList.get(position).getCorreochofer();
+            rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id,correochofer);
         }
-    });
+    });*/
 }
 else
     {
@@ -119,8 +121,9 @@ else
             @Override
             public void onClick(View v) {
                 String id = userModelList.get(position).getIdentificador().toString();
+                String correochofer=userModelList.get(position).getCorreochofer();
                 Log.d("rechazo","rechazo");
-                rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id);
+                rechazarservicio("http://pruebataxi.laviveshop.com/app/rechazarservicio.php",id,correochofer);
             }
         });
     }
@@ -189,7 +192,7 @@ else
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
-    private  void rechazarservicio(String URL, final String identificador)
+    private  void rechazarservicio(String URL, final String identificador, final String correoChofer)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -210,6 +213,7 @@ else
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("correo",correoChofer.toString());
                 parametros.put("idservicio",identificador.toString());
                 return parametros;
             }
