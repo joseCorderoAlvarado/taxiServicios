@@ -175,7 +175,7 @@ else
                     Intent intent= new Intent(context,inicioChofer.class);
                     context.startActivity(intent);
                 }
-                else{
+                else if(response.equals("[0]")){
                     Toast.makeText(context,"El servicio ya fue asignado a otro taxista",Toast.LENGTH_SHORT).show();
                     Intent intent= new Intent(context,inicioChofer.class);
                     context.startActivity(intent);
