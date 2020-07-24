@@ -191,7 +191,7 @@ public class homeChofer extends Fragment {
             public void run() {
                 listaPersonaje= new ArrayList<>();
                 llenarLista("http://pruebataxi.laviveshop.com/app/asignacioncarro.php",correo);
-                handler.postDelayed(runnable2, 60000);
+                handler.postDelayed(runnable2, 6000);
             }
         };
         handler.postDelayed(runnable, 500);
@@ -201,6 +201,7 @@ public class homeChofer extends Fragment {
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runnable);
+        handler.removeCallbacks(runnable2);
     }
 
 
@@ -241,13 +242,15 @@ public class homeChofer extends Fragment {
                 return parametros;
             }
         };
-        uploadData(stringRequest);
+        requestQueue = Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
     }
 
     private void llenarLista(String URL,final String correov) {
         StringRequest stringRequest=new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("hola",response);
                 if(!response.isEmpty())
                 {
                     try {
@@ -299,12 +302,7 @@ public class homeChofer extends Fragment {
                 return parametros;
             }
         };
-      uploadData(stringRequest);
-    }
-    public void uploadData(StringRequest s) {
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(getActivity().getBaseContext());
-            requestQueue.add(s);
-        }
+        requestQueue = Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
     }
  }

@@ -168,11 +168,17 @@ else
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(context,"Servicio confirmador  con exito",Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(context,inicioChofer.class);
-                context.startActivity(intent);
-
-
+                if(response.equals("1"))
+                {
+                    Toast.makeText(context,"Servicio confirmador  con exito",Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(context,inicioChofer.class);
+                    context.startActivity(intent);
+                }
+                else{
+                    Toast.makeText(context,"El servicio ya fue asignado por otro taxista",Toast.LENGTH_SHORT).show();
+                    Intent intent= new Intent(context,inicioChofer.class);
+                    context.startActivity(intent);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
