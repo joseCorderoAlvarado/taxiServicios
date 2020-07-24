@@ -79,7 +79,7 @@ public class homeChofer extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         txtTitulo = (TextView)view.findViewById(R.id.titulo);
-        txtTitulo.setText("Servicios Asignados");
+        txtTitulo.setText("Servicios Asignados y Abiertos");
         correo=preferences.getString("correo",null);
         recyclerPersonajes= (RecyclerView) view.findViewById(R.id.datosServiciosPendientesChofer);
         recyclerPersonajes.setHasFixedSize(true);
