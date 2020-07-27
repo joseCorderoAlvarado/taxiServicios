@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -54,6 +55,12 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class nuevoServicio extends Fragment {
+
+    //Estos textos hacen referencias a los spinners y el ese
+TextView texto1,texto2,texto3;
+
+
+
 DatePicker fecha;
 TimePicker hora;
 Spinner sOrigen, sDestino;
@@ -77,6 +84,11 @@ List<String> direccion2obt =  new ArrayList<String>();
         txtcomentarios=view.findViewById(R.id.txtComentarios);
         btnNuevo=view.findViewById(R.id.btnmodificar);
         fecha.setMinDate(System.currentTimeMillis() - 1000);
+
+        texto1=view.findViewById(R.id.textView14);
+        texto2=view.findViewById(R.id.textView12);
+        texto3=view.findViewById(R.id.textView13);
+
         Places.initialize(getContext(),"AIzaSyC9fjPKZnzHxEQTPf97KLzprLcoss5DGcE");
         PlacesClient placesClient=Places.createClient(getContext());
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -88,6 +100,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         autocompleteFragment.setCountries("MX");
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.NAME,Place.Field.ADDRESS,Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 Log.i(TAG, "*Place (pick-up) latitude: " + place.getLatLng().latitude + " longitude: " + place.getLatLng().longitude);
@@ -120,12 +133,28 @@ List<String> direccion2obt =  new ArrayList<String>();
                 Log.i(TAG,"un error a ocurrido"+status);
             }
         });
+
+
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
+
+        //Ocultamos los spinners y los textos de arriba
         cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
+        sOrigen.setVisibility(View.GONE);
+        sDestino.setVisibility(View.GONE);
+        texto1.setVisibility(View.GONE);
+        texto2.setVisibility(View.GONE);
+        texto3.setText("Por favor selecciona tus direcciones");
+
+        //fin
+
          final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
         final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
+
+
+
+
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class modificarServicio extends Fragment {
 
 
 
+    //Estos textos hacen referencias a los spinners y el ese
+    TextView texto1,texto2,texto3;
 
 
     Double latitudorigen,longitudorigen,latituddestino,longituddestino;
@@ -85,6 +88,11 @@ public class modificarServicio extends Fragment {
         txtcomentarios=view.findViewById(R.id.txtComentarios);
         btnNuevo=view.findViewById(R.id.btnmodificar);
         btnEliminar=view.findViewById(R.id.btncancelar);
+
+        texto1=view.findViewById(R.id.textView14);
+        texto2=view.findViewById(R.id.textView12);
+        texto3=view.findViewById(R.id.textView13);
+
 
         fecha.setMinDate(System.currentTimeMillis() - 1000);
         Places.initialize(getContext(),"AIzaSyC9fjPKZnzHxEQTPf97KLzprLcoss5DGcE");
@@ -133,8 +141,22 @@ public class modificarServicio extends Fragment {
 
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
+
+
+        //Ocultamos los spinners y los textos de arriba
         cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
+        sOrigen.setVisibility(View.GONE);
+        sDestino.setVisibility(View.GONE);
+        texto1.setVisibility(View.GONE);
+        texto2.setVisibility(View.GONE);
+        texto3.setText("Por favor selecciona tus direcciones");
+
+        //fin
+
+
+
+
         final String URL_modificarServicio="http://pruebataxi.laviveshop.com/app/actualizarservicio.php";
         final String URL_modificarServicioX="http://pruebataxi.laviveshop.com/app/actualizarservicio.php";
 
