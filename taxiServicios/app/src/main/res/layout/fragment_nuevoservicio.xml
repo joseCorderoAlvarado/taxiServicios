@@ -78,10 +78,6 @@
                     android:text="¿Donde te recogemos?"
                     android:textSize="20sp" />
 
-                <Spinner
-                    android:id="@+id/spinnerpartida"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -90,19 +86,56 @@
                     android:textColor="#000"
                     android:text="¿A donde te diriges?"
                     android:textSize="20sp" />
-
                 <Spinner
                     android:id="@+id/spinnerdestino"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
+
+
+
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000"
+                    android:drawableLeft="@drawable/ic_location_searching_black_24dp"
                     android:text="Si no encuestras tu dirección escribela a continuación:"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/spinnerpartida"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:layout_margin="20dp"
+                        android:background="#ffff00"
+                        android:drawableLeft="@drawable/ic_place_black_24dp"
+                        android:text="Origen"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:background="#ffff00"
+                        android:drawableLeft="@drawable/ic_place_black_24dp"
+                        android:text="destino"
+                        android:textColor="#000"
+                        android:textSize="15dp" />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"

@@ -65,7 +65,7 @@ DatePicker fecha;
 TimePicker hora;
 Spinner sOrigen, sDestino;
 EditText txtOrigen, txtDestino,txtcomentarios;
-Button btnNuevo;
+Button btnNuevo,btn1,btn2;
 String correo,valors1,valors2,fechac,horac,origen,destino,comentarios2;
 Double latitudorigen,longitudorigen,latituddestino,longituddestino;
 List<String> direccion1obt =  new ArrayList<String>();
@@ -77,6 +77,8 @@ List<String> direccion2obt =  new ArrayList<String>();
         fecha=view.findViewById(R.id.dpfecha);
         fecha.setMinDate(System.currentTimeMillis() - 1000);
         hora=view.findViewById(R.id.tphora);
+        btn1=view.findViewById(R.id.btn1);
+        btn2=view.findViewById(R.id.btn2);
         sOrigen=view.findViewById(R.id.spinnerpartida);
         sDestino=view.findViewById(R.id.spinnerdestino);
         txtOrigen=view.findViewById(R.id.txtOrigen);
@@ -141,20 +143,44 @@ List<String> direccion2obt =  new ArrayList<String>();
         //Ocultamos los spinners y los textos de arriba
         cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
-        sOrigen.setVisibility(View.GONE);
+      //  sOrigen.setVisibility(View.GONE);
         sDestino.setVisibility(View.GONE);
         texto1.setVisibility(View.GONE);
         texto2.setVisibility(View.GONE);
-        texto3.setText("Por favor selecciona tus direcciones");
+        texto3.setText("Elegir ubicaciónes Guardada");
 
         //fin
 
          final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
         final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                valors1 = sOrigen.getSelectedItem().toString();
+                if(valors1.equals("seleccione una direccion"))
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "selecciona una direccion de origen", Toast.LENGTH_SHORT).show();
+                }else {
+                    txtOrigen.setText(valors1);
+                }
 
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                valors2=sOrigen.getSelectedItem().toString();
+                if (valors2.equals("seleccione una direccion"))
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "selecciona una direccion de destino", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    {
+                        txtDestino.setText(valors2);
+                    }
 
-
-
+            }
+        });
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -258,7 +284,6 @@ List<String> direccion2obt =  new ArrayList<String>();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
