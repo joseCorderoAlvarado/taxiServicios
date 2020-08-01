@@ -90,23 +90,10 @@
                     android:id="@+id/spinnerdestino"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
-
-
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:drawableLeft="@drawable/ic_location_searching_black_24dp"
-                    android:text="Si no encuestras tu dirección escribela a continuación:"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
                 <Spinner
                     android:id="@+id/spinnerpartida"
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,7 +163,31 @@
                     android:enabled="false"
                     android:gravity="start|top"
                     android:inputType="textMultiLine" />
-
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:background="@android:color/transparent"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp"
+                    android:layout_margin="8dp" >>
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:drawableLeft="@drawable/ic_location_searching_black_24dp"
+                        android:text="Si no encuestras tu dirección escribela a continuación:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </androidx.cardview.widget.CardView>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:background="@android:color/transparent"/>
                 <TextView
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"

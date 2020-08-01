@@ -215,7 +215,7 @@ public class modificarServicio extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle("Mi Dialogo");
+                alertDialogBuilder.setTitle("Modificar tu servicio de taxi");
                 alertDialogBuilder
                         .setMessage("¿Estás seguro de Eliminar este servicio?")
                         .setCancelable(false)

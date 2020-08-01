@@ -1,18 +1,25 @@
 package app.proyecto.taxiservicios;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -20,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -31,6 +39,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.taxiservicios.AdaptadorCliente;
 import com.example.taxiservicios.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
@@ -68,6 +77,8 @@ EditText txtOrigen, txtDestino,txtcomentarios;
 Button btnNuevo,btn1,btn2;
 String correo,valors1,valors2,fechac,horac,origen,destino,comentarios2;
 Double latitudorigen,longitudorigen,latituddestino,longituddestino;
+Dialog myDialog;
+    Spinner x;
 List<String> direccion1obt =  new ArrayList<String>();
 List<String> direccion2obt =  new ArrayList<String>();
     @Nullable
@@ -78,6 +89,8 @@ List<String> direccion2obt =  new ArrayList<String>();
         fecha.setMinDate(System.currentTimeMillis() - 1000);
         hora=view.findViewById(R.id.tphora);
         btn1=view.findViewById(R.id.btn1);
+        myDialog = new Dialog(getActivity().getBaseContext());
+        x = myDialog.findViewById(R.id.spinner1);
         btn2=view.findViewById(R.id.btn2);
         sOrigen=view.findViewById(R.id.spinnerpartida);
         sDestino=view.findViewById(R.id.spinnerdestino);
@@ -90,6 +103,26 @@ List<String> direccion2obt =  new ArrayList<String>();
         texto1=view.findViewById(R.id.textView14);
         texto2=view.findViewById(R.id.textView12);
         texto3=view.findViewById(R.id.textView13);
+        Bundle datosRecuperados = getArguments();
+        Bundle datosRecuperados2 = getArguments();
+        if(datosRecuperados!=null)
+        {
+            final String direccionorigen = datosRecuperados.getString("direccionorigen");
+            txtOrigen.setText(direccionorigen);
+
+        }
+        else
+        {
+        }
+        if(datosRecuperados2!=null)
+        {
+            final String direcciondestino = datosRecuperados.getString("direcciondestino");
+            txtDestino.setText(direcciondestino);
+        }
+        else
+            {
+
+            }
 
         Places.initialize(getContext(),"AIzaSyC9fjPKZnzHxEQTPf97KLzprLcoss5DGcE");
         PlacesClient placesClient=Places.createClient(getContext());
@@ -136,21 +169,60 @@ List<String> direccion2obt =  new ArrayList<String>();
             }
         });
 
-
         SharedPreferences preferences = getActivity().getSharedPreferences("preferenciasLogin", Context.MODE_PRIVATE);
         correo=preferences.getString("correo",null);
 
         //Ocultamos los spinners y los textos de arriba
         cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
         cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
-      //  sOrigen.setVisibility(View.GONE);
+        sOrigen.setVisibility(View.GONE);
         sDestino.setVisibility(View.GONE);
         texto1.setVisibility(View.GONE);
         texto2.setVisibility(View.GONE);
-        texto3.setText("Elegir ubicaciónes Guardada");
-
+        btn1.setVisibility(View.GONE);
+        btn2.setVisibility(View.GONE);
+        texto3.setText("Elegir ubicaciónes Guardadas");
+        texto3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.direcciones,null);
+                final Spinner mSpinner =(Spinner) mView.findViewById(R.id.spinner1);
+                Button btno=(Button) mView.findViewById(R.id.btnx);
+                Button btnd=(Button) mView.findViewById(R.id.btny);
+                cargardireccionada("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo,mSpinner);
+                btno.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        valors1 = mSpinner.getSelectedItem().toString();
+                        if (valors1.equals("seleccione una direccion"))
+                        {
+                            Toast.makeText(getActivity().getBaseContext(), "Ingresa una direccion valida", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            txtOrigen.setText(valors1);
+                        }
+                    }
+                });
+                btnd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        valors2 = mSpinner.getSelectedItem().toString();
+                        if (valors2.equals("seleccione una direccion"))
+                        {
+                            Toast.makeText(getActivity().getBaseContext(), "Ingresa una direccion valida", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            txtDestino.setText(valors2);
+                        }
+                    }
+                });
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
+            }
+        });
         //fin
-
          final String URL_spnuevoservicio="http://pruebataxi.laviveshop.com/app/spregistrarservicio.php";
         final String URL_nuevoservicio="http://pruebataxi.laviveshop.com/app/agendarservicio.php";
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +296,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         });
         return view;
     }
-    private void cargardireccion1(String URL, final String Correv)
+    private void cargardireccionada(String URL, final String Correv,final Spinner x)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -240,7 +312,8 @@ List<String> direccion2obt =  new ArrayList<String>();
                         Log.d("valor",nombredireccion1);
                         direccion1obt.add(nombredireccion1);
                     }
-                    sOrigen.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion1obt));
+                    x.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion1obt));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -265,6 +338,47 @@ List<String> direccion2obt =  new ArrayList<String>();
         requestQueue.add(stringRequest);
     }
 
+    private void cargardireccion1(String URL, final String Correv)
+    {
+        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject valores = new JSONObject(response);
+                    JSONArray jsonArray=valores.getJSONArray("d1");
+                    direccion1obt.add("seleccione una direccion");
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                        String nombredireccion1=jsonObject.getString("direccion1");
+                        Log.d("valor",nombredireccion1);
+                        direccion1obt.add(nombredireccion1);
+                    }
+                    sOrigen.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion1obt));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity().getBaseContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<String, String>();
+                parametros.put("correo",Correv);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
+        requestQueue.add(stringRequest);
+    }
     private void cargardireccion2(String URL, final String Correv)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
