@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|center_horizontal"
                         android:layout_margin="20dp"
-                        android:background="#ffff00"
+                        android:background="@drawable/bordes_redondeados"
                         android:text="Modificar servicio"
                         android:textColor="#000"
                         android:textSize="15dp" />
@@ -55,7 +55,7 @@
                         android:layout_gravity="center|center_horizontal"
                         android:layout_margin="20dp"
                         android:layout_weight="1"
-                        android:background="#ffff00"
+                        android:background="@drawable/bordes_redondeados"
                         android:text="Cancelar Servicio"
                         android:textColor="#000"
                         android:textSize="15dp" />

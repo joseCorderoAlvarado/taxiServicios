@@ -185,12 +185,15 @@ List<String> direccion2obt =  new ArrayList<String>();
         texto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                final AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = getLayoutInflater().inflate(R.layout.direcciones,null);
                 final Spinner mSpinner =(Spinner) mView.findViewById(R.id.spinner1);
                 Button btno=(Button) mView.findViewById(R.id.btnx);
                 Button btnd=(Button) mView.findViewById(R.id.btny);
                 cargardireccionada("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo,mSpinner);
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
                 btno.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,6 +204,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                         }
                         else {
                             txtOrigen.setText(valors1);
+                            dialog.dismiss();
                         }
                     }
                 });
@@ -214,12 +218,11 @@ List<String> direccion2obt =  new ArrayList<String>();
                         }
                         else {
                             txtDestino.setText(valors2);
+                            dialog.dismiss();
                         }
                     }
                 });
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
-                dialog.show();
+
             }
         });
         //fin

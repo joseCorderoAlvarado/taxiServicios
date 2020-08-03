@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
             android:text="Aviso de privacidad"
+            android:gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="20sp" />
         <ScrollView
@@ -41,6 +42,7 @@
                     android:id="@+id/txtMensajeBuzon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:text="El presente aviso de privacidad se establece en cumplimiento de lo dispuesto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
 “TAXI SERVICIOS”, con domicilio en ” calle jose de la peña ledon 31 colonia gobernadores”, Tepic, Nayarit, México, es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección. Su información personal será utilizada para proveer los servicios y productos que ha solicitado, informarle sobre cambios en los mismos y evaluar la calidad del servicio que le brindamos.

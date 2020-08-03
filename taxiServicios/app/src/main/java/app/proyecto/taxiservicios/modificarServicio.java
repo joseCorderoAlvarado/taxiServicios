@@ -217,7 +217,8 @@ public class modificarServicio extends Fragment {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                 alertDialogBuilder.setTitle("Modificar tu servicio de taxi");
                 alertDialogBuilder
-                        .setMessage("¿Estás seguro de Eliminar este servicio?")
+                        .setMessage("¿Estás seguro de Eliminar este servicio?" +
+                                "\n´´Recuerda que por cancelar un servicio tu contador de servicios gratis volvera a 0´´")
                         .setCancelable(false)
                         .setPositiveButton("Si",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {

@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ffff00"
+                    android:background="@drawable/bordes_redondeados"
                     android:textColor="#000"
                     android:text="Llamar" />
 
@@ -98,7 +98,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="#ffff00"
+                android:background="@drawable/bordes_redondeados"
                 android:text="Finalizar Servicio"
                 android:textColor="#000"
                 android:textSize="15dp" />
@@ -111,7 +111,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="#ffff00"
+                android:background="@drawable/bordes_redondeados"
                 android:text="Rechazar Servicio"
                 android:textColor="#000"
                 android:textSize="15dp" />

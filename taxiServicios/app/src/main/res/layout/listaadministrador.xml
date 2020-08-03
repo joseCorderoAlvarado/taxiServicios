@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#ffff00"
+                    android:background="@drawable/bordes_redondeados"
                     android:textColor="#000"
                     android:text="Llamar" />
 
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_margin="20dp"
-                android:background="#ffff00"
+                android:background="@drawable/bordes_redondeados"
                 android:text="Boton"
                 android:textColor="#000"
                 android:textSize="20dp" />

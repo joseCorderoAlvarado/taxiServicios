@@ -61,7 +61,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="#ffff00"
+                android:background="@drawable/bordes_redondeados"
                 android:text="Finalizar Servicio"
                 android:textColor="#000"
                 android:textSize="20dp" />

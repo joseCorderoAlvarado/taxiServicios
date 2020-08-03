@@ -16,7 +16,9 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="match_parent"
-            android:indeterminateTint="#fff000"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:indeterminateTint="#fff000" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
