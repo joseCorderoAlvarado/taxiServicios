@@ -26,104 +26,123 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="#000"
                 android:text="Registrate y obten tu primer servicio GRATIS"
+                android:textColor="#000"
                 android:textSize="25dp" />
 
-            <TextView
-                android:id="@+id/textView4"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="Nombre Completo"
-                android:textSize="20dp" />
+                android:layout_margin="8dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="15dp">
 
-            <EditText
-                android:id="@+id/txtnombre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="Numero de telefono "
-                android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre Completo"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/txtTelefono"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:ems="10"
-                android:maxLength="10"
-                android:inputType="phone" />
+                    <EditText
+                        android:id="@+id/txtnombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="Correo eléctronico:"
-                android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Numero de telefono "
+                        android:textColor="#000"
+                        android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/txtcorreo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
+                    <EditText
+                        android:id="@+id/txtTelefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:textColor="#000" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="Contraseña:"
-                android:inputType="textEmailAddress"
-                android:textSize="20dp" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Correo eléctronico:"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/txtcontrasena"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword" />
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="Codigo de invitación (no obligatorio)"
-                android:textSize="20dp" />
-            <EditText
-                android:id="@+id/txtci"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                    <EditText
+                        android:id="@+id/txtcorreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
 
-                <Button
-                    android:id="@+id/btnregistro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/bordes_redondeados"
-                    android:text="   Registrarme  "
-                    android:textColor="#000"
-                    android:textSize="20dp">
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="Contraseña:"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
 
-                </Button>
-            </TableRow>
+                    <EditText
+                        android:id="@+id/txtcontrasena"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPassword" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Codigo de invitación (no obligatorio)"
+                        android:textColor="#000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtci"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <Button
+                            android:id="@+id/btnregistro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|center_horizontal"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/bordes_redondeados"
+                            android:text="   Registrarme  "
+                            android:textColor="#000"
+                            android:textSize="20dp">
+
+                        </Button>
+                    </TableRow>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/viewiniciarsesion"
