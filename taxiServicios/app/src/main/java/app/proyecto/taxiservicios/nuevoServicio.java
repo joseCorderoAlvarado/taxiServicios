@@ -33,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -512,6 +513,11 @@ List<String> direccion2obt =  new ArrayList<String>();
                 return parametros;
             }
         };
+        //Ocho segundos de espera y lo demas default
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//espera del ese
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
@@ -543,6 +549,11 @@ List<String> direccion2obt =  new ArrayList<String>();
                 return parametros;
             }
         };
+        //Ocho segundos de espera y lo demas default
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//espera del ese
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }

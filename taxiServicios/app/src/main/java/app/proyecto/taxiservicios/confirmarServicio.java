@@ -228,11 +228,7 @@ public class confirmarServicio extends Fragment {
                 return parametros;
             }
         };
-        //Ocho segundos de espera y lo demas default
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//espera del ese
+
 
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
