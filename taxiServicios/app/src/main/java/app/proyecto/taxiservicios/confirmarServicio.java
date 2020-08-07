@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -201,18 +202,23 @@ public class confirmarServicio extends Fragment {
     }
     private  void confirmar(String URL, final String identificador , final String sptaxi, final String  descripcionvehiculo)
     {
+
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+
+
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getActivity().getBaseContext(),"Servicio Confirmado con exito!!",Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
+        }
+        , new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity().getBaseContext(),"Error al actualizar el servicio",Toast.LENGTH_SHORT).show();
             }
         })
         {
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> parametros = new HashMap<String, String>();
@@ -222,6 +228,12 @@ public class confirmarServicio extends Fragment {
                 return parametros;
             }
         };
+        //Ocho segundos de espera y lo demas default
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//espera del ese
+
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
