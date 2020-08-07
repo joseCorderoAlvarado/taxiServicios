@@ -515,7 +515,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         };
         //Ocho segundos de espera y lo demas default
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+               0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
@@ -553,7 +553,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         };
         //Ocho segundos de espera y lo demas default
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
