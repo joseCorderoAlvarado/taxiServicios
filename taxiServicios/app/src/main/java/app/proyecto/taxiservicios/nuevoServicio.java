@@ -174,8 +174,6 @@ List<String> direccion2obt =  new ArrayList<String>();
         correo=preferences.getString("correo",null);
 
         //Ocultamos los spinners y los textos de arriba
-        cargardireccion1("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo);
-        cargardireccion2("http://pruebataxi.laviveshop.com/app/consultardireccion2.php",correo);
         sOrigen.setVisibility(View.GONE);
         sDestino.setVisibility(View.GONE);
         texto1.setVisibility(View.GONE);
@@ -192,6 +190,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                 Button btno=(Button) mView.findViewById(R.id.btnx);
                 Button btnd=(Button) mView.findViewById(R.id.btny);
                 cargardireccionada("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo,mSpinner);
+
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
@@ -199,6 +198,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                     @Override
                     public void onClick(View v) {
                         valors1 = mSpinner.getSelectedItem().toString();
+                        cargardireccionada2("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo,mSpinner);
                         if (valors1.equals("seleccione una direccion"))
                         {
                             Toast.makeText(getActivity().getBaseContext(), "Ingresa una direccion valida", Toast.LENGTH_SHORT).show();
@@ -213,6 +213,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                     @Override
                     public void onClick(View v) {
                         valors2 = mSpinner.getSelectedItem().toString();
+                        cargardireccionada2("http://pruebataxi.laviveshop.com/app/consultardireccion1.php",correo,mSpinner);
                         if (valors2.equals("seleccione una direccion"))
                         {
                             Toast.makeText(getActivity().getBaseContext(), "Ingresa una direccion valida", Toast.LENGTH_SHORT).show();
@@ -310,8 +311,7 @@ List<String> direccion2obt =  new ArrayList<String>();
                     JSONArray jsonArray=valores.getJSONArray("d1");
                     direccion1obt.add("seleccione una direccion");
                     for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    {JSONObject jsonObject=jsonArray.getJSONObject(i);
                         String nombredireccion1=jsonObject.getString("direccion1");
                         Log.d("valor",nombredireccion1);
                         direccion1obt.add(nombredireccion1);
@@ -341,8 +341,7 @@ List<String> direccion2obt =  new ArrayList<String>();
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
-
-    private void cargardireccion1(String URL, final String Correv)
+    private void cargardireccionada2(String URL, final String Correv,final Spinner x)
     {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -350,15 +349,13 @@ List<String> direccion2obt =  new ArrayList<String>();
                 try {
                     JSONObject valores = new JSONObject(response);
                     JSONArray jsonArray=valores.getJSONArray("d1");
-                    direccion1obt.add("seleccione una direccion");
+                    direccion1obt.clear();
                     for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                    {JSONObject jsonObject=jsonArray.getJSONObject(i);
                         String nombredireccion1=jsonObject.getString("direccion1");
                         Log.d("valor",nombredireccion1);
-                        direccion1obt.add(nombredireccion1);
                     }
-                    sOrigen.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion1obt));
+                    x.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion1obt));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -370,43 +367,6 @@ List<String> direccion2obt =  new ArrayList<String>();
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity().getBaseContext(),error.toString(),Toast.LENGTH_SHORT).show();
 
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String, String>();
-                parametros.put("correo",Correv);
-                return parametros;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
-        requestQueue.add(stringRequest);
-    }
-    private void cargardireccion2(String URL, final String Correv)
-    {
-        StringRequest stringRequest= new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject valores = new JSONObject(response);
-                    JSONArray jsonArray=valores.getJSONArray("d2");
-                    direccion2obt.add("seleccione una direccion");
-                    for(int i=0;i<jsonArray.length();i++)
-                    {
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        String nombredireccion1=jsonObject.getString("direccion2");
-                        direccion2obt.add(nombredireccion1);
-                    }
-                    sDestino.setAdapter(new ArrayAdapter<String>(getActivity().getBaseContext(),android.R.layout.simple_spinner_dropdown_item,direccion2obt));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity().getBaseContext(),error.toString(),Toast.LENGTH_SHORT).show();
             }
         })
         {
@@ -428,8 +388,6 @@ List<String> direccion2obt =  new ArrayList<String>();
                 .setCancelable(false)
                 .setPositiveButton("Si",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
-                         valors1 = sOrigen.getSelectedItem().toString();
-                         valors2 = sDestino.getSelectedItem().toString();
                         fechac = "" + fecha.getYear() + "-" + (fecha.getMonth()+1) + "-" + fecha.getDayOfMonth() + "";
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             String minuteZero = (hora.getMinute()>=10)? Integer.toString(hora.getMinute()):
@@ -514,7 +472,7 @@ List<String> direccion2obt =  new ArrayList<String>();
             }
         };
         //Ocho segundos de espera y lo demas default
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
                0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
@@ -552,7 +510,7 @@ List<String> direccion2obt =  new ArrayList<String>();
             }
         };
         //Ocho segundos de espera y lo demas default
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
                 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
