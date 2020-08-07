@@ -521,6 +521,8 @@ List<String> direccion2obt =  new ArrayList<String>();
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity().getBaseContext());
         requestQueue.add(stringRequest);
     }
+
+
     private  void spnuevoservicio(String URL, final String sd1, final String sd2,
                                   final String fecha, final String hora, final String comentario, final String correov)
     {
