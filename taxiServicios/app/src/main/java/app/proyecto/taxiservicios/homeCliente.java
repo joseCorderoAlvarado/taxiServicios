@@ -278,7 +278,7 @@ public class homeCliente extends Fragment {
                             String day = separar[2]; // el dia
 
                             String[] separar2 = horaServicio.split(":");
-                            String hour = separar2[0]; // la hora
+                            String hour = separar2[0].trim(); // la hora
                             String minute = separar2[1]; // el minuto
 
 
