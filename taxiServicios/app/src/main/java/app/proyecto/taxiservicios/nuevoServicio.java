@@ -472,7 +472,7 @@ List<String> direccion2obt =  new ArrayList<String>();
             }
         };
         //Ocho segundos de espera y lo demas default
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
                0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
@@ -510,7 +510,7 @@ List<String> direccion2obt =  new ArrayList<String>();
             }
         };
         //Ocho segundos de espera y lo demas default
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(8000,
                 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //espera del ese
